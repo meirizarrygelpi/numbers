@@ -175,7 +175,7 @@ func (z *Float64) Commutator(x, y *Float64) *Float64 {
 
 // Quad returns the quadrance of z. If z = a+bi+ct+du, then the quadrance is
 // 		a² + b² - c² - d²
-// This is always non-negative.
+// This can be positive, negative, or zero.
 func (z *Float64) Quad() float64 {
 	return z.l.Quad() - z.r.Quad()
 }
@@ -214,25 +214,10 @@ func (z *Float64) QuoR(x, y *Float64) *Float64 {
 	return z.Mul(x, z.Inv(y))
 }
 
-// Lipschitz sets z equal to the Lipschitz integer a+bi+ct+du, and returns z.
-func (z *Float64) Lipschitz(a, b, c, d int64) *Float64 {
-	z.l.Gauss(a, b)
-	z.r.Gauss(c, d)
-	return z
-}
-
-// Hurwitz sets z equal to the Hurwitz integer (a+½)+(b+½)i+(c+½)j+(d+½)k,
-// and returns z.
-func (z *Float64) Hurwitz(a, b, c, d int64) *Float64 {
-	z.Lipschitz(a, b, c, d)
-	half := 0.5
-	return z.Add(z, NewFloat64(half, half, half, half))
-}
-
-// CrossFloat64ioL sets z equal to the left cross-Float64io of v, w, x, and y:
+// CrossRatioL sets z equal to the left cross-ratio of v, w, x, and y:
 // 		Inv(w - x) * (v - x) * Inv(v - y) * (w - y)
 // Then it returns z.
-func (z *Float64) CrossFloat64ioL(v, w, x, y *Float64) *Float64 {
+func (z *Float64) CrossRatioL(v, w, x, y *Float64) *Float64 {
 	temp := new(Float64)
 	z.Sub(w, x)
 	z.Inv(z)
@@ -245,10 +230,10 @@ func (z *Float64) CrossFloat64ioL(v, w, x, y *Float64) *Float64 {
 	return z.Mul(z, temp)
 }
 
-// CrossFloat64ioR sets z equal to the right cross-Float64io of v, w, x, and y:
+// CrossRatioR sets z equal to the right cross-ratio of v, w, x, and y:
 // 		(v - x) * Inv(w - x) * (w - y) * Inv(v - y)
 // Then it returns z.
-func (z *Float64) CrossFloat64ioR(v, w, x, y *Float64) *Float64 {
+func (z *Float64) CrossRatioR(v, w, x, y *Float64) *Float64 {
 	temp := new(Float64)
 	z.Sub(v, x)
 	temp.Sub(w, x)

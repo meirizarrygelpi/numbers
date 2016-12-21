@@ -167,7 +167,7 @@ func (z *Rat) Commutator(x, y *Rat) *Rat {
 
 // Quad returns the quadrance of z. If z = a+bi+ct+du, then the quadrance is
 // 		a² + b² - c² - d²
-// This is always non-negative.
+// This can be positive, negative, or zero.
 func (z *Rat) Quad() *big.Rat {
 	return new(big.Rat).Sub(
 		z.l.Quad(),
@@ -209,21 +209,6 @@ func (z *Rat) QuoR(x, y *Rat) *Rat {
 		panic(zeroDivisorDenominator)
 	}
 	return z.Mul(x, z.Inv(y))
-}
-
-// Lipschitz sets z equal to the Lipschitz integer a+bi+ct+du, and returns z.
-func (z *Rat) Lipschitz(a, b, c, d *big.Int) *Rat {
-	z.l.Gauss(a, b)
-	z.r.Gauss(c, d)
-	return z
-}
-
-// Hurwitz sets z equal to the Hurwitz integer (a+½)+(b+½)i+(c+½)j+(d+½)k,
-// and returns z.
-func (z *Rat) Hurwitz(a, b, c, d *big.Int) *Rat {
-	z.Lipschitz(a, b, c, d)
-	half := big.NewRat(1, 2)
-	return z.Add(z, NewRat(half, half, half, half))
 }
 
 // CrossRatioL sets z equal to the left cross-ratio of v, w, x, and y:

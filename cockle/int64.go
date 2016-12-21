@@ -148,7 +148,7 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 // 		Mul(i, j) = -Mul(j, i) = k
 // 		Mul(j, k) = -Mul(k, j) = i
 // 		Mul(k, i) = -Mul(i, k) = j
-// This binary opeInt64ion is non-commutative but associative.
+// This binary operation is non-commutative but associative.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
 	a, b, temp := new(cplex.Int64), new(cplex.Int64), new(cplex.Int64)
 	a.Add(
@@ -175,7 +175,7 @@ func (z *Int64) Commutator(x, y *Int64) *Int64 {
 
 // Quad returns the quadrance of z. If z = a+bi+ct+du, then the quadrance is
 // 		a² + b² - c² - d²
-// This is always non-negative.
+// This can be positive, negative, or zero.
 func (z *Int64) Quad() int64 {
 	return z.l.Quad() - z.r.Quad()
 }

@@ -174,7 +174,7 @@ func (z *Int) Commutator(x, y *Int) *Int {
 
 // Quad returns the quadrance of z. If z = a+bi+ct+du, then the quadrance is
 // 		a² + b² - c² - d²
-// This is always non-negative.
+// This can be positive, negative, or zero.
 func (z *Int) Quad() *big.Int {
 	return new(big.Int).Sub(
 		z.l.Quad(),

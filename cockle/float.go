@@ -184,7 +184,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 // 		Mul(i, j) = -Mul(j, i) = k
 // 		Mul(j, k) = -Mul(k, j) = i
 // 		Mul(k, i) = -Mul(i, k) = j
-// This binary opeFloation is non-commutative but associative.
+// This binary operation is non-commutative but associative.
 func (z *Float) Mul(x, y *Float) *Float {
 	a, b, temp := new(cplex.Float), new(cplex.Float), new(cplex.Float)
 	a.Add(
@@ -211,7 +211,7 @@ func (z *Float) Commutator(x, y *Float) *Float {
 
 // Quad returns the quadrance of z. If z = a+bi+ct+du, then the quadrance is
 // 		a² + b² - c² - d²
-// This is always non-negative.
+// This can be positive, negative, or zero.
 func (z *Float) Quad() *big.Float {
 	return new(big.Float).Sub(
 		z.l.Quad(),
@@ -253,10 +253,10 @@ func (z *Float) QuoR(x, y *Float) *Float {
 	return z.Mul(x, z.Inv(y))
 }
 
-// CrossFloatioL sets z equal to the left cross-Floatio of v, w, x, and y:
+// CrossRatioL sets z equal to the left cross-ratio of v, w, x, and y:
 // 		Inv(w - x) * (v - x) * Inv(v - y) * (w - y)
 // Then it returns z.
-func (z *Float) CrossFloatioL(v, w, x, y *Float) *Float {
+func (z *Float) CrossRatioL(v, w, x, y *Float) *Float {
 	temp := new(Float)
 	z.Sub(w, x)
 	z.Inv(z)
@@ -269,10 +269,10 @@ func (z *Float) CrossFloatioL(v, w, x, y *Float) *Float {
 	return z.Mul(z, temp)
 }
 
-// CrossFloatioR sets z equal to the right cross-Floatio of v, w, x, and y:
+// CrossRatioR sets z equal to the right cross-ratio of v, w, x, and y:
 // 		(v - x) * Inv(w - x) * (w - y) * Inv(v - y)
 // Then it returns z.
-func (z *Float) CrossFloatioR(v, w, x, y *Float) *Float {
+func (z *Float) CrossRatioR(v, w, x, y *Float) *Float {
 	temp := new(Float)
 	z.Sub(v, x)
 	temp.Sub(w, x)
