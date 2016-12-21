@@ -77,10 +77,17 @@ func NewFloat64(a, b float64) *Float64 {
 	return z
 }
 
-// Scale sets z equal to y scaled by a, and returns z.
-func (z *Float64) Scale(y *Float64, a float64) *Float64 {
+// Dilate sets z equal to y dilated by a, and returns z.
+func (z *Float64) Dilate(y *Float64, a float64) *Float64 {
 	z.l = y.l * a
 	z.r = y.r * a
+	return z
+}
+
+// Divide sets z equal to y contracted by a, and returns z.
+func (z *Float64) Divide(y *Float64, a float64) *Float64 {
+	z.l = y.l / a
+	z.r = y.r / a
 	return z
 }
 
@@ -143,11 +150,7 @@ func (z *Float64) Inv(y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
 	}
-	quad := y.Quad()
-	z.Conj(y)
-	z.l = z.l / quad
-	z.r = z.r / quad
-	return z
+	return z.Divide(z.Conj(y), y.Quad())
 }
 
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero

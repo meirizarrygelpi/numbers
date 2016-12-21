@@ -131,12 +131,12 @@ func TestAddNegSubInt(t *testing.T) {
 	}
 }
 
-func TestAddScaleDoubleInt(t *testing.T) {
+func TestAddDilateDoubleInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int), new(Int)
 		l.Add(x, x)
-		r.Scale(x, big.NewInt(2))
+		r.Dilate(x, big.NewInt(2))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -215,13 +215,13 @@ func TestSubConjDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestAddScaleDistributiveInt(t *testing.T) {
+func TestAddDilateDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		a := big.NewInt(2)
 		l, r := new(Int), new(Int)
-		l.Scale(l.Add(x, y), a)
-		r.Add(r.Scale(x, a), new(Int).Scale(y, a))
+		l.Dilate(l.Add(x, y), a)
+		r.Add(r.Dilate(x, a), new(Int).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -229,13 +229,13 @@ func TestAddScaleDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubScaleDistributiveInt(t *testing.T) {
+func TestSubDilateDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		a := big.NewInt(2)
 		l, r := new(Int), new(Int)
-		l.Scale(l.Sub(x, y), a)
-		r.Sub(r.Scale(x, a), new(Int).Scale(y, a))
+		l.Dilate(l.Sub(x, y), a)
+		r.Sub(r.Dilate(x, a), new(Int).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

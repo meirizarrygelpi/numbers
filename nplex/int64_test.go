@@ -132,12 +132,12 @@ func TestAddNegSubInt64(t *testing.T) {
 	}
 }
 
-func TestAddScaleDoubleInt64(t *testing.T) {
+func TestAddDilateDoubleInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int64), new(Int64)
 		l.Add(x, x)
-		r.Scale(x, 2)
+		r.Dilate(x, 2)
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -216,13 +216,13 @@ func TestSubConjDistributiveInt64(t *testing.T) {
 	}
 }
 
-func TestAddScaleDistributiveInt64(t *testing.T) {
+func TestAddDilateDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		var a int64 = 2
 		l, r := new(Int64), new(Int64)
-		l.Scale(l.Add(x, y), a)
-		r.Add(r.Scale(x, a), new(Int64).Scale(y, a))
+		l.Dilate(l.Add(x, y), a)
+		r.Add(r.Dilate(x, a), new(Int64).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -230,13 +230,13 @@ func TestAddScaleDistributiveInt64(t *testing.T) {
 	}
 }
 
-func TestSubScaleDistributiveInt64(t *testing.T) {
+func TestSubDilateDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		var a int64 = 2
 		l, r := new(Int64), new(Int64)
-		l.Scale(l.Sub(x, y), a)
-		r.Sub(r.Scale(x, a), new(Int64).Scale(y, a))
+		l.Dilate(l.Sub(x, y), a)
+		r.Sub(r.Dilate(x, a), new(Int64).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

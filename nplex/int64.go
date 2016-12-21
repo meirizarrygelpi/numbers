@@ -77,10 +77,17 @@ func NewInt64(a, b int64) *Int64 {
 	return z
 }
 
-// Scale sets z equal to y scaled by a, and returns z.
-func (z *Int64) Scale(y *Int64, a int64) *Int64 {
+// Dilate sets z equal to y dilated by a, and returns z.
+func (z *Int64) Dilate(y *Int64, a int64) *Int64 {
 	z.l = y.l * a
 	z.r = y.r * a
+	return z
+}
+
+// Divide sets z equal to y contracted by a, and returns z.
+func (z *Int64) Divide(y *Int64, a int64) *Int64 {
+	z.l = y.l / a
+	z.r = y.r / a
 	return z
 }
 
@@ -143,12 +150,7 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	quad := y.Quad()
-	z.Conj(y)
-	z.Mul(x, z)
-	z.l = z.l / quad
-	z.r = z.r / quad
-	return z
+	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
 }
 
 // Generate returns a random Int64 value for quick.Check testing.
