@@ -22,11 +22,11 @@ Here is a list of available packages:
 1. `pplex`: perplex numbers (more commonly known as [split-complex numbers](https://en.wikipedia.org/wiki/Split-complex_number))
 1. `hamilton`: Hamilton quaternions (i.e. traditional [quaternions](https://en.wikipedia.org/wiki/Quaternion); can also be referred to as elliptic quaternions; four-dimensional)
 1. `cockle`: Cockle quaternions (more commonly known as [split-quaternions](https://en.wikipedia.org/wiki/Split-quaternion); can also be referred to as hyperbolic quaternions; four-dimensional)
+1. `supra`: supra numbers (different from hyper numbers; can also be referred to as parabolic quaternions; four-dimensional)
+1. `infracplex`: infra-complex numbers (different from dual-complex numbers; four-dimensional)
 
 Here is a list of future packages:
 
-1. `supra`: supra numbers (different from hyper numbers; can also be referred to as parabolic quaternions; four-dimensional)
-1. `infracplex`: infra-complex numbers (different from dual-complex numbers; four-dimensional)
 1. `infrapplex`: infra-perplex numbers (different from dual-perplex numbers; four-dimensional)
 1. `bicplex`: [bi-complex numbers](https://en.wikipedia.org/wiki/Bicomplex_number) (complexification of the complex numbers; four-dimensional)
 1. `bipplex`: bi-perplex numbers (perplexification of the perplex numbers; four-dimensional)

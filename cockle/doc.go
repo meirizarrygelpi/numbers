@@ -5,7 +5,7 @@
 Package cockle implements arithmetic for Cockle quaternions. Five types are
 implemented:
     Int64   (int64 values)
- 	Float64 (float64 values)
+    Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
@@ -15,11 +15,11 @@ associative (for non-floats).
 package cockle
 
 const (
-	leftBracket     = "⦗"
-	rightBracket    = "⦘"
+	leftBracket            = "⦗"
+	rightBracket           = "⦘"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
-	unit1           = "i"
-	unit2           = "t"
-	unit3           = "u"
+	unit1                  = "i"
+	unit2                  = "t"
+	unit3                  = "u"
 )
