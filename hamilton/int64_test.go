@@ -1,21 +1,20 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package cplex
+package hamilton
 
 import (
-	"math/big"
 	"testing"
 	"testing/quick"
 )
 
 // Commutativity
 
-func TestAddCommutativeInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestAddCommutativeInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l := new(Int).Add(x, y)
-		r := new(Int).Add(y, x)
+		l := new(Int64).Add(x, y)
+		r := new(Int64).Add(y, x)
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -23,22 +22,10 @@ func TestAddCommutativeInt(t *testing.T) {
 	}
 }
 
-func TestMulCommutativeInt(t *testing.T) {
-	f := func(x, y *Int) bool {
-		// t.Logf("x = %v, y = %v", x, y)
-		l := new(Int).Mul(x, y)
-		r := new(Int).Mul(y, x)
-		return l.Equals(r)
-	}
-	if err := quick.Check(f, nil); err != nil {
-		t.Error(err)
-	}
-}
-
-func TestNegConjCommutativeInt(t *testing.T) {
-	f := func(x *Int) bool {
+func TestNegConjCommutativeInt64(t *testing.T) {
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Neg(l.Conj(x))
 		r.Conj(r.Neg(x))
 		return l.Equals(r)
@@ -48,12 +35,26 @@ func TestNegConjCommutativeInt(t *testing.T) {
 	}
 }
 
+// Non-commutativity
+
+func TestMulNonCommutativeInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		l := new(Int64).Commutator(x, y)
+		zero := new(Int64)
+		return !l.Equals(zero)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Anti-commutativity
 
-func TestSubAntiCommutativeInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestSubAntiCommutativeInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Sub(x, y)
 		r.Sub(y, x)
 		r.Neg(r)
@@ -66,10 +67,10 @@ func TestSubAntiCommutativeInt(t *testing.T) {
 
 // Associativity
 
-func TestAddAssociativeInt(t *testing.T) {
-	f := func(x, y, z *Int) bool {
+func TestAddAssociativeInt64(t *testing.T) {
+	f := func(x, y, z *Int64) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Add(l.Add(x, y), z)
 		r.Add(x, r.Add(y, z))
 		return l.Equals(r)
@@ -79,10 +80,10 @@ func TestAddAssociativeInt(t *testing.T) {
 	}
 }
 
-func TestMulAssociativeInt(t *testing.T) {
-	f := func(x, y, z *Int) bool {
+func TestMulAssociativeInt64(t *testing.T) {
+	f := func(x, y, z *Int64) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Mul(l.Mul(x, y), z)
 		r.Mul(x, r.Mul(y, z))
 		return l.Equals(r)
@@ -94,11 +95,11 @@ func TestMulAssociativeInt(t *testing.T) {
 
 // Identity
 
-func TestAddZeroInt(t *testing.T) {
-	zero := new(Int)
-	f := func(x *Int) bool {
+func TestAddZeroInt64(t *testing.T) {
+	zero := new(Int64)
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		l := new(Int).Add(x, zero)
+		l := new(Int64).Add(x, zero)
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -106,11 +107,11 @@ func TestAddZeroInt(t *testing.T) {
 	}
 }
 
-func TestMulOneInt(t *testing.T) {
-	one := new(Int).One()
-	f := func(x *Int) bool {
+func TestMulOneInt64(t *testing.T) {
+	one := new(Int64).One()
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		l := new(Int).Mul(x, one)
+		l := new(Int64).Mul(x, one)
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -118,10 +119,10 @@ func TestMulOneInt(t *testing.T) {
 	}
 }
 
-func TestAddNegSubInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestAddNegSubInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Sub(x, y)
 		r.Add(x, r.Neg(y))
 		return l.Equals(r)
@@ -131,12 +132,12 @@ func TestAddNegSubInt(t *testing.T) {
 	}
 }
 
-func TestAddDilateDoubleInt(t *testing.T) {
-	f := func(x *Int) bool {
+func TestAddDilateDoubleInt64(t *testing.T) {
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Add(x, x)
-		r.Dilate(x, big.NewInt(2))
+		r.Dilate(x, 2)
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -146,10 +147,10 @@ func TestAddDilateDoubleInt(t *testing.T) {
 
 // Involutivity
 
-func TestNegInvolutiveInt(t *testing.T) {
-	f := func(x *Int) bool {
+func TestNegInvolutiveInt64(t *testing.T) {
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		l := new(Int)
+		l := new(Int64)
 		l.Neg(l.Neg(x))
 		return l.Equals(x)
 	}
@@ -158,10 +159,10 @@ func TestNegInvolutiveInt(t *testing.T) {
 	}
 }
 
-func TestConjInvolutiveInt(t *testing.T) {
-	f := func(x *Int) bool {
+func TestConjInvolutiveInt64(t *testing.T) {
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		l := new(Int)
+		l := new(Int64)
 		l.Conj(l.Conj(x))
 		return l.Equals(x)
 	}
@@ -172,12 +173,12 @@ func TestConjInvolutiveInt(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulConjAntiDistributiveInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestMulConjAntiDistributiveInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Conj(l.Mul(x, y))
-		r.Mul(r.Conj(y), new(Int).Conj(x))
+		r.Mul(r.Conj(y), new(Int64).Conj(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -187,13 +188,13 @@ func TestMulConjAntiDistributiveInt(t *testing.T) {
 
 // Distributivity
 
-func TestAddConjDistributiveInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestAddConjDistributiveInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Add(x, y)
 		l.Conj(l)
-		r.Add(r.Conj(x), new(Int).Conj(y))
+		r.Add(r.Conj(x), new(Int64).Conj(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -201,13 +202,13 @@ func TestAddConjDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubConjDistributiveInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestSubConjDistributiveInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Sub(x, y)
 		l.Conj(l)
-		r.Sub(r.Conj(x), new(Int).Conj(y))
+		r.Sub(r.Conj(x), new(Int64).Conj(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -215,13 +216,13 @@ func TestSubConjDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestAddDilateDistributiveInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestAddDilateDistributiveInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		a := big.NewInt(2)
-		l, r := new(Int), new(Int)
+		var a int64 = 2
+		l, r := new(Int64), new(Int64)
 		l.Dilate(l.Add(x, y), a)
-		r.Add(r.Dilate(x, a), new(Int).Dilate(y, a))
+		r.Add(r.Dilate(x, a), new(Int64).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -229,13 +230,13 @@ func TestAddDilateDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubDilateDistributiveInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestSubDilateDistributiveInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		a := big.NewInt(2)
-		l, r := new(Int), new(Int)
+		var a int64 = 2
+		l, r := new(Int64), new(Int64)
 		l.Dilate(l.Sub(x, y), a)
-		r.Sub(r.Dilate(x, a), new(Int).Dilate(y, a))
+		r.Sub(r.Dilate(x, a), new(Int64).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -243,12 +244,12 @@ func TestSubDilateDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestAddMulDistributiveInt(t *testing.T) {
-	f := func(x, y, z *Int) bool {
+func TestAddMulDistributiveInt64(t *testing.T) {
+	f := func(x, y, z *Int64) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Mul(l.Add(x, y), z)
-		r.Add(r.Mul(x, z), new(Int).Mul(y, z))
+		r.Add(r.Mul(x, z), new(Int64).Mul(y, z))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -256,12 +257,12 @@ func TestAddMulDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubMulDistributiveInt(t *testing.T) {
-	f := func(x, y, z *Int) bool {
+func TestSubMulDistributiveInt64(t *testing.T) {
+	f := func(x, y, z *Int64) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Int), new(Int)
+		l, r := new(Int64), new(Int64)
 		l.Mul(l.Sub(x, y), z)
-		r.Sub(r.Mul(x, z), new(Int).Mul(y, z))
+		r.Sub(r.Mul(x, z), new(Int64).Mul(y, z))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -271,10 +272,10 @@ func TestSubMulDistributiveInt(t *testing.T) {
 
 // Positivity
 
-func TestQuadPositiveInt(t *testing.T) {
-	f := func(x *Int) bool {
+func XTestQuadPositiveInt64(t *testing.T) {
+	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
-		return x.Quad().Sign() > 0
+		return x.Quad() > 0
 	}
 	if err := quick.Check(f, nil); err != nil {
 		t.Error(err)
@@ -283,15 +284,14 @@ func TestQuadPositiveInt(t *testing.T) {
 
 // Composition
 
-func TestCompositionInt(t *testing.T) {
-	f := func(x, y *Int) bool {
+func TestCompositionInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		p := new(Int)
-		a, b := new(big.Int), new(big.Int)
+		p := new(Int64)
 		p.Mul(x, y)
-		a.Set(p.Quad())
-		b.Mul(x.Quad(), y.Quad())
-		return a.Cmp(b) == 0
+		a := p.Quad()
+		b := x.Quad() * y.Quad()
+		return a == b
 	}
 	if err := quick.Check(f, nil); err != nil {
 		t.Error(err)

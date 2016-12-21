@@ -77,10 +77,17 @@ func NewInt(a, b *big.Int) *Int {
 	return z
 }
 
-// Scale sets z equal to y scaled by a, and returns z.
-func (z *Int) Scale(y *Int, a *big.Int) *Int {
+// Dilate sets z equal to y dilated by a, and returns z.
+func (z *Int) Dilate(y *Int, a *big.Int) *Int {
 	z.l.Mul(&y.l, a)
 	z.r.Mul(&y.r, a)
+	return z
+}
+
+// Divide sets z equal to y contracted by a, and returns z.
+func (z *Int) Divide(y *Int, a *big.Int) *Int {
+	z.l.Quo(&y.l, a)
+	z.r.Quo(&y.r, a)
 	return z
 }
 
@@ -148,11 +155,10 @@ func (z *Int) Quo(x, y *Int) *Int {
 	if zero := new(Int); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
-	quad := y.Quad()
+	q := y.Quad()
 	z.Conj(y)
 	z.Mul(x, z)
-	z.l.Quo(&z.l, quad)
-	z.r.Quo(&z.r, quad)
+	z.Divide(z, q)
 	return z
 }
 

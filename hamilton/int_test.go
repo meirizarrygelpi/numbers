@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package cplex
+package hamilton
 
 import (
 	"math/big"
@@ -23,18 +23,6 @@ func TestAddCommutativeInt(t *testing.T) {
 	}
 }
 
-func TestMulCommutativeInt(t *testing.T) {
-	f := func(x, y *Int) bool {
-		// t.Logf("x = %v, y = %v", x, y)
-		l := new(Int).Mul(x, y)
-		r := new(Int).Mul(y, x)
-		return l.Equals(r)
-	}
-	if err := quick.Check(f, nil); err != nil {
-		t.Error(err)
-	}
-}
-
 func TestNegConjCommutativeInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
@@ -42,6 +30,20 @@ func TestNegConjCommutativeInt(t *testing.T) {
 		l.Neg(l.Conj(x))
 		r.Conj(r.Neg(x))
 		return l.Equals(r)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
+// Non-commutativity
+
+func TestMulNonCommutativeInt(t *testing.T) {
+	f := func(x, y *Int) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		l := new(Int).Commutator(x, y)
+		zero := new(Int)
+		return !l.Equals(zero)
 	}
 	if err := quick.Check(f, nil); err != nil {
 		t.Error(err)

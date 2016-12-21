@@ -1,20 +1,21 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package cplex
+package hamilton
 
 import (
+	"math/big"
 	"testing"
 	"testing/quick"
 )
 
 // Commutativity
 
-func TestAddCommutativeFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestAddCommutativeRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l := new(Float64).Add(x, y)
-		r := new(Float64).Add(y, x)
+		l := new(Rat).Add(x, y)
+		r := new(Rat).Add(y, x)
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -22,22 +23,10 @@ func TestAddCommutativeFloat64(t *testing.T) {
 	}
 }
 
-func TestMulCommutativeFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
-		// t.Logf("x = %v, y = %v", x, y)
-		l := new(Float64).Mul(x, y)
-		r := new(Float64).Mul(y, x)
-		return l.Equals(r)
-	}
-	if err := quick.Check(f, nil); err != nil {
-		t.Error(err)
-	}
-}
-
-func TestNegConjCommutativeFloat64(t *testing.T) {
-	f := func(x *Float64) bool {
+func TestNegConjCommutativeRat(t *testing.T) {
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Neg(l.Conj(x))
 		r.Conj(r.Neg(x))
 		return l.Equals(r)
@@ -47,12 +36,26 @@ func TestNegConjCommutativeFloat64(t *testing.T) {
 	}
 }
 
+// Non-commutativity
+
+func TestMulNonCommutativeRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		l := new(Rat).Commutator(x, y)
+		zero := new(Rat)
+		return !l.Equals(zero)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Anti-commutativity
 
-func TestSubAntiCommutativeFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestSubAntiCommutativeRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Sub(x, y)
 		r.Sub(y, x)
 		r.Neg(r)
@@ -65,10 +68,10 @@ func TestSubAntiCommutativeFloat64(t *testing.T) {
 
 // Associativity
 
-func XTestAddAssociativeFloat64(t *testing.T) {
-	f := func(x, y, z *Float64) bool {
+func TestAddAssociativeRat(t *testing.T) {
+	f := func(x, y, z *Rat) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Add(l.Add(x, y), z)
 		r.Add(x, r.Add(y, z))
 		return l.Equals(r)
@@ -78,10 +81,10 @@ func XTestAddAssociativeFloat64(t *testing.T) {
 	}
 }
 
-func XTestMulAssociativeFloat64(t *testing.T) {
-	f := func(x, y, z *Float64) bool {
+func TestMulAssociativeRat(t *testing.T) {
+	f := func(x, y, z *Rat) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Mul(l.Mul(x, y), z)
 		r.Mul(x, r.Mul(y, z))
 		return l.Equals(r)
@@ -93,11 +96,11 @@ func XTestMulAssociativeFloat64(t *testing.T) {
 
 // Identity
 
-func TestAddZeroFloat64(t *testing.T) {
-	zero := new(Float64)
-	f := func(x *Float64) bool {
+func TestAddZeroRat(t *testing.T) {
+	zero := new(Rat)
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l := new(Float64).Add(x, zero)
+		l := new(Rat).Add(x, zero)
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -105,11 +108,11 @@ func TestAddZeroFloat64(t *testing.T) {
 	}
 }
 
-func TestMulOneFloat64(t *testing.T) {
-	one := new(Float64).One()
-	f := func(x *Float64) bool {
+func TestMulOneRat(t *testing.T) {
+	one := new(Rat).One()
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l := new(Float64).Mul(x, one)
+		l := new(Rat).Mul(x, one)
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -117,11 +120,11 @@ func TestMulOneFloat64(t *testing.T) {
 	}
 }
 
-func XTestMulInvOneFloat64(t *testing.T) {
-	one := new(Float64).One()
-	f := func(x *Float64) bool {
+func TestMulInvOneRat(t *testing.T) {
+	one := new(Rat).One()
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l := new(Float64)
+		l := new(Rat)
 		l.Mul(x, l.Inv(x))
 		return l.Equals(one)
 	}
@@ -130,10 +133,10 @@ func XTestMulInvOneFloat64(t *testing.T) {
 	}
 }
 
-func XTestAddNegSubFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestAddNegSubRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Sub(x, y)
 		r.Add(x, r.Neg(y))
 		return l.Equals(r)
@@ -143,12 +146,12 @@ func XTestAddNegSubFloat64(t *testing.T) {
 	}
 }
 
-func TestAddDilateDoubleFloat64(t *testing.T) {
-	f := func(x *Float64) bool {
+func TestAddScaleDoubleRat(t *testing.T) {
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Add(x, x)
-		r.Dilate(x, 2)
+		r.Scale(x, big.NewRat(2, 1))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -158,10 +161,10 @@ func TestAddDilateDoubleFloat64(t *testing.T) {
 
 // Involutivity
 
-func XTestInvInvolutiveFloat64(t *testing.T) {
-	f := func(x *Float64) bool {
+func TestInvInvolutiveRat(t *testing.T) {
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l := new(Float64)
+		l := new(Rat)
 		l.Inv(l.Inv(x))
 		return l.Equals(x)
 	}
@@ -170,10 +173,10 @@ func XTestInvInvolutiveFloat64(t *testing.T) {
 	}
 }
 
-func TestNegInvolutiveFloat64(t *testing.T) {
-	f := func(x *Float64) bool {
+func TestNegInvolutiveRat(t *testing.T) {
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l := new(Float64)
+		l := new(Rat)
 		l.Neg(l.Neg(x))
 		return l.Equals(x)
 	}
@@ -182,10 +185,10 @@ func TestNegInvolutiveFloat64(t *testing.T) {
 	}
 }
 
-func TestConjInvolutiveFloat64(t *testing.T) {
-	f := func(x *Float64) bool {
+func TestConjInvolutiveRat(t *testing.T) {
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		l := new(Float64)
+		l := new(Rat)
 		l.Conj(l.Conj(x))
 		return l.Equals(x)
 	}
@@ -196,12 +199,12 @@ func TestConjInvolutiveFloat64(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulConjAntiDistributiveFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestMulConjAntiDistributiveRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Conj(l.Mul(x, y))
-		r.Mul(r.Conj(y), new(Float64).Conj(x))
+		r.Mul(r.Conj(y), new(Rat).Conj(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -209,12 +212,12 @@ func TestMulConjAntiDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func XTestMulInvAntiDistributiveFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestMulInvAntiDistributiveRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Inv(l.Mul(x, y))
-		r.Mul(r.Inv(y), new(Float64).Inv(x))
+		r.Mul(r.Inv(y), new(Rat).Inv(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -224,13 +227,13 @@ func XTestMulInvAntiDistributiveFloat64(t *testing.T) {
 
 // Distributivity
 
-func TestAddConjDistributiveFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestAddConjDistributiveRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Add(x, y)
 		l.Conj(l)
-		r.Add(r.Conj(x), new(Float64).Conj(y))
+		r.Add(r.Conj(x), new(Rat).Conj(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -238,13 +241,13 @@ func TestAddConjDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubConjDistributiveFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestSubConjDistributiveRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Sub(x, y)
 		l.Conj(l)
-		r.Sub(r.Conj(x), new(Float64).Conj(y))
+		r.Sub(r.Conj(x), new(Rat).Conj(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -252,13 +255,13 @@ func TestSubConjDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestAddDilateDistributiveFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestAddScaleDistributiveRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		var a float64 = 2.0
-		l, r := new(Float64), new(Float64)
-		l.Dilate(l.Add(x, y), a)
-		r.Add(r.Dilate(x, a), new(Float64).Dilate(y, a))
+		a := big.NewRat(2, 1)
+		l, r := new(Rat), new(Rat)
+		l.Scale(l.Add(x, y), a)
+		r.Add(r.Scale(x, a), new(Rat).Scale(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -266,13 +269,13 @@ func TestAddDilateDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubDilateDistributiveFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestSubScaleDistributiveRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		var a float64 = 2.0
-		l, r := new(Float64), new(Float64)
-		l.Dilate(l.Sub(x, y), a)
-		r.Sub(r.Dilate(x, a), new(Float64).Dilate(y, a))
+		a := big.NewRat(2, 1)
+		l, r := new(Rat), new(Rat)
+		l.Scale(l.Sub(x, y), a)
+		r.Sub(r.Scale(x, a), new(Rat).Scale(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -280,12 +283,12 @@ func TestSubDilateDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func XTestAddMulDistributiveFloat64(t *testing.T) {
-	f := func(x, y, z *Float64) bool {
+func TestAddMulDistributiveRat(t *testing.T) {
+	f := func(x, y, z *Rat) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Mul(l.Add(x, y), z)
-		r.Add(r.Mul(x, z), new(Float64).Mul(y, z))
+		r.Add(r.Mul(x, z), new(Rat).Mul(y, z))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -293,12 +296,12 @@ func XTestAddMulDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func XTestSubMulDistributiveFloat64(t *testing.T) {
-	f := func(x, y, z *Float64) bool {
+func TestSubMulDistributiveRat(t *testing.T) {
+	f := func(x, y, z *Rat) bool {
 		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Float64), new(Float64)
+		l, r := new(Rat), new(Rat)
 		l.Mul(l.Sub(x, y), z)
-		r.Sub(r.Mul(x, z), new(Float64).Mul(y, z))
+		r.Sub(r.Mul(x, z), new(Rat).Mul(y, z))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -308,10 +311,10 @@ func XTestSubMulDistributiveFloat64(t *testing.T) {
 
 // Positivity
 
-func TestQuadPositiveFloat64(t *testing.T) {
-	f := func(x *Float64) bool {
+func TestQuadPositiveRat(t *testing.T) {
+	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
-		return x.Quad() > 0
+		return x.Quad().Sign() > 0
 	}
 	if err := quick.Check(f, nil); err != nil {
 		t.Error(err)
@@ -320,14 +323,15 @@ func TestQuadPositiveFloat64(t *testing.T) {
 
 // Composition
 
-func XTestCompositionFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
+func TestCompositionRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		p := new(Float64)
+		p := new(Rat)
+		a, b := new(big.Rat), new(big.Rat)
 		p.Mul(x, y)
-		a := p.Quad()
-		b := x.Quad() * y.Quad()
-		return a == b
+		a.Set(p.Quad())
+		b.Mul(x.Quad(), y.Quad())
+		return a.Cmp(b) == 0
 	}
 	if err := quick.Check(f, nil); err != nil {
 		t.Error(err)

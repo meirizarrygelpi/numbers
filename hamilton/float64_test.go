@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package cplex
+package hamilton
 
 import (
 	"testing"
@@ -22,18 +22,6 @@ func TestAddCommutativeFloat64(t *testing.T) {
 	}
 }
 
-func TestMulCommutativeFloat64(t *testing.T) {
-	f := func(x, y *Float64) bool {
-		// t.Logf("x = %v, y = %v", x, y)
-		l := new(Float64).Mul(x, y)
-		r := new(Float64).Mul(y, x)
-		return l.Equals(r)
-	}
-	if err := quick.Check(f, nil); err != nil {
-		t.Error(err)
-	}
-}
-
 func TestNegConjCommutativeFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
@@ -41,6 +29,20 @@ func TestNegConjCommutativeFloat64(t *testing.T) {
 		l.Neg(l.Conj(x))
 		r.Conj(r.Neg(x))
 		return l.Equals(r)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
+// Non-commutativity
+
+func TestMulNonCommutativeFloat64(t *testing.T) {
+	f := func(x, y *Float64) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		l := new(Float64).Commutator(x, y)
+		zero := new(Float64)
+		return !l.Equals(zero)
 	}
 	if err := quick.Check(f, nil); err != nil {
 		t.Error(err)
@@ -255,7 +257,7 @@ func TestSubConjDistributiveFloat64(t *testing.T) {
 func TestAddDilateDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		var a float64 = 2.0
+		var a float64 = 2
 		l, r := new(Float64), new(Float64)
 		l.Dilate(l.Add(x, y), a)
 		r.Add(r.Dilate(x, a), new(Float64).Dilate(y, a))
@@ -269,7 +271,7 @@ func TestAddDilateDistributiveFloat64(t *testing.T) {
 func TestSubDilateDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		var a float64 = 2.0
+		var a float64 = 2
 		l, r := new(Float64), new(Float64)
 		l.Dilate(l.Sub(x, y), a)
 		r.Sub(r.Dilate(x, a), new(Float64).Dilate(y, a))
