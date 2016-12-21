@@ -5,7 +5,7 @@
 Package hamilton implements arithmetic for Hamilton quaternions. Five types are
 implemented:
     Int64   (int64 values)
- 	Float64 (float64 values)
+    Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)

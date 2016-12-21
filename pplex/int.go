@@ -34,7 +34,7 @@ func (z *Int) Unreal() *big.Int {
 
 // String returns the string version of a Int value.
 //
-// If z corresponds to a + bs, then the string is "(a+bs)", similar to
+// If z corresponds to a + bs, then the string is "⦗a+bs⦘", similar to
 // complex128 values.
 func (z *Int) String() string {
 	a := make([]string, 5)
@@ -77,10 +77,17 @@ func NewInt(a, b *big.Int) *Int {
 	return z
 }
 
-// Scale sets z equal to y scaled by a, and returns z.
-func (z *Int) Scale(y *Int, a *big.Int) *Int {
+// Dilate sets z equal to y dilated by a, and returns z.
+func (z *Int) Dilate(y *Int, a *big.Int) *Int {
 	z.l.Mul(&y.l, a)
 	z.r.Mul(&y.r, a)
+	return z
+}
+
+// Divide sets z equal to y contracted by a, and returns z.
+func (z *Int) Divide(y *Int, a *big.Int) *Int {
+	z.l.Quo(&y.l, a)
+	z.r.Quo(&y.r, a)
 	return z
 }
 
@@ -154,12 +161,7 @@ func (z *Int) Quo(x, y *Int) *Int {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	quad := y.Quad()
-	z.Conj(y)
-	z.Mul(x, z)
-	z.l.Quo(&z.l, quad)
-	z.r.Quo(&z.r, quad)
-	return z
+	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
 }
 
 // Generate returns a random Int value for quick.Check testing.

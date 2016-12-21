@@ -143,12 +143,12 @@ func XTestAddNegSubFloat64(t *testing.T) {
 	}
 }
 
-func TestAddScaleDoubleFloat64(t *testing.T) {
+func TestAddDilateDoubleFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Float64), new(Float64)
 		l.Add(x, x)
-		r.Scale(x, 2)
+		r.Dilate(x, 2)
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -252,13 +252,13 @@ func TestSubConjDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestAddScaleDistributiveFloat64(t *testing.T) {
+func TestAddDilateDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		var a float64 = 2.0
 		l, r := new(Float64), new(Float64)
-		l.Scale(l.Add(x, y), a)
-		r.Add(r.Scale(x, a), new(Float64).Scale(y, a))
+		l.Dilate(l.Add(x, y), a)
+		r.Add(r.Dilate(x, a), new(Float64).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -266,13 +266,13 @@ func TestAddScaleDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubScaleDistributiveFloat64(t *testing.T) {
+func TestSubDilateDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		var a float64 = 2.0
 		l, r := new(Float64), new(Float64)
-		l.Scale(l.Sub(x, y), a)
-		r.Sub(r.Scale(x, a), new(Float64).Scale(y, a))
+		l.Dilate(l.Sub(x, y), a)
+		r.Sub(r.Dilate(x, a), new(Float64).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

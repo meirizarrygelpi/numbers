@@ -115,10 +115,17 @@ func NewFloat(a, b *big.Float) *Float {
 	return z
 }
 
-// Scale sets z equal to y scaled by a, and returns z.
-func (z *Float) Scale(y *Float, a *big.Float) *Float {
+// Dilate sets z equal to y dilated by a, and returns z.
+func (z *Float) Dilate(y *Float, a *big.Float) *Float {
 	z.l.Mul(&y.l, a)
 	z.r.Mul(&y.r, a)
+	return z
+}
+
+// Divide sets z equal to y contracted by a, and returns z.
+func (z *Float) Divide(y *Float, a *big.Float) *Float {
+	z.l.Quo(&y.l, a)
+	z.r.Quo(&y.r, a)
 	return z
 }
 
@@ -192,11 +199,7 @@ func (z *Float) Inv(y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
 	}
-	quad := y.Quad()
-	z.Conj(y)
-	z.l.Quo(&z.l, quad)
-	z.r.Quo(&z.r, quad)
-	return z
+	return z.Divide(z.Conj(y), y.Quad())
 }
 
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
@@ -205,7 +208,7 @@ func (z *Float) Quo(x, y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
 }
 
 // CrossRatio sets z equal to the cross-ratio of v, w, x, and y:

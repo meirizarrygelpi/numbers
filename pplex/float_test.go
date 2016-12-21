@@ -144,12 +144,12 @@ func XTestAddNegSubFloat(t *testing.T) {
 	}
 }
 
-func TestAddScaleDoubleFloat(t *testing.T) {
+func TestAddDilateDoubleFloat(t *testing.T) {
 	f := func(x *Float) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Float), new(Float)
 		l.Add(x, x)
-		r.Scale(x, big.NewFloat(2))
+		r.Dilate(x, big.NewFloat(2))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -253,13 +253,13 @@ func TestSubConjDistributiveFloat(t *testing.T) {
 	}
 }
 
-func TestAddScaleDistributiveFloat(t *testing.T) {
+func TestAddDilateDistributiveFloat(t *testing.T) {
 	f := func(x, y *Float) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		a := big.NewFloat(2)
 		l, r := new(Float), new(Float)
-		l.Scale(l.Add(x, y), a)
-		r.Add(r.Scale(x, a), new(Float).Scale(y, a))
+		l.Dilate(l.Add(x, y), a)
+		r.Add(r.Dilate(x, a), new(Float).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -267,13 +267,13 @@ func TestAddScaleDistributiveFloat(t *testing.T) {
 	}
 }
 
-func TestSubScaleDistributiveFloat(t *testing.T) {
+func TestSubDilateDistributiveFloat(t *testing.T) {
 	f := func(x, y *Float) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		a := big.NewFloat(2)
 		l, r := new(Float), new(Float)
-		l.Scale(l.Sub(x, y), a)
-		r.Sub(r.Scale(x, a), new(Float).Scale(y, a))
+		l.Dilate(l.Sub(x, y), a)
+		r.Sub(r.Dilate(x, a), new(Float).Dilate(y, a))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
