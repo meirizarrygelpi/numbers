@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package hamilton
+package bicplex
 
 import (
 	"math/rand"
@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float64 is a Hamilton quaternion with float64 components.
+// A Float64 is a bi-complex number with float64 components.
 type Float64 struct {
 	l, r cplex.Float64
 }
@@ -42,7 +42,7 @@ func (z *Float64) Unreal() *vec3.Float64 {
 
 // String returns the string version of a Float64 value.
 //
-// If z corresponds to a+bi+cj+dk, then the string is "⦗a+bi+cj+dk⦘", similar
+// If z corresponds to a+bi+cJ+diJ, then the string is "⦗a+bi+cJ+diJ⦘", similar
 // to complex128 values.
 func (z *Float64) String() string {
 	v := z.Unreal()
@@ -83,7 +83,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to a Hamilton quaternion made with a given pair, and
+// SetPair sets z equal to a bi-complex number made with a given pair, and
 // then it returns z.
 func (z *Float64) SetPair(a, b *cplex.Float64) *Float64 {
 	z.l.Set(a)
@@ -91,7 +91,7 @@ func (z *Float64) SetPair(a, b *cplex.Float64) *Float64 {
 	return z
 }
 
-// NewFloat64 returns a pointer to the Float64 value a+bi+cj+dk.
+// NewFloat64 returns a pointer to the Float64 value a+bi+cJ+diJ.
 func NewFloat64(a, b, c, d float64) *Float64 {
 	z := new(Float64)
 	z.l.SetPair(a, b)
@@ -120,9 +120,16 @@ func (z *Float64) Neg(y *Float64) *Float64 {
 	return z
 }
 
-// Conj sets z equal to the conjugate of y, and returns z.
-func (z *Float64) Conj(y *Float64) *Float64 {
+// Star1 sets z equal to the i-conjugate of y, and returns z.
+func (z *Float64) Star1(y *Float64) *Float64 {
 	z.l.Conj(&y.l)
+	z.r.Conj(&y.r)
+	return z
+}
+
+// Star2 sets z equal to the J-conjugate of y, and returns z.
+func (z *Float64) Star2(y *Float64) *Float64 {
+	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
@@ -153,81 +160,75 @@ func (z *Float64) Mul(x, y *Float64) *Float64 {
 	a, b, temp := new(cplex.Float64), new(cplex.Float64), new(cplex.Float64)
 	a.Sub(
 		a.Mul(&x.l, &y.l),
-		temp.Mul(temp.Conj(&y.r), &x.r),
+		temp.Mul(&x.r, &y.r),
 	)
 	b.Add(
-		b.Mul(&y.r, &x.l),
-		temp.Mul(&x.r, temp.Conj(&y.l)),
+		b.Mul(&x.l, &y.r),
+		temp.Mul(&x.r, &y.l),
 	)
 	z.SetPair(a, b)
 	return z
 }
 
-// Commutator sets z equal to the commutator of x and y:
-// 		Mul(x, y) - Mul(y, x)
-// Then it returns z.
-func (z *Float64) Commutator(x, y *Float64) *Float64 {
-	return z.Sub(
-		z.Mul(x, y),
-		new(Float64).Mul(y, x),
-	)
+// Quad returns the quadrance of z. If z = a+bi+cJ+diJ, then the quadrance is
+// 		a² - b² + c² - d² + 2(ab + cd)i
+// Note that this is a complex number.
+func (z *Float64) Quad() *cplex.Float64 {
+	q := new(cplex.Float64)
+	return q.Add(q.Mul(&z.l, &z.l), new(cplex.Float64).Mul(&z.r, &z.r))
 }
 
-// Quad returns the quadrance of z. If z = a+bi+cj+dk, then the quadrance is
-// 		a² + b² + c² + d²
-// This is always non-negative.
-func (z *Float64) Quad() float64 {
-	return z.l.Quad() + z.r.Quad()
+// Norm returns the norm of z. If z = a+bi+cJ+diJ, then the norm is
+// 		(a² - b² + c² - d²)² + 4(ab + cd)²
+// There is another way to write the norm as a sum of two squares:
+// 		(a² + b² - c² - d²)² + 4(ac + bd)²
+// Alternatively, it can also be written as a difference of two squares:
+//		(a² + b² + c² + d²)² - 4(ad - bc)²
+// Finally, you have the factorized form:
+// 		((a - d)² + (b + c)²)((a + d)² + (b - c)²)
+// In this form it is clear that the norm is always non-negative.
+func (z *Float64) Norm() float64 {
+	return z.Quad().Quad()
+}
+
+// IsZeroDivisor returns true if z is a zero divisor.
+func (z *Float64) IsZeroDivisor() bool {
+	zero := new(cplex.Float64)
+	return z.Quad().Equals(zero)
 }
 
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
 // panics.
 func (z *Float64) Inv(y *Float64) *Float64 {
-	if zero := new(Float64); y.Equals(zero) {
-		panic(zeroInverse)
+	if y.IsZeroDivisor() {
+		panic(zeroDivisorInverse)
 	}
-	return z.Divide(z.Conj(y), y.Quad())
-}
-
-// QuoL sets z equal to the left quotient of x and y:
-// 		Mul(Inv(y), x)
-// Then it returns z. If y is zero, then QuoL panics.
-func (z *Float64) QuoL(x, y *Float64) *Float64 {
-	if zero := new(Float64); y.Equals(zero) {
-		panic(zeroDenominator)
-	}
-	return z.Mul(z.Inv(y), x)
-}
-
-// QuoR sets z equal to the right quotient of x and y:
-// 		Mul(x, Inv(y))
-// Then it returns z. If y is zero, then QuoR panics.
-func (z *Float64) QuoR(x, y *Float64) *Float64 {
-	if zero := new(Float64); y.Equals(zero) {
-		panic(zeroDenominator)
-	}
-	return z.Mul(x, z.Inv(y))
-}
-
-// Lipschitz sets z equal to the Lipschitz integer a+bi+cj+dk, and returns z.
-func (z *Float64) Lipschitz(a, b, c, d int64) *Float64 {
-	z.l.Gauss(a, b)
-	z.r.Gauss(c, d)
+	a := y.Quad()
+	a.Inv(a)
+	z.Star2(y)
+	z.l.Mul(&z.l, a)
+	z.r.Mul(&z.r, a)
 	return z
 }
 
-// Hurwitz sets z equal to the Hurwitz integer (a+½)+(b+½)i+(c+½)j+(d+½)k,
-// and returns z.
-func (z *Float64) Hurwitz(a, b, c, d int64) *Float64 {
-	z.Lipschitz(a, b, c, d)
-	half := 0.5
-	return z.Add(z, NewFloat64(half, half, half, half))
+// Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
+// then Quo panics.
+func (z *Float64) Quo(x, y *Float64) *Float64 {
+	if y.IsZeroDivisor() {
+		panic(zeroDivisorDenominator)
+	}
+	z.Mul(x, z.Star2(y))
+	a := y.Quad()
+	a.Inv(a)
+	z.l.Mul(&z.l, a)
+	z.r.Mul(&z.r, a)
+	return z
 }
 
-// CrossRatioL sets z equal to the left cross-ratio of v, w, x, and y:
+// CrossRatio sets z equal to the cross-ratio of v, w, x, and y:
 // 		Inv(w - x) * (v - x) * Inv(v - y) * (w - y)
 // Then it returns z.
-func (z *Float64) CrossRatioL(v, w, x, y *Float64) *Float64 {
+func (z *Float64) CrossRatio(v, w, x, y *Float64) *Float64 {
 	temp := new(Float64)
 	z.Sub(w, x)
 	z.Inv(z)
@@ -240,39 +241,10 @@ func (z *Float64) CrossRatioL(v, w, x, y *Float64) *Float64 {
 	return z.Mul(z, temp)
 }
 
-// CrossRatioR sets z equal to the right cross-ratio of v, w, x, and y:
-// 		(v - x) * Inv(w - x) * (w - y) * Inv(v - y)
-// Then it returns z.
-func (z *Float64) CrossRatioR(v, w, x, y *Float64) *Float64 {
-	temp := new(Float64)
-	z.Sub(v, x)
-	temp.Sub(w, x)
-	temp.Inv(temp)
-	z.Mul(z, temp)
-	temp.Sub(w, y)
-	z.Mul(z, temp)
-	temp.Sub(v, y)
-	temp.Inv(temp)
-	return z.Mul(z, temp)
-}
-
-// MöbiusL sets z equal to the left Möbius (fractional linear) transform of y:
-// 		Inv(y*c + d) * (y*a + b)
-// Then it returns z.
-func (z *Float64) MöbiusL(y, a, b, c, d *Float64) *Float64 {
-	z.Mul(y, a)
-	z.Add(z, b)
-	temp := new(Float64)
-	temp.Mul(y, c)
-	temp.Add(temp, d)
-	temp.Inv(temp)
-	return z.Mul(temp, z)
-}
-
-// MöbiusR sets z equal to the right Möbius (fractional linear) transform of y:
+// Möbius sets z equal to the Möbius (fractional linear) transform of y:
 // 		(a*y + b) * Inv(c*y + d)
 // Then it returns z.
-func (z *Float64) MöbiusR(y, a, b, c, d *Float64) *Float64 {
+func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 	z.Mul(a, y)
 	z.Add(z, b)
 	temp := new(Float64)
