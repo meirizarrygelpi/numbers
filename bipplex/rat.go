@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package bicplex
+package bipplex
 
 import (
 	"math/big"
@@ -9,19 +9,19 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/cplex"
+	"github.com/meirizarrygelpi/numbers/pplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
 // A Rat is a Hamilton quaternion with big.Rat components.
 type Rat struct {
-	l, r cplex.Rat
+	l, r pplex.Rat
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Rat) One() *Rat {
 	z.l.One()
-	z.r.Set(new(cplex.Rat))
+	z.r.Set(new(pplex.Rat))
 	return z
 }
 
@@ -41,8 +41,8 @@ func (z *Rat) Unreal() *vec3.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a+bi+cJ+diJ, then the string is "⦗a+bi+cJ+diJ⦘", similar
-// to complex128 values.
+// If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
+// to compleperplexx128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()
 	a := make([]string, 9)
@@ -84,13 +84,13 @@ func (z *Rat) Set(y *Rat) *Rat {
 
 // SetPair sets z equal to a Hamilton quaternion made with a given pair, and
 // then it returns z.
-func (z *Rat) SetPair(a, b *cplex.Rat) *Rat {
+func (z *Rat) SetPair(a, b *pplex.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewRat returns a pointer to the Rat value a+bi+cJ+diJ.
+// NewRat returns a pointer to the Rat value a+bs+cT+dsT.
 func NewRat(a, b, c, d *big.Rat) *Rat {
 	z := new(Rat)
 	z.l.SetPair(a, b)
@@ -112,14 +112,14 @@ func (z *Rat) Neg(y *Rat) *Rat {
 	return z
 }
 
-// Star1 sets z equal to the i-conjugate of y, and returns z.
+// Star1 sets z equal to the s-conjugate of y, and returns z.
 func (z *Rat) Star1(y *Rat) *Rat {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the J-conjugate of y, and returns z.
+// Star2 sets z equal to the T-conjugate of y, and returns z.
 func (z *Rat) Star2(y *Rat) *Rat {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
@@ -149,8 +149,8 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 // 		Mul(k, i) = -Mul(i, k) = j
 // This binary operation is commutative and associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
-	a, b, temp := new(cplex.Rat), new(cplex.Rat), new(cplex.Rat)
-	a.Sub(
+	a, b, temp := new(pplex.Rat), new(pplex.Rat), new(pplex.Rat)
+	a.Add(
 		a.Mul(&x.l, &y.l),
 		temp.Mul(&x.r, &y.r),
 	)
@@ -162,31 +162,30 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bi+cJ+diJ, then the quadrance is
-// 		a² - b² + c² - d² + 2(ab + cd)i
-// Note that this is a complex number.
-func (z *Rat) Quad() *cplex.Rat {
-	q := new(cplex.Rat)
-	return q.Add(q.Mul(&z.l, &z.l), new(cplex.Rat).Mul(&z.r, &z.r))
+// Quad returns the quadrance of z. If z = a+bs+cT+dsT, then the quadrance is
+// 		a² + b² - c² - d² + 2(ab - cd)s
+// Note that this is a perplex number.
+func (z *Rat) Quad() *pplex.Rat {
+	q := new(pplex.Rat)
+	return q.Sub(q.Mul(&z.l, &z.l), new(pplex.Rat).Mul(&z.r, &z.r))
 }
 
-// Norm returns the norm of z. If z = a+bi+cJ+diJ, then the norm is
-// 		(a² - b² + c² - d²)² + 4(ab + cd)²
-// There is another way to write the norm as a sum of two squares:
-// 		(a² + b² - c² - d²)² + 4(ac + bd)²
-// Alternatively, it can also be written as a difference of two squares:
-//		(a² + b² + c² + d²)² - 4(ad - bc)²
-// Finally, you have the factorized form:
-// 		((a - d)² + (b + c)²)((a + d)² + (b - c)²)
-// In this form it is clear that the norm is always non-negative.
+// Norm returns the norm of z. If z = a+bs+cT+dsT, then the norm is
+//     (a² + b² - c² - d²)² - 4(ab - cd)²
+// This can also be written as
+//     ((a + b)² - (c + d)²)((a - b)² - (c + d)²)
+// In this form, the norm looks similar to the norm of a bi-complex number.
+// The norm can also be written as
+//     (a + b + c + d)(a + b - c - d)(a - b + c - d)(a - b - c + d)
+// In this form the norm looks similar to Brahmagupta's formula for the area
+// of a cyclic quadrilateral. The norm can be positive, negative, or zero.
 func (z *Rat) Norm() *big.Rat {
 	return z.Quad().Quad()
 }
 
 // IsZeroDivisor returns true if z is a zero divisor.
 func (z *Rat) IsZeroDivisor() bool {
-	zero := new(cplex.Rat)
-	return z.Quad().Equals(zero)
+	return z.Quad().IsZeroDivisor()
 }
 
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
@@ -244,11 +243,11 @@ func (z *Rat) Möbius(y, a, b, c, d *Rat) *Rat {
 // Generate returns a random Rat value for quick.Check testing.
 func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomRat := &Rat{
-		*cplex.NewRat(
+		*pplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 		),
-		*cplex.NewRat(
+		*pplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 		),
