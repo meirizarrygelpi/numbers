@@ -30,10 +30,10 @@ Here is a list of available packages:
 1. `hyper`: hyper numbers (nilplexification of the nilplex numbers; different from supra numbers; can also be referred to as the bi-nilplex numbers; four-dimensional)
 1. `dualcplex`: dual-complex numbers (nilplexification of the complex numbers; four-dimensional)
 1. `dualpplex`: dual-perplex numbers (nilplexification of the perplex numbers; four-dimensional)
+1. `cayley`: Cayley octonions (i.e. traditional [octonions](https://en.wikipedia.org/wiki/Octonion); can also be referred to as elliptic octonions; eight-dimensional)
 
 Here is a list of future packages:
 
-1. `cayley`: Cayley octonions (i.e. traditional [octonions](https://en.wikipedia.org/wiki/Octonion); can also be referred to as elliptic octonions; eight-dimensional)
 1. `zorn`: Zorn octonions (more commonly known as [split-octonions](https://en.wikipedia.org/wiki/Split-octonion); can also be referred to as hyperbolic octonions; eight-dimensional)
 1. `ultra`: ultra numbers (different from tri-nilplex numbers; can also be referred to as parabolic octonions; eight-dimensional)
 1. `infrahamilton`: infra-Hamilton quaternions (different from the dual-Hamilton quaternions; eight-dimensional)
@@ -45,3 +45,8 @@ Here is a list of future packages:
 1. `hypercplex`: hyper-complex numbers (nilplexification of dual-complex numbers; eight-dimensional)
 1. `hyperpplex`: hyper-perplex numbers (nilplexification of dual-perplex numbers; eight-dimensional)
 1. `trinplex`: tri-nilplex numbers (nilplexification of the hyper numbers; eight-dimensional)
+1. `tricplex`: tri-complex numbers (complexification of the bi-complex numbers; eight-dimensional)
+1. `tripplex`: tri-perplex numbers (perplexification of the bi-perplex numbers; eight-dimensional)
+1. `laurent`: Laurent polynomials
+1. `maclaurin`: Maclaurin polynomials
+1. `pade`: Padé approximants
