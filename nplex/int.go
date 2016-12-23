@@ -34,7 +34,7 @@ func (z *Int) Unreal() *big.Int {
 
 // String returns the string version of an Int value.
 //
-// If z corresponds to a + bε, then the string is "⦗a+bε⦘", similar to
+// If z corresponds to a + bα, then the string is "⦗a+bα⦘", similar to
 // complex128 values.
 func (z *Int) String() string {
 	a := make([]string, 5)
@@ -70,7 +70,7 @@ func (z *Int) SetPair(a, b *big.Int) *Int {
 	return z
 }
 
-// NewInt returns a pointer to the Int value a+bε.
+// NewInt returns a pointer to the Int value a+bα.
 func NewInt(a, b *big.Int) *Int {
 	z := new(Int)
 	z.SetPair(a, b)
@@ -122,7 +122,7 @@ func (z *Int) Sub(x, y *Int) *Int {
 // Mul sets z equal to the product of x and y, and returns z.
 //
 // The multiplication rule is:
-// 		Mul(ε, ε) = 0
+// 		Mul(α, α) = 0
 // This binary operation is commutative and associative.
 func (z *Int) Mul(x, y *Int) *Int {
 	a, b, temp := new(big.Int), new(big.Int), new(big.Int)
@@ -135,7 +135,7 @@ func (z *Int) Mul(x, y *Int) *Int {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bε, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bα, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Int) Quad() *big.Int {

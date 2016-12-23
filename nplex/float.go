@@ -72,7 +72,7 @@ func (z *Float) One() *Float {
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a + bε, then the string is "⦗a+bε⦘", similar to
+// If z corresponds to a + bα, then the string is "⦗a+bα⦘", similar to
 // complex128 values.
 func (z *Float) String() string {
 	a := make([]string, 5)
@@ -108,7 +108,7 @@ func (z *Float) SetPair(a, b *big.Float) *Float {
 	return z
 }
 
-// NewFloat returns a pointer to the Float value a+bε.
+// NewFloat returns a pointer to the Float value a+bα.
 func NewFloat(a, b *big.Float) *Float {
 	z := new(Float)
 	z.SetPair(a, b)
@@ -160,7 +160,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 // Mul sets z equal to the product of x and y, and returns z.
 //
 // The multiplication rule is:
-// 		Mul(ε, ε) = 0
+// 		Mul(α, α) = 0
 // This binary operation is commutative and associative.
 func (z *Float) Mul(x, y *Float) *Float {
 	a, b, temp := new(big.Float), new(big.Float), new(big.Float)
@@ -173,7 +173,7 @@ func (z *Float) Mul(x, y *Float) *Float {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bε, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bα, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Float) Quad() *big.Float {

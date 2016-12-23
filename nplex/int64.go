@@ -34,7 +34,7 @@ func (z *Int64) Unreal() int64 {
 
 // String returns the string version of a Int64 value.
 //
-// If z corresponds to a + bε, then the string is "⦗a+bε⦘", similar to
+// If z corresponds to a + bα, then the string is "⦗a+bα⦘", similar to
 // complex128 values.
 func (z *Int64) String() string {
 	a := make([]string, 5)
@@ -70,7 +70,7 @@ func (z *Int64) SetPair(a, b int64) *Int64 {
 	return z
 }
 
-// NewInt64 returns a pointer to the Int64 value a+bε.
+// NewInt64 returns a pointer to the Int64 value a+bα.
 func NewInt64(a, b int64) *Int64 {
 	z := new(Int64)
 	z.SetPair(a, b)
@@ -131,7 +131,7 @@ func (z *Int64) Mul(x, y *Int64) *Int64 {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bε, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bα, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Int64) Quad() int64 {

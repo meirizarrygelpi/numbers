@@ -34,7 +34,7 @@ func (z *Rat) Unreal() *big.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a + bε, then the string is "⦗a+bε⦘", similar to
+// If z corresponds to a + bα, then the string is "⦗a+bα⦘", similar to
 // complex128 values.
 func (z *Rat) String() string {
 	a := make([]string, 5)
@@ -70,7 +70,7 @@ func (z *Rat) SetPair(a, b *big.Rat) *Rat {
 	return z
 }
 
-// NewRat returns a pointer to the Rat value a+bε.
+// NewRat returns a pointer to the Rat value a+bα.
 func NewRat(a, b *big.Rat) *Rat {
 	z := new(Rat)
 	z.SetPair(a, b)
@@ -115,7 +115,7 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 // Mul sets z equal to the product of x and y, and returns z.
 //
 // The multiplication rule is:
-// 		Mul(ε, ε) = 0
+// 		Mul(α, α) = 0
 // This binary operation is commutative and associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
 	a, b, temp := new(big.Rat), new(big.Rat), new(big.Rat)
@@ -128,7 +128,7 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bε, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bα, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Rat) Quad() *big.Rat {

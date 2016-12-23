@@ -21,5 +21,5 @@ const (
 	rightBracket           = "⦘"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
-	unit                   = "ε"
+	unit                   = "α"
 )
