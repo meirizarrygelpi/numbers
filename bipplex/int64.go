@@ -150,12 +150,17 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(i, i) = Mul(j, j) = Mul(k, k) = -1
-// 		Mul(i, j) = -Mul(j, i) = k
-// 		Mul(j, k) = -Mul(k, j) = i
-// 		Mul(k, i) = -Mul(i, k) = j
-// This binary opeInt64ion is non-commutative but associative.
+// The multiplication table is:
+//     +-----+----+----+----+
+//     | Mul | s  | T  | sT |
+//     +-----+----+----+----+
+//     | s   | +1 | sT | T  |
+//     +-----+----+----+----+
+//     | T   | sT | +1 | s  |
+//     +-----+----+----+----+
+//     | sT  | T  | s  | +1 |
+//     +-----+----+----+----+
+// This binary operation is commutative and associative.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
 	a, b, temp := new(pplex.Int64), new(pplex.Int64), new(pplex.Int64)
 	a.Add(

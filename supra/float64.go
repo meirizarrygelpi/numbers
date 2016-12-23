@@ -143,11 +143,16 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(i, i) = Mul(j, j) = Mul(k, k) = -1
-// 		Mul(i, j) = -Mul(j, i) = k
-// 		Mul(j, k) = -Mul(k, j) = i
-// 		Mul(k, i) = -Mul(i, k) = j
+// The multiplication table is:
+//     +-----+----+----+---+
+//     | Mul | α  | β  | γ |
+//     +-----+----+----+---+
+//     | α   | 0  | +γ | 0 |
+//     +-----+----+----+---+
+//     | β   | -γ | 0  | 0 |
+//     +-----+----+----+---+
+//     | γ   | 0  | 0  | 0 |
+//     +-----+----+----+---+
 // This binary operation is non-commutative but associative.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
 	a, b, temp := new(nplex.Float64), new(nplex.Float64), new(nplex.Float64)

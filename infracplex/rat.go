@@ -135,11 +135,16 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(i, i) = Mul(j, j) = Mul(k, k) = -1
-// 		Mul(i, j) = -Mul(j, i) = k
-// 		Mul(j, k) = -Mul(k, j) = i
-// 		Mul(k, i) = -Mul(i, k) = j
+// The multiplication table is:
+//     +-----+----+----+----+
+//     | Mul | i  | β  | γ  |
+//     +-----+----+----+----+
+//     | i   | -1 | +γ | -β |
+//     +-----+----+----+----+
+//     | β   | -γ | 0  | 0  |
+//     +-----+----+----+----+
+//     | γ   | +β | 0  | 0  |
+//     +-----+----+----+----+
 // This binary operation is non-commutative but associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
 	a, b, temp := new(cplex.Rat), new(cplex.Rat), new(cplex.Rat)
