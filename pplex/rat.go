@@ -114,8 +114,12 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(s, s) = +1
+// The multiplication table is:
+//     +-----+----+
+//     | Mul | s  |
+//     +-----+----+
+//     | s   | +1 |
+//     +-----+----+
 // This binary operation is commutative and associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
 	a, b, temp := new(big.Rat), new(big.Rat), new(big.Rat)

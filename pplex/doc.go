@@ -17,7 +17,7 @@ package pplex
 const (
 	leftBracket            = "⦗"
 	rightBracket           = "⦘"
-	zeroDivisorDenominator = "denominator is zero"
-	zeroDivisorInverse     = "inverse of zero"
+	zeroDivisorDenominator = "denominator is zero divisor"
+	zeroDivisorInverse     = "inverse of zero divisor"
 	unit                   = "s"
 )

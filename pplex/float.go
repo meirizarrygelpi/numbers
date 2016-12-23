@@ -159,8 +159,12 @@ func (z *Float) Sub(x, y *Float) *Float {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(s, s) = +1
+// The multiplication table is:
+//     +-----+----+
+//     | Mul | s  |
+//     +-----+----+
+//     | s   | +1 |
+//     +-----+----+
 // This binary operation is commutative and associative.
 func (z *Float) Mul(x, y *Float) *Float {
 	a, b, temp := new(big.Float), new(big.Float), new(big.Float)

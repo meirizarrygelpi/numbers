@@ -255,7 +255,7 @@ func TestSubConjDistributiveFloat64(t *testing.T) {
 func TestAddDilateDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		var a float64 = 2.0
+		var a float64 = 2
 		l, r := new(Float64), new(Float64)
 		l.Dilate(l.Add(x, y), a)
 		r.Add(r.Dilate(x, a), new(Float64).Dilate(y, a))
@@ -269,7 +269,7 @@ func TestAddDilateDistributiveFloat64(t *testing.T) {
 func TestSubDilateDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
-		var a float64 = 2.0
+		var a float64 = 2
 		l, r := new(Float64), new(Float64)
 		l.Dilate(l.Sub(x, y), a)
 		r.Sub(r.Dilate(x, a), new(Float64).Dilate(y, a))

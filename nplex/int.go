@@ -121,8 +121,12 @@ func (z *Int) Sub(x, y *Int) *Int {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(α, α) = 0
+// The multiplication table is:
+//     +-----+---+
+//     | Mul | α |
+//     +-----+---+
+//     | α   | 0 |
+//     +-----+---+
 // This binary operation is commutative and associative.
 func (z *Int) Mul(x, y *Int) *Int {
 	a, b, temp := new(big.Int), new(big.Int), new(big.Int)

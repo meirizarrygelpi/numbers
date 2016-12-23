@@ -121,8 +121,12 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 //
-// The multiplication rule is:
-// 		Mul(s, s) = +1
+// The multiplication table is:
+//     +-----+----+
+//     | Mul | s  |
+//     +-----+----+
+//     | s   | +1 |
+//     +-----+----+
 // This binary operation is commutative and associative.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
 	a := (x.l * y.l) + (y.r * x.r)
