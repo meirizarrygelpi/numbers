@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package hyper
+package dualcplex
 
 import (
 	"math/big"
@@ -9,13 +9,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/nplex"
+	"github.com/meirizarrygelpi/numbers/cplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float is a hyper number with big.Float components.
+// A Float is a dual-complex number with big.Float components.
 type Float struct {
-	l, r nplex.Float
+	l, r cplex.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -78,7 +78,7 @@ func (z *Float) Unreal() *vec3.Float {
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar
+// If z corresponds to a+bi+cΓ+diΓ, then the string is "⦗a+bi+cΓ+diΓ⦘", similar
 // to complex128 values.
 func (z *Float) String() string {
 	v := z.Unreal()
@@ -119,15 +119,15 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to a hyper number made with a given pair, and
+// SetPair sets z equal to a dual-complex number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *nplex.Float) *Float {
+func (z *Float) SetPair(a, b *cplex.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewFloat returns a pointer to the Float value a+bα+cΓ+dαΓ.
+// NewFloat returns a pointer to the Float value a+bi+cΓ+diΓ.
 func NewFloat(a, b, c, d *big.Float) *Float {
 	z := new(Float)
 	z.l.SetPair(a, b)
@@ -156,7 +156,7 @@ func (z *Float) Neg(y *Float) *Float {
 	return z
 }
 
-// Star1 sets z equal to the α-conjugate of y, and returns z.
+// Star1 sets z equal to the i-conjugate of y, and returns z.
 func (z *Float) Star1(y *Float) *Float {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
@@ -193,7 +193,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 // 		Mul(k, i) = -Mul(i, k) = j
 // This binary opeFloation is commutative and associative.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(nplex.Float), new(nplex.Float), new(nplex.Float)
+	a, b, temp := new(cplex.Float), new(cplex.Float), new(cplex.Float)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
@@ -203,16 +203,16 @@ func (z *Float) Mul(x, y *Float) *Float {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ, then the quadrance is
-//     a² + 2abα
-// Note that this is a nilplex number.
-func (z *Float) Quad() *nplex.Float {
-	q := new(nplex.Float)
+// Quad returns the quadrance of z. If z = a+bi+cΓ+diΓ, then the quadrance is
+//     a² - b² + 2abi
+// Note that this is a complex number.
+func (z *Float) Quad() *cplex.Float {
+	q := new(cplex.Float)
 	return q.Mul(&z.l, &z.l)
 }
 
-// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ, then the norm is
-// 		(a²)²
+// Norm returns the norm of z. If z = a+bi+cΓ+diΓ, then the norm is
+// 		(a² + b²)²
 // This is always non-negative.
 func (z *Float) Norm() *big.Float {
 	return z.Quad().Quad()
@@ -220,7 +220,8 @@ func (z *Float) Norm() *big.Float {
 
 // IsZeroDivisor returns true if z is a zero divisor.
 func (z *Float) IsZeroDivisor() bool {
-	return z.Quad().IsZeroDivisor()
+	zero := new(cplex.Float)
+	return z.Quad().Equals(zero)
 }
 
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
@@ -283,11 +284,11 @@ func (z *Float) Möbius(y, a, b, c, d *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*nplex.NewFloat(
+		*cplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*nplex.NewFloat(
+		*cplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),

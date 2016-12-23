@@ -27,12 +27,12 @@ Here is a list of available packages:
 1. `infrapplex`: infra-perplex numbers (different from dual-perplex numbers; four-dimensional)
 1. `bicplex`: [bi-complex numbers](https://en.wikipedia.org/wiki/Bicomplex_number) (complexification of the complex numbers; four-dimensional)
 1. `bipplex`: bi-perplex numbers (perplexification of the perplex numbers; four-dimensional)
-
-Here is a list of future packages:
-
 1. `hyper`: hyper numbers (nilplexification of the nilplex numbers; different from supra numbers; can also be referred to as the bi-nilplex numbers; four-dimensional)
 1. `dualcplex`: dual-complex numbers (nilplexification of the complex numbers; four-dimensional)
 1. `dualpplex`: dual-perplex numbers (nilplexification of the perplex numbers; four-dimensional)
+
+Here is a list of future packages:
+
 1. `cayley`: Cayley octonions (i.e. traditional [octonions](https://en.wikipedia.org/wiki/Octonion); can also be referred to as elliptic octonions; eight-dimensional)
 1. `zorn`: Zorn octonions (more commonly known as [split-octonions](https://en.wikipedia.org/wiki/Split-octonion); can also be referred to as hyperbolic octonions; eight-dimensional)
 1. `ultra`: ultra numbers (different from tri-nilplex numbers; can also be referred to as parabolic octonions; eight-dimensional)
