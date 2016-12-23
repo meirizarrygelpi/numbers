@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package bipplex
+package hyper
 
 import (
 	"math/rand"
@@ -10,19 +10,19 @@ import (
 
 	"fmt"
 
-	"github.com/meirizarrygelpi/numbers/pplex"
+	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float64 is a bi-perplex number with float64 components.
+// A Float64 is a hyper number with float64 components.
 type Float64 struct {
-	l, r pplex.Float64
+	l, r nplex.Float64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Float64) One() *Float64 {
 	z.l.One()
-	z.r.Set(new(pplex.Float64))
+	z.r.Set(new(nplex.Float64))
 	return z
 }
 
@@ -42,7 +42,7 @@ func (z *Float64) Unreal() *vec3.Float64 {
 
 // String returns the string version of a Float64 value.
 //
-// If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
+// If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar
 // to complex128 values.
 func (z *Float64) String() string {
 	v := z.Unreal()
@@ -83,15 +83,15 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to a bi-perplex number made with a given pair, and
+// SetPair sets z equal to a hyper number made with a given pair, and
 // then it returns z.
-func (z *Float64) SetPair(a, b *pplex.Float64) *Float64 {
+func (z *Float64) SetPair(a, b *nplex.Float64) *Float64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewFloat64 returns a pointer to the Float64 value a+bs+cT+dsT.
+// NewFloat64 returns a pointer to the Float64 value a+bα+cΓ+dαΓ.
 func NewFloat64(a, b, c, d float64) *Float64 {
 	z := new(Float64)
 	z.l.SetPair(a, b)
@@ -120,14 +120,14 @@ func (z *Float64) Neg(y *Float64) *Float64 {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
+// Star1 sets z equal to the α-conjugate of y, and returns z.
 func (z *Float64) Star1(y *Float64) *Float64 {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the T-conjugate of y, and returns z.
+// Star2 sets z equal to the Γ-conjugate of y, and returns z.
 func (z *Float64) Star2(y *Float64) *Float64 {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
@@ -157,11 +157,8 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 // 		Mul(k, i) = -Mul(i, k) = j
 // This binary opeFloat64ion is non-commutative but associative.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
-	a, b, temp := new(pplex.Float64), new(pplex.Float64), new(pplex.Float64)
-	a.Add(
-		a.Mul(&x.l, &y.l),
-		temp.Mul(&x.r, &y.r),
-	)
+	a, b, temp := new(nplex.Float64), new(nplex.Float64), new(nplex.Float64)
+	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
 		temp.Mul(&x.r, &y.l),
@@ -170,23 +167,17 @@ func (z *Float64) Mul(x, y *Float64) *Float64 {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bs+cT+dsT, then the quadrance is
-// 		a² + b² - c² - d² + 2(ab - cd)s
-// Note that this is a perplex number.
-func (z *Float64) Quad() *pplex.Float64 {
-	q := new(pplex.Float64)
-	return q.Sub(q.Mul(&z.l, &z.l), new(pplex.Float64).Mul(&z.r, &z.r))
+// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ, then the quadrance is
+//     a² + 2abα
+// Note that this is a nilplex number.
+func (z *Float64) Quad() *nplex.Float64 {
+	q := new(nplex.Float64)
+	return q.Mul(&z.l, &z.l)
 }
 
-// Norm returns the norm of z. If z = a+bs+cT+dsT, then the norm is
-//     (a² + b² - c² - d²)² - 4(ab - cd)²
-// This can also be written as
-//     ((a + b)² - (c + d)²)((a - b)² - (c + d)²)
-// In this form, the norm looks similar to the norm of a bi-perplex number.
-// The norm can also be written as
-//     (a + b + c + d)(a + b - c - d)(a - b + c - d)(a - b - c + d)
-// In this form the norm looks similar to Brahmagupta's formula for the area
-// of a cyclic quadrilateral. The norm can be positive, negative, or zero.
+// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ, then the norm is
+// 		(a²)²
+// This is always non-negative.
 func (z *Float64) Norm() float64 {
 	return z.Quad().Quad()
 }
@@ -256,11 +247,11 @@ func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 // Generate returns a random Float64 value for quick.Check testing.
 func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat64 := &Float64{
-		*pplex.NewFloat64(
+		*nplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 		),
-		*pplex.NewFloat64(
+		*nplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 		),

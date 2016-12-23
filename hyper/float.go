@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package bipplex
+package hyper
 
 import (
 	"math/big"
@@ -9,13 +9,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/pplex"
+	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float is a bi-perplex number with big.Float components.
+// A Float is a hyper number with big.Float components.
 type Float struct {
-	l, r pplex.Float
+	l, r nplex.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -78,7 +78,7 @@ func (z *Float) Unreal() *vec3.Float {
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
+// If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar
 // to complex128 values.
 func (z *Float) String() string {
 	v := z.Unreal()
@@ -119,15 +119,15 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to a bi-perplex number made with a given pair, and
+// SetPair sets z equal to a hyper number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *pplex.Float) *Float {
+func (z *Float) SetPair(a, b *nplex.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewFloat returns a pointer to the Float value a+bs+cT+dsT.
+// NewFloat returns a pointer to the Float value a+bα+cΓ+dαΓ.
 func NewFloat(a, b, c, d *big.Float) *Float {
 	z := new(Float)
 	z.l.SetPair(a, b)
@@ -156,14 +156,14 @@ func (z *Float) Neg(y *Float) *Float {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
+// Star1 sets z equal to the α-conjugate of y, and returns z.
 func (z *Float) Star1(y *Float) *Float {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the T-conjugate of y, and returns z.
+// Star2 sets z equal to the Γ-conjugate of y, and returns z.
 func (z *Float) Star2(y *Float) *Float {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
@@ -193,11 +193,8 @@ func (z *Float) Sub(x, y *Float) *Float {
 // 		Mul(k, i) = -Mul(i, k) = j
 // This binary opeFloation is non-commutative but associative.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(pplex.Float), new(pplex.Float), new(pplex.Float)
-	a.Add(
-		a.Mul(&x.l, &y.l),
-		temp.Mul(&x.r, &y.r),
-	)
+	a, b, temp := new(nplex.Float), new(nplex.Float), new(nplex.Float)
+	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
 		temp.Mul(&x.r, &y.l),
@@ -206,23 +203,17 @@ func (z *Float) Mul(x, y *Float) *Float {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bs+cT+dsT, then the quadrance is
-// 		a² + b² - c² - d² + 2(ab - cd)s
-// Note that this is a perplex number.
-func (z *Float) Quad() *pplex.Float {
-	q := new(pplex.Float)
-	return q.Sub(q.Mul(&z.l, &z.l), new(pplex.Float).Mul(&z.r, &z.r))
+// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ, then the quadrance is
+//     a² + 2abα
+// Note that this is a nilplex number.
+func (z *Float) Quad() *nplex.Float {
+	q := new(nplex.Float)
+	return q.Mul(&z.l, &z.l)
 }
 
-// Norm returns the norm of z. If z = a+bs+cT+dsT, then the norm is
-//     (a² + b² - c² - d²)² - 4(ab - cd)²
-// This can also be written as
-//     ((a + b)² - (c + d)²)((a - b)² - (c + d)²)
-// In this form, the norm looks similar to the norm of a bi-perplex number.
-// The norm can also be written as
-//     (a + b + c + d)(a + b - c - d)(a - b + c - d)(a - b - c + d)
-// In this form the norm looks similar to Brahmagupta's formula for the area
-// of a cyclic quadrilateral. The norm can be positive, negative, or zero.
+// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ, then the norm is
+// 		(a²)²
+// This is always non-negative.
 func (z *Float) Norm() *big.Float {
 	return z.Quad().Quad()
 }
@@ -292,11 +283,11 @@ func (z *Float) Möbius(y, a, b, c, d *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*pplex.NewFloat(
+		*nplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*pplex.NewFloat(
+		*nplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),

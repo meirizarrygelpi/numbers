@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Rat is a Hamilton quaternion with big.Rat components.
+// A Rat is a bi-perplex number with big.Rat components.
 type Rat struct {
 	l, r pplex.Rat
 }
@@ -42,7 +42,7 @@ func (z *Rat) Unreal() *vec3.Rat {
 // String returns the string version of a Rat value.
 //
 // If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
-// to compleperplexx128 values.
+// to complex128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()
 	a := make([]string, 9)
@@ -82,7 +82,7 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to a Hamilton quaternion made with a given pair, and
+// SetPair sets z equal to a bi-perplex number made with a given pair, and
 // then it returns z.
 func (z *Rat) SetPair(a, b *pplex.Rat) *Rat {
 	z.l.Set(a)

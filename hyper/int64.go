@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package bipplex
+package hyper
 
 import (
 	"math/rand"
@@ -10,19 +10,19 @@ import (
 
 	"fmt"
 
-	"github.com/meirizarrygelpi/numbers/pplex"
+	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// An Int64 is a bi-perplex number with int64 components.
+// An Int64 is a hyper number with int64 components.
 type Int64 struct {
-	l, r pplex.Int64
+	l, r nplex.Int64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int64) One() *Int64 {
 	z.l.One()
-	z.r.Set(new(pplex.Int64))
+	z.r.Set(new(nplex.Int64))
 	return z
 }
 
@@ -42,7 +42,7 @@ func (z *Int64) Unreal() *vec3.Int64 {
 
 // String returns the string version of a Int64 value.
 //
-// If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
+// If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar
 // to complex128 values.
 func (z *Int64) String() string {
 	v := z.Unreal()
@@ -83,15 +83,15 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to a bi-perplex number made with a given pair, and
+// SetPair sets z equal to a hyper number made with a given pair, and
 // then it returns z.
-func (z *Int64) SetPair(a, b *pplex.Int64) *Int64 {
+func (z *Int64) SetPair(a, b *nplex.Int64) *Int64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewInt64 returns a pointer to the Int64 value a+bs+cT+dsT.
+// NewInt64 returns a pointer to the Int64 value a+bα+cΓ+dαΓ.
 func NewInt64(a, b, c, d int64) *Int64 {
 	z := new(Int64)
 	z.l.SetPair(a, b)
@@ -120,14 +120,14 @@ func (z *Int64) Neg(y *Int64) *Int64 {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
+// Star1 sets z equal to the α-conjugate of y, and returns z.
 func (z *Int64) Star1(y *Int64) *Int64 {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the T-conjugate of y, and returns z.
+// Star2 sets z equal to the Γ-conjugate of y, and returns z.
 func (z *Int64) Star2(y *Int64) *Int64 {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
@@ -157,11 +157,8 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 // 		Mul(k, i) = -Mul(i, k) = j
 // This binary opeInt64ion is non-commutative but associative.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
-	a, b, temp := new(pplex.Int64), new(pplex.Int64), new(pplex.Int64)
-	a.Add(
-		a.Mul(&x.l, &y.l),
-		temp.Mul(&x.r, &y.r),
-	)
+	a, b, temp := new(nplex.Int64), new(nplex.Int64), new(nplex.Int64)
+	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
 		temp.Mul(&x.r, &y.l),
@@ -170,23 +167,17 @@ func (z *Int64) Mul(x, y *Int64) *Int64 {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bs+cT+dsT, then the quadrance is
-// 		a² + b² - c² - d² + 2(ab - cd)s
-// Note that this is a perplex number.
-func (z *Int64) Quad() *pplex.Int64 {
-	q := new(pplex.Int64)
-	return q.Sub(q.Mul(&z.l, &z.l), new(pplex.Int64).Mul(&z.r, &z.r))
+// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ, then the quadrance is
+//     a² + 2abα
+// Note that this is a nilplex number.
+func (z *Int64) Quad() *nplex.Int64 {
+	q := new(nplex.Int64)
+	return q.Mul(&z.l, &z.l)
 }
 
-// Norm returns the norm of z. If z = a+bs+cT+dsT, then the norm is
-//     (a² + b² - c² - d²)² - 4(ab - cd)²
-// This can also be written as
-//     ((a + b)² - (c + d)²)((a - b)² - (c + d)²)
-// In this form, the norm looks similar to the norm of a bi-perplex number.
-// The norm can also be written as
-//     (a + b + c + d)(a + b - c - d)(a - b + c - d)(a - b - c + d)
-// In this form the norm looks similar to Brahmagupta's formula for the area
-// of a cyclic quadrilateral. The norm can be positive, negative, or zero.
+// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ, then the norm is
+// 		(a²)²
+// This is always non-negative.
 func (z *Int64) Norm() int64 {
 	return z.Quad().Quad()
 }
@@ -212,11 +203,11 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 // Generate returns a random Int64 value for quick.Check testing.
 func (z *Int64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt64 := &Int64{
-		*pplex.NewInt64(
+		*nplex.NewInt64(
 			rand.Int63(),
 			rand.Int63(),
 		),
-		*pplex.NewInt64(
+		*nplex.NewInt64(
 			rand.Int63(),
 			rand.Int63(),
 		),

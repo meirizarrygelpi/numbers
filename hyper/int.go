@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package bipplex
+package hyper
 
 import (
 	"math/big"
@@ -9,19 +9,19 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/pplex"
+	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// An Int is a bi-perplex number with big.Int components.
+// An Int is a hyper number with big.Int components.
 type Int struct {
-	l, r pplex.Int
+	l, r nplex.Int
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int) One() *Int {
 	z.l.One()
-	z.r.Set(new(pplex.Int))
+	z.r.Set(new(nplex.Int))
 	return z
 }
 
@@ -41,7 +41,7 @@ func (z *Int) Unreal() *vec3.Int {
 
 // String returns the string version of an Int value.
 //
-// If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
+// If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar
 // to complex128 values.
 func (z *Int) String() string {
 	v := z.Unreal()
@@ -82,15 +82,15 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to a bi-perplex number made with a given pair, and
+// SetPair sets z equal to a hyper number made with a given pair, and
 // then it returns z.
-func (z *Int) SetPair(a, b *pplex.Int) *Int {
+func (z *Int) SetPair(a, b *nplex.Int) *Int {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewInt returns a pointer to the Int value a+bs+cT+dsT.
+// NewInt returns a pointer to the Int value a+bα+cΓ+dαΓ.
 func NewInt(a, b, c, d *big.Int) *Int {
 	z := new(Int)
 	z.l.SetPair(a, b)
@@ -119,14 +119,14 @@ func (z *Int) Neg(y *Int) *Int {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
+// Star1 sets z equal to the α-conjugate of y, and returns z.
 func (z *Int) Star1(y *Int) *Int {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the T-conjugate of y, and returns z.
+// Star2 sets z equal to the Γ-conjugate of y, and returns z.
 func (z *Int) Star2(y *Int) *Int {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
@@ -156,11 +156,8 @@ func (z *Int) Sub(x, y *Int) *Int {
 // 		Mul(k, i) = -Mul(i, k) = j
 // This binary operation is non-commutative but associative.
 func (z *Int) Mul(x, y *Int) *Int {
-	a, b, temp := new(pplex.Int), new(pplex.Int), new(pplex.Int)
-	a.Add(
-		a.Mul(&x.l, &y.l),
-		temp.Mul(&x.r, &y.r),
-	)
+	a, b, temp := new(nplex.Int), new(nplex.Int), new(nplex.Int)
+	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
 		temp.Mul(&x.r, &y.l),
@@ -169,23 +166,17 @@ func (z *Int) Mul(x, y *Int) *Int {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bs+cT+dsT, then the quadrance is
-// 		a² + b² - c² - d² + 2(ab - cd)s
-// Note that this is a perplex number.
-func (z *Int) Quad() *pplex.Int {
-	q := new(pplex.Int)
-	return q.Sub(q.Mul(&z.l, &z.l), new(pplex.Int).Mul(&z.r, &z.r))
+// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ, then the quadrance is
+//     a² + 2abα
+// Note that this is a nilplex number.
+func (z *Int) Quad() *nplex.Int {
+	q := new(nplex.Int)
+	return q.Mul(&z.l, &z.l)
 }
 
-// Norm returns the norm of z. If z = a+bs+cT+dsT, then the norm is
-//     (a² + b² - c² - d²)² - 4(ab - cd)²
-// This can also be written as
-//     ((a + b)² - (c + d)²)((a - b)² - (c + d)²)
-// In this form, the norm looks similar to the norm of a bi-perplex number.
-// The norm can also be written as
-//     (a + b + c + d)(a + b - c - d)(a - b + c - d)(a - b - c + d)
-// In this form the norm looks similar to Brahmagupta's formula for the area
-// of a cyclic quadrilateral. The norm can be positive, negative, or zero.
+// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ, then the norm is
+// 		(a²)²
+// This is always non-negative.
 func (z *Int) Norm() *big.Int {
 	return z.Quad().Quad()
 }
@@ -211,11 +202,11 @@ func (z *Int) Quo(x, y *Int) *Int {
 // Generate returns a random Int value for quick.Check testing.
 func (z *Int) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt := &Int{
-		*pplex.NewInt(
+		*nplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 		),
-		*pplex.NewInt(
+		*nplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 		),
