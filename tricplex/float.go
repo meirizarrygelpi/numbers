@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package hyper
+package tricplex
 
 import (
 	"math/big"
@@ -9,13 +9,14 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/vec3"
+	"github.com/meirizarrygelpi/numbers/bicplex"
+	"github.com/meirizarrygelpi/numbers/cplex"
+	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float is a hyper number with big.Float components.
+// A Float is a tri-complex number with big.Float components.
 type Float struct {
-	l, r nplex.Float
+	l, r bicplex.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -68,42 +69,72 @@ func (z *Float) Real() *big.Float {
 }
 
 // Unreal returns the unreal part of z.
-func (z *Float) Unreal() *vec3.Float {
-	v := new(vec3.Float)
-	v[0] = z.l.Unreal()
-	v[1] = z.r.Real()
-	v[2] = z.r.Unreal()
+func (z *Float) Unreal() *vec7.Float {
+	v := new(vec7.Float)
+	w := z.l.Unreal()
+	v[0] = w[0]
+	v[1] = w[1]
+	v[2] = w[2]
+	v[3] = z.r.Real()
+	w = z.r.Unreal()
+	v[4] = w[0]
+	v[5] = w[1]
+	v[6] = w[2]
 	return v
 }
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar
-// to complex128 values.
+// If z corresponds to a+bi+cJ+diJ+eK+fiK+gJK+hiJK, then the string is
+// "⦗a+bi+cJ+diJ+eK+fiK+gJK+hiJK⦘", similar to complex128 values.
 func (z *Float) String() string {
 	v := z.Unreal()
-	a := make([]string, 9)
+	a := make([]string, 17)
 	a[0] = leftBracket
 	a[1] = z.l.Real().String()
-	if v[0].Sign() < 0 {
+	if v[0].Signbit() {
 		a[2] = v[0].String()
 	} else {
 		a[2] = "+" + v[0].String()
 	}
 	a[3] = unit1
-	if v[1].Sign() < 0 {
+	if v[1].Signbit() {
 		a[4] = v[1].String()
 	} else {
 		a[4] = "+" + v[1].String()
 	}
 	a[5] = unit2
-	if v[2].Sign() < 0 {
+	if v[2].Signbit() {
 		a[6] = v[2].String()
 	} else {
 		a[6] = "+" + v[2].String()
 	}
 	a[7] = unit3
-	a[8] = rightBracket
+	if v[3].Signbit() {
+		a[8] = v[3].String()
+	} else {
+		a[8] = "+" + v[3].String()
+	}
+	a[9] = unit4
+	if v[4].Signbit() {
+		a[10] = v[4].String()
+	} else {
+		a[10] = "+" + v[4].String()
+	}
+	a[11] = unit5
+	if v[5].Signbit() {
+		a[12] = v[5].String()
+	} else {
+		a[12] = "+" + v[5].String()
+	}
+	a[13] = unit6
+	if v[6].Signbit() {
+		a[14] = v[6].String()
+	} else {
+		a[14] = "+" + v[6].String()
+	}
+	a[15] = unit3
+	a[16] = rightBracket
 	return strings.Join(a, "")
 }
 
@@ -119,19 +150,25 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to a hyper number made with a given pair, and
+// SetPair sets z equal to a tri-complex number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *nplex.Float) *Float {
+func (z *Float) SetPair(a, b *bicplex.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewFloat returns a pointer to the Float value a+bα+cΓ+dαΓ.
-func NewFloat(a, b, c, d *big.Float) *Float {
+// NewFloat returns a pointer to the Float value a+bi+cJ+diJ+eK+fiK+gJK+hiJK.
+func NewFloat(a, b, c, d, e, f, g, h *big.Float) *Float {
 	z := new(Float)
-	z.l.SetPair(a, b)
-	z.r.SetPair(c, d)
+	z.l.SetPair(
+		cplex.NewFloat(a, b),
+		cplex.NewFloat(c, d),
+	)
+	z.r.SetPair(
+		cplex.NewFloat(e, f),
+		cplex.NewFloat(g, h),
+	)
 	return z
 }
 
@@ -156,15 +193,22 @@ func (z *Float) Neg(y *Float) *Float {
 	return z
 }
 
-// Star1 sets z equal to the α-conjugate of y, and returns z.
+// Star1 sets z equal to the i-conjugate of y, and returns z.
 func (z *Float) Star1(y *Float) *Float {
-	z.l.Conj(&y.l)
-	z.r.Conj(&y.r)
+	z.l.Star1(&y.l)
+	z.r.Star1(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the Γ-conjugate of y, and returns z.
+// Star2 sets z equal to the J-conjugate of y, and returns z.
 func (z *Float) Star2(y *Float) *Float {
+	z.l.Star2(&y.l)
+	z.r.Star2(&y.r)
+	return z
+}
+
+// Star3 sets z equal to the K-conjugate of y, and returns z.
+func (z *Float) Star3(y *Float) *Float {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -187,19 +231,30 @@ func (z *Float) Sub(x, y *Float) *Float {
 // Mul sets z equal to the product of x and y, and returns z.
 //
 // The multiplication table is:
-//     +-----+----+----+----+
-//     | Mul | α  | Γ  | αΓ |
-//     +-----+----+----+----+
-//     | α   | 0  | αΓ | 0  |
-//     +-----+----+----+----+
-//     | Γ   | αΓ | 0  | 0  |
-//     +-----+----+----+----+
-//     | αΓ  | 0  | 0  | 0  |
-//     +-----+----+----+----+
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | Mul | i   | J   | iJ  | K   | iK  | JK  | iJK |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | i   | -1  | iJ  | -J  | iK  | -K  | iJK | -JK |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | J   | iJ  | -1  | -i  | JK  | iJK | -K  | -iK |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | iJ  | -J  | -i  | +1  | iJK | -JK | -iK | +K  |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | K   | iK  | JK  | iJK | -1  | -i  | -J  | -iJ |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | iK  | -K  | iJK | -JK | -i  | +1  | -iJ | +J  |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | JK  | iJK | -K  | -iK | -J  | -iK | +1  | +i  |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
+//     | iJK | -JK | -iK | +K  | -iJ | +J  | +i  | -1  |
+//     +-----+-----+-----+-----+-----+-----+-----+-----+
 // This binary operation is commutative and associative.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(nplex.Float), new(nplex.Float), new(nplex.Float)
-	a.Mul(&x.l, &y.l)
+	a, b, temp := new(bicplex.Float), new(bicplex.Float), new(bicplex.Float)
+	a.Sub(
+		a.Mul(&x.l, &y.l),
+		temp.Mul(&x.r, &y.r),
+	)
 	b.Add(
 		b.Mul(&x.l, &y.r),
 		temp.Mul(&x.r, &y.l),
@@ -208,19 +263,27 @@ func (z *Float) Mul(x, y *Float) *Float {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ, then the quadrance is
-//     a² + 2abα
-// Note that this is a nilplex number.
-func (z *Float) Quad() *nplex.Float {
-	q := new(nplex.Float)
-	return q.Mul(&z.l, &z.l)
+// Quad returns the quadrance of z. If z = a+bi+cJ+diJ+eK+fiK+gJK+hiJK, then
+// the quadrance is
+// 		a² - b² + c² - d² + 2(ab + cd)i
+// Note that this is a complex number.
+func (z *Float) Quad() *bicplex.Float {
+	q := new(bicplex.Float)
+	return q.Add(q.Mul(&z.l, &z.l), new(bicplex.Float).Mul(&z.r, &z.r))
 }
 
-// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ, then the norm is
-// 		(a²)²
-// This is always non-negative.
+// Norm returns the norm of z. If z = a+bi+cJ+diJ+eK+fiK+gJK+hiJK, then the
+// norm is
+// 		(a² - b² + c² - d²)² + 4(ab + cd)²
+// There is another way to write the norm as a sum of two squares:
+// 		(a² + b² - c² - d²)² + 4(ac + bd)²
+// Alternatively, it can also be written as a difference of two squares:
+//		(a² + b² + c² + d²)² - 4(ad - bc)²
+// Finally, you have the factorized form:
+// 		((a - d)² + (b + c)²)((a + d)² + (b - c)²)
+// In this form it is clear that the norm is always non-negative.
 func (z *Float) Norm() *big.Float {
-	return z.Quad().Quad()
+	return z.Quad().Norm()
 }
 
 // IsZeroDivisor returns true if z is a zero divisor.
@@ -236,7 +299,7 @@ func (z *Float) Inv(y *Float) *Float {
 	}
 	a := y.Quad()
 	a.Inv(a)
-	z.Star2(y)
+	z.Star3(y)
 	z.l.Mul(&z.l, a)
 	z.r.Mul(&z.r, a)
 	return z
@@ -288,11 +351,15 @@ func (z *Float) Möbius(y, a, b, c, d *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*nplex.NewFloat(
+		*bicplex.NewFloat(
+			big.NewFloat(rand.Float64()),
+			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*nplex.NewFloat(
+		*bicplex.NewFloat(
+			big.NewFloat(rand.Float64()),
+			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),

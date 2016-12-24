@@ -24,7 +24,7 @@ func (z *Float) Acc() big.Accuracy {
 	return z.l.Acc()
 }
 
-// Mode returns the accuracy of the real part of z.
+// Mode returns the rounding mode of the real part of z.
 func (z *Float) Mode() big.RoundingMode {
 	return z.l.Mode()
 }
