@@ -119,6 +119,13 @@ func (z *Int) Neg(y *Int) *Int {
 	return z
 }
 
+// Conj sets z equal to the conjugate of y, and returns z.
+func (z *Int) Conj(y *Int) *Int {
+	z.l.Conj(&y.l)
+	z.r.Neg(&y.r)
+	return z
+}
+
 // Star1 sets z equal to the α-conjugate of y, and returns z.
 func (z *Int) Star1(y *Int) *Int {
 	z.l.Conj(&y.l)

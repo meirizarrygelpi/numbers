@@ -122,6 +122,13 @@ func (z *Float64) Neg(y *Float64) *Float64 {
 	return z
 }
 
+// Conj sets z equal to the conjugate of y, and returns z.
+func (z *Float64) Conj(y *Float64) *Float64 {
+	z.l.Conj(&y.l)
+	z.r.Neg(&y.r)
+	return z
+}
+
 // Star1 sets z equal to the i-conjugate of y, and returns z.
 func (z *Float64) Star1(y *Float64) *Float64 {
 	z.l.Conj(&y.l)

@@ -112,6 +112,13 @@ func (z *Rat) Neg(y *Rat) *Rat {
 	return z
 }
 
+// Conj sets z equal to the conjugate of y, and returns z.
+func (z *Rat) Conj(y *Rat) *Rat {
+	z.l.Conj(&y.l)
+	z.r.Neg(&y.r)
+	return z
+}
+
 // Star1 sets z equal to the i-conjugate of y, and returns z.
 func (z *Rat) Star1(y *Rat) *Rat {
 	z.l.Conj(&y.l)

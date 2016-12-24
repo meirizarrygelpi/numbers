@@ -120,6 +120,13 @@ func (z *Int64) Neg(y *Int64) *Int64 {
 	return z
 }
 
+// Conj sets z equal to the conjugate of y, and returns z.
+func (z *Int64) Conj(y *Int64) *Int64 {
+	z.l.Conj(&y.l)
+	z.r.Neg(&y.r)
+	return z
+}
+
 // Star1 sets z equal to the s-conjugate of y, and returns z.
 func (z *Int64) Star1(y *Int64) *Int64 {
 	z.l.Conj(&y.l)
