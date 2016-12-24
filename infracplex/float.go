@@ -85,24 +85,12 @@ func (z *Float) String() string {
 	a := make([]string, 9)
 	a[0] = leftBracket
 	a[1] = z.l.Real().String()
-	if v[0].Signbit() {
-		a[2] = v[0].String()
-	} else {
-		a[2] = "+" + v[0].String()
+	i := 2
+	for j, u := range [3]string{unit1, unit2, unit3} {
+		a[i] = sprintFloat(v[j])
+		a[i+1] = u
+		i += 2
 	}
-	a[3] = unit1
-	if v[1].Signbit() {
-		a[4] = v[1].String()
-	} else {
-		a[4] = "+" + v[1].String()
-	}
-	a[5] = unit2
-	if v[2].Signbit() {
-		a[6] = v[2].String()
-	} else {
-		a[6] = "+" + v[2].String()
-	}
-	a[7] = unit3
 	a[8] = rightBracket
 	return strings.Join(a, "")
 }
