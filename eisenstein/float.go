@@ -86,7 +86,7 @@ func (z *Float) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
 	a[1] = fmt.Sprintf("%v", &z.l)
-	if (&z.r).Sign() == -1 {
+	if (&z.r).Signbit() {
 		a[2] = fmt.Sprintf("%v", &z.r)
 	} else {
 		a[2] = fmt.Sprintf("+%v", &z.r)

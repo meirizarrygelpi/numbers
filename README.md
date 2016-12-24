@@ -31,6 +31,7 @@ Here is a list of available packages:
 1. `dualcplex`: dual-complex numbers (nilplexification of the complex numbers; four-dimensional)
 1. `dualpplex`: dual-perplex numbers (nilplexification of the perplex numbers; four-dimensional)
 1. `cayley`: Cayley octonions (i.e. traditional [octonions](https://en.wikipedia.org/wiki/Octonion); can also be referred to as elliptic octonions; eight-dimensional)
+1. `tricplex`: tri-complex numbers (complexification of the bi-complex numbers; eight-dimensional)
 
 Here is a list of future packages:
 
@@ -45,7 +46,6 @@ Here is a list of future packages:
 1. `hypercplex`: hyper-complex numbers (nilplexification of dual-complex numbers; eight-dimensional)
 1. `hyperpplex`: hyper-perplex numbers (nilplexification of dual-perplex numbers; eight-dimensional)
 1. `trinplex`: tri-nilplex numbers (nilplexification of the hyper numbers; eight-dimensional)
-1. `tricplex`: tri-complex numbers (complexification of the bi-complex numbers; eight-dimensional)
 1. `tripplex`: tri-perplex numbers (perplexification of the bi-perplex numbers; eight-dimensional)
 1. `laurent`: Laurent polynomials
 1. `maclaurin`: Maclaurin polynomials
