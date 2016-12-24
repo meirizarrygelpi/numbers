@@ -99,7 +99,7 @@ func (z *Float64) String() string {
 	} else {
 		a[14] = "+" + fmt.Sprint(v[6])
 	}
-	a[15] = unit3
+	a[15] = unit7
 	a[16] = rightBracket
 	return strings.Join(a, "")
 }

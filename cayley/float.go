@@ -133,7 +133,7 @@ func (z *Float) String() string {
 	} else {
 		a[14] = "+" + v[6].String()
 	}
-	a[15] = unit3
+	a[15] = unit7
 	a[16] = rightBracket
 	return strings.Join(a, "")
 }
