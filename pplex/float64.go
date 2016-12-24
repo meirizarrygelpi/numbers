@@ -5,6 +5,7 @@ package pplex
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"reflect"
 	"strings"
@@ -40,7 +41,7 @@ func (z *Float64) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l)
-	if z.r < 0 {
+	if math.Signbit(z.r) {
 		a[2] = fmt.Sprint(z.r)
 	} else {
 		a[2] = "+" + fmt.Sprint(z.r)

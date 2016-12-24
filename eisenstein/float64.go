@@ -5,6 +5,7 @@ package eisenstein
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"reflect"
 	"strings"
@@ -47,7 +48,7 @@ func (z *Float64) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
 	a[1] = fmt.Sprintf("%v", z.l)
-	if z.r < 0 {
+	if math.Signbit(z.r) {
 		a[2] = fmt.Sprintf("%v", z.r)
 	} else {
 		a[2] = fmt.Sprintf("+%v", z.r)

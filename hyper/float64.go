@@ -10,6 +10,8 @@ import (
 
 	"fmt"
 
+	"math"
+
 	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
@@ -49,19 +51,19 @@ func (z *Float64) String() string {
 	a := make([]string, 9)
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l.Real())
-	if v[0] < 0 {
+	if math.Signbit(v[0]) {
 		a[2] = fmt.Sprint(v[0])
 	} else {
 		a[2] = "+" + fmt.Sprint(v[0])
 	}
 	a[3] = unit1
-	if v[1] < 0 {
+	if math.Signbit(v[1]) {
 		a[4] = fmt.Sprint(v[1])
 	} else {
 		a[4] = "+" + fmt.Sprint(v[1])
 	}
 	a[5] = unit2
-	if v[2] < 0 {
+	if math.Signbit(v[2]) {
 		a[6] = fmt.Sprint(v[2])
 	} else {
 		a[6] = "+" + fmt.Sprint(v[2])
