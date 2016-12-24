@@ -78,11 +78,7 @@ func (z *Float) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
 	a[1] = z.l.String()
-	if z.r.Signbit() {
-		a[2] = z.r.String()
-	} else {
-		a[2] = "+" + z.r.String()
-	}
+	a[2] = sprintFloat(&z.r)
 	a[3] = unit
 	a[4] = rightBracket
 	return strings.Join(a, "")
