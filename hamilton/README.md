@@ -11,8 +11,3 @@ Package `hamilton` implements arithmetic for Hamilton quaternions. There are fiv
 Each quaternion value is printed in the form "⦗a+bi+cj+dk⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
 
 [![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/hamilton) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/hamilton?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/hamilton)
-
-## To-Do
-
-1. Inf and NaN for `hamilton.Float` and `hamilton.Float64` types.
-2. Fix `String` method for float types.
