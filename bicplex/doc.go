@@ -14,12 +14,38 @@ associative (for non-floats).
 */
 package bicplex
 
+import (
+	"fmt"
+	"math"
+	"math/big"
+)
+
 const (
-	leftBracket     = "⦗"
-	rightBracket    = "⦘"
+	leftBracket            = "⦗"
+	rightBracket           = "⦘"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
-	unit1           = "i"
-	unit2           = "J"
-	unit3           = "iJ"
+	unit1                  = "i"
+	unit2                  = "J"
+	unit3                  = "iJ"
 )
+
+func sprintFloat(a *big.Float) string {
+	if a.Signbit() {
+		return a.String()
+	}
+	if a.IsInf() {
+		return "+Inf"
+	}
+	return "+" + a.String()
+}
+
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
+}
