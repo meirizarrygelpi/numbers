@@ -48,6 +48,7 @@ func (z *Int64) String() string {
 	v := z.Unreal()
 	a := make([]string, 9)
 	a[0] = leftBracket
+	a[1] = fmt.Sprint(z.Real())
 	i := 2
 	for j, u := range [3]string{unit1, unit2, unit3} {
 		if v[j] < 0 {
@@ -206,11 +207,12 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	z.Mul(x, z.Star2(y))
-	a := y.Quad()
-	z.l.Quo(&z.l, a)
-	z.r.Quo(&z.r, a)
-	return z
+	n := y.Norm()
+	temp := new(Int64)
+	z.Mul(x, temp.Star1(y))
+	z.Mul(z, temp.Star2(y))
+	z.Mul(z, temp.Star1(temp))
+	return z.Divide(z, n)
 }
 
 // Generate returns a random Int64 value for quick.Check testing.
