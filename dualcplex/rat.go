@@ -192,10 +192,9 @@ func (z *Rat) Inv(y *Rat) *Rat {
 	}
 	a := y.Quad()
 	a.Inv(a)
-	z.Star2(y)
-	z.l.Mul(&z.l, a)
-	z.r.Mul(&z.r, a)
-	return z
+	z.l.Mul(&y.l, a)
+	z.r.Mul(&y.r, a)
+	return z.Star2(z)
 }
 
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
