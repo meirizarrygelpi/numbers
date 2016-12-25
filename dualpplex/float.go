@@ -239,12 +239,12 @@ func (z *Float) Inv(y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
 	}
-	a := y.Quad()
-	a.Inv(a)
-	z.Star2(y)
-	z.l.Mul(&z.l, a)
-	z.r.Mul(&z.r, a)
-	return z
+	n := y.Norm()
+	temp := new(Float)
+	z.Star1(y)
+	z.Mul(z, temp.Star2(y))
+	z.Mul(z, temp.Star1(temp))
+	return z.Divide(z, n)
 }
 
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
@@ -253,12 +253,12 @@ func (z *Float) Quo(x, y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	z.Mul(x, z.Star2(y))
-	a := y.Quad()
-	a.Inv(a)
-	z.l.Mul(&z.l, a)
-	z.r.Mul(&z.r, a)
-	return z
+	n := y.Norm()
+	temp := new(Float)
+	z.Mul(x, temp.Star1(y))
+	z.Mul(z, temp.Star2(y))
+	z.Mul(z, temp.Star1(temp))
+	return z.Divide(z, n)
 }
 
 // CrossRatio sets z equal to the cross-ratio of v, w, x, and y:
