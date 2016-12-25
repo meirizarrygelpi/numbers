@@ -55,48 +55,16 @@ func (z *Int) String() string {
 	a := make([]string, 17)
 	a[0] = leftBracket
 	a[1] = z.l.Real().String()
-	if v[0].Sign() < 0 {
-		a[2] = v[0].String()
-	} else {
-		a[2] = "+" + v[0].String()
+	i := 2
+	for j, u := range [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7} {
+		if v[j].Sign() < 0 {
+			a[i] = v[j].String()
+		} else {
+			a[i] = "+" + v[j].String()
+		}
+		a[i+1] = u
+		i += 2
 	}
-	a[3] = unit1
-	if v[1].Sign() < 0 {
-		a[4] = v[1].String()
-	} else {
-		a[4] = "+" + v[1].String()
-	}
-	a[5] = unit2
-	if v[2].Sign() < 0 {
-		a[6] = v[2].String()
-	} else {
-		a[6] = "+" + v[2].String()
-	}
-	a[7] = unit3
-	if v[3].Sign() < 0 {
-		a[8] = v[3].String()
-	} else {
-		a[8] = "+" + v[3].String()
-	}
-	a[9] = unit4
-	if v[4].Sign() < 0 {
-		a[10] = v[4].String()
-	} else {
-		a[10] = "+" + v[4].String()
-	}
-	a[11] = unit5
-	if v[5].Sign() < 0 {
-		a[12] = v[5].String()
-	} else {
-		a[12] = "+" + v[5].String()
-	}
-	a[13] = unit6
-	if v[6].Sign() < 0 {
-		a[14] = v[6].String()
-	} else {
-		a[14] = "+" + v[6].String()
-	}
-	a[15] = unit7
 	a[16] = rightBracket
 	return strings.Join(a, "")
 }

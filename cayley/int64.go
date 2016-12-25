@@ -56,48 +56,16 @@ func (z *Int64) String() string {
 	a := make([]string, 17)
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l.Real())
-	if v[0] < 0 {
-		a[2] = fmt.Sprint(v[0])
-	} else {
-		a[2] = "+" + fmt.Sprint(v[0])
+	i := 2
+	for j, u := range [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7} {
+		if v[j] < 0 {
+			a[i] = fmt.Sprint(v[j])
+		} else {
+			a[i] = "+" + fmt.Sprint(v[j])
+		}
+		a[i+1] = u
+		i += 2
 	}
-	a[3] = unit1
-	if v[1] < 0 {
-		a[4] = fmt.Sprint(v[1])
-	} else {
-		a[4] = "+" + fmt.Sprint(v[1])
-	}
-	a[5] = unit2
-	if v[2] < 0 {
-		a[6] = fmt.Sprint(v[2])
-	} else {
-		a[6] = "+" + fmt.Sprint(v[2])
-	}
-	a[7] = unit3
-	if v[3] < 0 {
-		a[8] = fmt.Sprint(v[3])
-	} else {
-		a[8] = "+" + fmt.Sprint(v[3])
-	}
-	a[9] = unit4
-	if v[4] < 0 {
-		a[10] = fmt.Sprint(v[4])
-	} else {
-		a[10] = "+" + fmt.Sprint(v[4])
-	}
-	a[11] = unit5
-	if v[5] < 0 {
-		a[12] = fmt.Sprint(v[5])
-	} else {
-		a[12] = "+" + fmt.Sprint(v[5])
-	}
-	a[13] = unit6
-	if v[6] < 0 {
-		a[14] = fmt.Sprint(v[6])
-	} else {
-		a[14] = "+" + fmt.Sprint(v[6])
-	}
-	a[15] = unit7
 	a[16] = rightBracket
 	return strings.Join(a, "")
 }
