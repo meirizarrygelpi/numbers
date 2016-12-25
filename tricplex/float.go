@@ -83,6 +83,16 @@ func (z *Float) Unreal() *vec7.Float {
 	return v
 }
 
+func sprintFloat(a *big.Float) string {
+	if a.Signbit() {
+		return a.String()
+	}
+	if a.IsInf() {
+		return "+Inf"
+	}
+	return "+" + a.String()
+}
+
 // String returns the string version of a Float value.
 //
 // If z corresponds to a+bi+cJ+diJ+eK+fiK+gJK+hiJK, then the string is
@@ -92,48 +102,12 @@ func (z *Float) String() string {
 	a := make([]string, 17)
 	a[0] = leftBracket
 	a[1] = z.l.Real().String()
-	if v[0].Signbit() {
-		a[2] = v[0].String()
-	} else {
-		a[2] = "+" + v[0].String()
+	i := 2
+	for j, u := range [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7} {
+		a[i] = sprintFloat(v[j])
+		a[i+1] = u
+		i += 2
 	}
-	a[3] = unit1
-	if v[1].Signbit() {
-		a[4] = v[1].String()
-	} else {
-		a[4] = "+" + v[1].String()
-	}
-	a[5] = unit2
-	if v[2].Signbit() {
-		a[6] = v[2].String()
-	} else {
-		a[6] = "+" + v[2].String()
-	}
-	a[7] = unit3
-	if v[3].Signbit() {
-		a[8] = v[3].String()
-	} else {
-		a[8] = "+" + v[3].String()
-	}
-	a[9] = unit4
-	if v[4].Signbit() {
-		a[10] = v[4].String()
-	} else {
-		a[10] = "+" + v[4].String()
-	}
-	a[11] = unit5
-	if v[5].Signbit() {
-		a[12] = v[5].String()
-	} else {
-		a[12] = "+" + v[5].String()
-	}
-	a[13] = unit6
-	if v[6].Signbit() {
-		a[14] = v[6].String()
-	} else {
-		a[14] = "+" + v[6].String()
-	}
-	a[15] = unit7
 	a[16] = rightBracket
 	return strings.Join(a, "")
 }

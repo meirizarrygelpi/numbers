@@ -49,6 +49,16 @@ func (z *Float64) Unreal() *vec7.Float64 {
 	return v
 }
 
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
+}
+
 // String returns the string version of a Float64 value.
 //
 // If z corresponds to a+bi+cJ+diJ+eK+fiK+gJK+hiJK, then the string is
@@ -58,48 +68,12 @@ func (z *Float64) String() string {
 	a := make([]string, 17)
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l.Real())
-	if math.Signbit(v[0]) {
-		a[2] = fmt.Sprint(v[0])
-	} else {
-		a[2] = "+" + fmt.Sprint(v[0])
+	i := 2
+	for j, u := range [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7} {
+		a[i] = sprintFloat64(v[j])
+		a[i+1] = u
+		i += 2
 	}
-	a[3] = unit1
-	if math.Signbit(v[1]) {
-		a[4] = fmt.Sprint(v[1])
-	} else {
-		a[4] = "+" + fmt.Sprint(v[1])
-	}
-	a[5] = unit2
-	if math.Signbit(v[2]) {
-		a[6] = fmt.Sprint(v[2])
-	} else {
-		a[6] = "+" + fmt.Sprint(v[2])
-	}
-	a[7] = unit3
-	if math.Signbit(v[3]) {
-		a[8] = fmt.Sprint(v[3])
-	} else {
-		a[8] = "+" + fmt.Sprint(v[3])
-	}
-	a[9] = unit4
-	if math.Signbit(v[4]) {
-		a[10] = fmt.Sprint(v[4])
-	} else {
-		a[10] = "+" + fmt.Sprint(v[4])
-	}
-	a[11] = unit5
-	if math.Signbit(v[5]) {
-		a[12] = fmt.Sprint(v[5])
-	} else {
-		a[12] = "+" + fmt.Sprint(v[5])
-	}
-	a[13] = unit6
-	if math.Signbit(v[6]) {
-		a[14] = fmt.Sprint(v[6])
-	} else {
-		a[14] = "+" + fmt.Sprint(v[6])
-	}
-	a[15] = unit7
 	a[16] = rightBracket
 	return strings.Join(a, "")
 }
