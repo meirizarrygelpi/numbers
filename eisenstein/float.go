@@ -4,7 +4,6 @@
 package eisenstein
 
 import (
-	"fmt"
 	"math/big"
 	"math/rand"
 	"reflect"
@@ -78,6 +77,16 @@ func (z *Float) Omega() *Float {
 	return z
 }
 
+func sprintFloat(a *big.Float) string {
+	if a.Signbit() {
+		return a.String()
+	}
+	if a.IsInf() {
+		return "+Inf"
+	}
+	return "+" + a.String()
+}
+
 // String returns the string version of a Float value.
 //
 // If z corresponds to a + bω, then the string is "⦗a+bω⦘", similar to
@@ -85,12 +94,8 @@ func (z *Float) Omega() *Float {
 func (z *Float) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
-	a[1] = fmt.Sprintf("%v", &z.l)
-	if (&z.r).Signbit() {
-		a[2] = fmt.Sprintf("%v", &z.r)
-	} else {
-		a[2] = fmt.Sprintf("+%v", &z.r)
-	}
+	a[1] = z.l.String()
+	a[2] = sprintFloat(&z.r)
 	a[3] = omega
 	a[4] = rightBracket
 	return strings.Join(a, "")

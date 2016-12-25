@@ -40,6 +40,16 @@ func (z *Float64) Unreal() float64 {
 	return z.r
 }
 
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
+}
+
 // String returns the string version of an Float64 value.
 //
 // If z corresponds to a + bω, then the string is "⦗a+bω⦘", similar to
@@ -47,12 +57,8 @@ func (z *Float64) Unreal() float64 {
 func (z *Float64) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
-	a[1] = fmt.Sprintf("%v", z.l)
-	if math.Signbit(z.r) {
-		a[2] = fmt.Sprintf("%v", z.r)
-	} else {
-		a[2] = fmt.Sprintf("+%v", z.r)
-	}
+	a[1] = fmt.Sprintf("%g", z.l)
+	a[2] = sprintFloat64(z.r)
 	a[3] = omega
 	a[4] = rightBracket
 	return strings.Join(a, "")

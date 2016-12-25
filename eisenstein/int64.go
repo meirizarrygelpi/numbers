@@ -46,11 +46,11 @@ func (z *Int64) Unreal() int64 {
 func (z *Int64) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
-	a[1] = fmt.Sprintf("%v", z.l)
+	a[1] = fmt.Sprint(z.l)
 	if z.r < 0 {
-		a[2] = fmt.Sprintf("%v", z.r)
+		a[2] = fmt.Sprint(z.r)
 	} else {
-		a[2] = fmt.Sprintf("+%v", z.r)
+		a[2] = "+" + fmt.Sprint(z.r)
 	}
 	a[3] = omega
 	a[4] = rightBracket

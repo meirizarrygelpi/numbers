@@ -4,7 +4,6 @@
 package eisenstein
 
 import (
-	"fmt"
 	"math/big"
 	"math/rand"
 	"reflect"
@@ -47,11 +46,11 @@ func (z *Int) Unreal() *big.Int {
 func (z *Int) String() string {
 	a := make([]string, 5)
 	a[0] = leftBracket
-	a[1] = fmt.Sprintf("%v", &z.l)
-	if (&z.r).Sign() == -1 {
-		a[2] = fmt.Sprintf("%v", &z.r)
+	a[1] = z.l.String()
+	if z.r.Sign() < 0 {
+		a[2] = z.r.String()
 	} else {
-		a[2] = fmt.Sprintf("+%v", &z.r)
+		a[2] = "+" + z.r.String()
 	}
 	a[3] = omega
 	a[4] = rightBracket

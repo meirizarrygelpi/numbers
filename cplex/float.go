@@ -70,6 +70,16 @@ func (z *Float) One() *Float {
 	return z
 }
 
+func sprintFloat(a *big.Float) string {
+	if a.Signbit() {
+		return a.String()
+	}
+	if a.IsInf() {
+		return "+Inf"
+	}
+	return "+" + a.String()
+}
+
 // String returns the string version of a Float value.
 //
 // If z corresponds to a + bi, then the string is "⦗a+bi⦘", similar to

@@ -76,6 +76,16 @@ func (z *Float) Unreal() *vec3.Float {
 	return v
 }
 
+func sprintFloat(a *big.Float) string {
+	if a.Signbit() {
+		return a.String()
+	}
+	if a.IsInf() {
+		return "+Inf"
+	}
+	return "+" + a.String()
+}
+
 // String returns the string version of a Float value.
 //
 // If z corresponds to a+bα+cΓ+dαΓ, then the string is "⦗a+bα+cΓ+dαΓ⦘", similar

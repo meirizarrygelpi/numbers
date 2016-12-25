@@ -11,8 +11,3 @@ Package `eisenstein` implements arithmetic for Eisenstein numbers. There are fiv
 Each Eisenstein value is printed in the form "⦗a+bω⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
 
 [![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/eisenstein) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/eisenstein?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/eisenstein)
-
-## To-Do
-
-1. Inf and NaN for `eisenstein.Float` and `eisenstein.Float64` types.
-2. Fix `String` method for float types.

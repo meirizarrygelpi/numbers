@@ -5,6 +5,7 @@ package cplex
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"reflect"
 	"strings"
@@ -30,6 +31,16 @@ func (z *Float64) Real() float64 {
 // Unreal returns the unreal part of z.
 func (z *Float64) Unreal() float64 {
 	return z.r
+}
+
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
 }
 
 // String returns the string version of a Float64 value.

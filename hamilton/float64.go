@@ -4,6 +4,7 @@
 package hamilton
 
 import (
+	"math"
 	"math/rand"
 	"reflect"
 	"strings"
@@ -38,6 +39,16 @@ func (z *Float64) Unreal() *vec3.Float64 {
 	v[1] = z.r.Real()
 	v[2] = z.r.Unreal()
 	return v
+}
+
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
 }
 
 // String returns the string version of a Float64 value.
