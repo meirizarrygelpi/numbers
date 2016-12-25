@@ -48,24 +48,16 @@ func (z *Rat) String() string {
 	a := make([]string, 9)
 	a[0] = leftBracket
 	a[1] = z.l.Real().RatString()
-	if v[0].Sign() < 0 {
-		a[2] = v[0].RatString()
-	} else {
-		a[2] = "+" + v[0].RatString()
+	i := 2
+	for j, u := range [3]string{unit1, unit2, unit3} {
+		if v[j].Sign() < 0 {
+			a[i] = v[j].RatString()
+		} else {
+			a[i] = "+" + v[j].RatString()
+		}
+		a[i+1] = u
+		i += 2
 	}
-	a[3] = unit1
-	if v[1].Sign() < 0 {
-		a[4] = v[1].RatString()
-	} else {
-		a[4] = "+" + v[1].RatString()
-	}
-	a[5] = unit2
-	if v[2].Sign() < 0 {
-		a[6] = v[2].RatString()
-	} else {
-		a[6] = "+" + v[2].RatString()
-	}
-	a[7] = unit3
 	a[8] = rightBracket
 	return strings.Join(a, "")
 }
