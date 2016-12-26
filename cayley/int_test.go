@@ -286,3 +286,19 @@ func TestCompositionInt(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+// Quotient
+
+func TestQuotientsInt(t *testing.T) {
+	f := func(x, y *Int) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		z, p, q := new(Int), new(Int), new(Int)
+		z.Mul(x, y)
+		p.QuoR(z, y)
+		q.QuoL(z, x)
+		return p.Equals(x) && q.Equals(y)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
