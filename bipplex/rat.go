@@ -200,8 +200,8 @@ func (z *Rat) Inv(y *Rat) *Rat {
 	}
 	a := y.Quad()
 	a.Inv(a)
-	z.l.Mul(&z.l, a)
-	z.r.Mul(&z.r, a)
+	z.l.Mul(&y.l, a)
+	z.r.Mul(&y.r, a)
 	return z.Star2(z)
 }
 

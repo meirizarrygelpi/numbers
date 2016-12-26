@@ -259,9 +259,9 @@ func (z *Float64) Quo(x, y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	z.Mul(x, z.Star2(y))
 	a := y.Quad()
 	a.Inv(a)
+	z.Mul(x, z.Star3(y))
 	z.l.Mul(&z.l, a)
 	z.r.Mul(&z.r, a)
 	return z
