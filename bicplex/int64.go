@@ -201,8 +201,8 @@ func (z *Int64) IsZeroDivisor() bool {
 	return z.Quad().Equals(zero)
 }
 
-// Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
-// then Quo panics.
+// Quo sets z equal to the quotient of x and y, and returns z. If y is a zero
+// divisor, then Quo panics.
 func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)

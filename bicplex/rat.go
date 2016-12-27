@@ -193,8 +193,8 @@ func (z *Rat) IsZeroDivisor() bool {
 	return z.Quad().Equals(zero)
 }
 
-// Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
-// panics.
+// Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
+// then Inv panics.
 func (z *Rat) Inv(y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
@@ -206,8 +206,8 @@ func (z *Rat) Inv(y *Rat) *Rat {
 	return z.Star2(z)
 }
 
-// Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
-// then Quo panics.
+// Quo sets z equal to the quotient of x and y, and returns z. If y is a zero
+// divisor, then Quo panics.
 func (z *Rat) Quo(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)

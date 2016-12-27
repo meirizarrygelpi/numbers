@@ -208,8 +208,8 @@ func (z *Float64) IsZeroDivisor() bool {
 	return z.Quad().Equals(zero)
 }
 
-// Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
-// panics.
+// Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
+// then Inv panics.
 func (z *Float64) Inv(y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
@@ -222,8 +222,8 @@ func (z *Float64) Inv(y *Float64) *Float64 {
 	return z.Divide(z, n)
 }
 
-// Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
-// then Quo panics.
+// Quo sets z equal to the quotient of x and y, and returns z. If y is a zero
+// divisor, then Quo panics.
 func (z *Float64) Quo(x, y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
