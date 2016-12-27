@@ -219,8 +219,7 @@ func (z *Rat) Norm() *big.Rat {
 
 // IsZeroDivisor returns true if z is a zero divisor.
 func (z *Rat) IsZeroDivisor() bool {
-	zero := new(bicplex.Rat)
-	return z.Quad().Equals(zero)
+	return z.Quad().IsZeroDivisor()
 }
 
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv

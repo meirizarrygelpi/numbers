@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package tripplex
+package trinplex
 
 import (
 	"math/big"
@@ -9,20 +9,20 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/bipplex"
-	"github.com/meirizarrygelpi/numbers/pplex"
+	"github.com/meirizarrygelpi/numbers/hyper"
+	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Rat is a tri-perplex number with big.Rat components.
+// A Rat is a tri-nilplex number with big.Rat components.
 type Rat struct {
-	l, r bipplex.Rat
+	l, r hyper.Rat
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Rat) One() *Rat {
 	z.l.One()
-	z.r.Set(new(bipplex.Rat))
+	z.r.Set(new(hyper.Rat))
 	return z
 }
 
@@ -48,8 +48,8 @@ func (z *Rat) Unreal() *vec7.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a+bs+cT+dsT+eU+fsU+gTU+hsTU, then the string is
-// "⦗a+bs+cT+dsT+eU+fsU+gTU+hsTU⦘", similar to perplex128 values.
+// If z corresponds to a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then the string is
+// "⦗a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ⦘", similar to nilplex128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
@@ -81,24 +81,24 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to a tri-perplex number made with a given pair, and
+// SetPair sets z equal to a tri-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Rat) SetPair(a, b *bipplex.Rat) *Rat {
+func (z *Rat) SetPair(a, b *hyper.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
-// NewRat returns a pointer to the Rat value a+bs+cT+dsT+eU+fsU+gTU+hsTU.
+// NewRat returns a pointer to the Rat value a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ.
 func NewRat(a, b, c, d, e, f, g, h *big.Rat) *Rat {
 	z := new(Rat)
 	z.l.SetPair(
-		pplex.NewRat(a, b),
-		pplex.NewRat(c, d),
+		nplex.NewRat(a, b),
+		nplex.NewRat(c, d),
 	)
 	z.r.SetPair(
-		pplex.NewRat(e, f),
-		pplex.NewRat(g, h),
+		nplex.NewRat(e, f),
+		nplex.NewRat(g, h),
 	)
 	return z
 }
@@ -124,21 +124,21 @@ func (z *Rat) Conj(y *Rat) *Rat {
 	return z
 }
 
-// Star1 sets z equal to the i-conjugate of y, and returns z.
+// Star1 sets z equal to the α-conjugate of y, and returns z.
 func (z *Rat) Star1(y *Rat) *Rat {
 	z.l.Star1(&y.l)
 	z.r.Star1(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the J-conjugate of y, and returns z.
+// Star2 sets z equal to the Γ-conjugate of y, and returns z.
 func (z *Rat) Star2(y *Rat) *Rat {
 	z.l.Star2(&y.l)
 	z.r.Star2(&y.r)
 	return z
 }
 
-// Star3 sets z equal to the K-conjugate of y, and returns z.
+// Star3 sets z equal to the Λ-conjugate of y, and returns z.
 func (z *Rat) Star3(y *Rat) *Rat {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
@@ -163,29 +163,26 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 //
 // The multiplication table is:
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | Mul | s   | T   | sT  | U   | sU  | TU  | sTU |
+//     | Mul | i   | J   | iJ  | K   | iK  | JK  | iJK |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | s   | 1   | sT  | T   | sU  | U   | sTU | TU  |
+//     | i   | -1  | iJ  | -J  | iK  | -K  | iJK | -JK |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | T   | sT  | 1   | s   | TU  | sTU | U   | sU  |
+//     | J   | iJ  | -1  | -i  | JK  | iJK | -K  | -iK |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | sT  | T   | s   | 1   | sTU | TU  | sU  | U   |
+//     | iJ  | -J  | -i  | +1  | iJK | -JK | -iK | +K  |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | U   | sU  | TU  | sTU | 1   | s   | T   | sT  |
+//     | K   | iK  | JK  | iJK | -1  | -i  | -J  | -iJ |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | sU  | U   | sTU | TU  | s   | 1   | sT  | T   |
+//     | iK  | -K  | iJK | -JK | -i  | +1  | -iJ | +J  |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | TU  | sTU | U   | sU  | T   | sT  | 1   | s   |
+//     | JK  | iJK | -K  | -iK | -J  | -iK | +1  | +i  |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | sTU | TU  | sU  | U   | sT  | T   | s   | 1   |
+//     | iJK | -JK | -iK | +K  | -iJ | +J  | +i  | -1  |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
 // This binary operation is commutative and associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
-	a, b, temp := new(bipplex.Rat), new(bipplex.Rat), new(bipplex.Rat)
-	a.Add(
-		a.Mul(&x.l, &y.l),
-		temp.Mul(&x.r, &y.r),
-	)
+	a, b, temp := new(hyper.Rat), new(hyper.Rat), new(hyper.Rat)
+	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
 		temp.Mul(&x.r, &y.l),
@@ -194,27 +191,24 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+bs+cT+dsT+eU+fsU+gTU+hsTU, then
+// Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then
 // the quadrance is
-// 		...
-// Note that this is a bi-perplex number.
-func (z *Rat) Quad() *bipplex.Rat {
-	q := new(bipplex.Rat)
-	return q.Sub(q.Mul(&z.l, &z.l), new(bipplex.Rat).Mul(&z.r, &z.r))
+// 		a² + 2abα + 2acΓ + 2(ad + bc)αΓ
+// Note that this is a hyper number.
+func (z *Rat) Quad() *hyper.Rat {
+	q := new(hyper.Rat)
+	return q.Mul(&z.l, &z.l)
 }
 
-// Norm returns the norm of z. If z = a+bs+cT+dsT+eU+fsU+gTU+hsTU, then the
+// Norm returns the norm of z. If z = a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then the
 // norm is
-// 		(a² - b² + c² - d²)² + 4(ab + cd)²
-// There is another way to write the norm as a sum of two squares:
-// 		(a² + b² - c² - d²)² + 4(ac + bd)²
-// Alternatively, it can also be written as a difference of two squares:
-//		(a² + b² + c² + d²)² - 4(ad - bc)²
-// Finally, you have the factorized form:
-// 		((a - d)² + (b + c)²)((a + d)² + (b - c)²)
+// 		((a²)²)²
 // In this form it is clear that the norm is always non-negative.
 func (z *Rat) Norm() *big.Rat {
-	return z.Quad().Norm()
+	n := z.Real()
+	n.Mul(n, n)
+	n.Mul(n, n)
+	return n.Mul(n, n)
 }
 
 // IsZeroDivisor returns true if z is a zero divisor.
@@ -222,8 +216,8 @@ func (z *Rat) IsZeroDivisor() bool {
 	return z.Quad().IsZeroDivisor()
 }
 
-// Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
-// panics.
+// Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
+// then Inv panics.
 func (z *Rat) Inv(y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
@@ -235,8 +229,8 @@ func (z *Rat) Inv(y *Rat) *Rat {
 	return z.Star3(z)
 }
 
-// Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
-// then Quo panics.
+// Quo sets z equal to the quotient of x and y, and returns z. If y is a zero
+// divisor, then Quo panics.
 func (z *Rat) Quo(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
@@ -276,13 +270,13 @@ func (z *Rat) Möbius(y, a, b, c, d *Rat) *Rat {
 // Generate returns a random Rat value for quick.Check testing.
 func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomRat := &Rat{
-		*bipplex.NewRat(
+		*hyper.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 		),
-		*bipplex.NewRat(
+		*hyper.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
