@@ -236,16 +236,11 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	n := y.Norm()
-	temp := new(Int64)
-	z.Mul(x, temp.Star3(y))
-	z.Mul(z, temp.Star2(temp))
-	z.Mul(z, temp.Star1(temp))
-	z.Mul(z, temp.Star2(y))
-	z.Mul(z, temp.Star1(temp))
-	z.Mul(z, temp.Star1(y))
-	z.Mul(z, temp.Star3(temp))
-	return z.Divide(z, n)
+	a := y.Quad()
+	z.Mul(x, z.Star3(y))
+	z.l.Quo(&z.l, a)
+	z.r.Quo(&z.r, a)
+	return z
 }
 
 // Generate returns a random Int64 value for quick.Check testing.

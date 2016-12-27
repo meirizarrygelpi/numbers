@@ -171,21 +171,21 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 //
 // The multiplication table is:
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | Mul | i   | J   | iJ  | K   | iK  | JK  | iJK |
+//     | Mul | α   | Γ   | αΓ  | Λ   | αΛ  | ΓΛ  | αΓΛ |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | i   | -1  | iJ  | -J  | iK  | -K  | iJK | -JK |
+//     | α   | 0   | αΓ  | 0   | αΛ  | 0   | αΓΛ | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | J   | iJ  | -1  | -i  | JK  | iJK | -K  | -iK |
+//     | Γ   | αΓ  | 0   | 0   | ΓΛ  | αΓΛ | 0   | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | iJ  | -J  | -i  | +1  | iJK | -JK | -iK | +K  |
+//     | αΓ  | 0   | 0   | 0   | αΓΛ | 0   | 0   | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | K   | iK  | JK  | iJK | -1  | -i  | -J  | -iJ |
+//     | Λ   | αΛ  | ΓΛ  | αΓΛ | 0   | 0   | 0   | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | iK  | -K  | iJK | -JK | -i  | +1  | -iJ | +J  |
+//     | αΛ  | 0   | αΓΛ | 0   | 0   | 0   | 0   | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | JK  | iJK | -K  | -iK | -J  | -iK | +1  | +i  |
+//     | ΓΛ  | αΓΛ | 0   | 0   | 0   | 0   | 0   | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | iJK | -JK | -iK | +K  | -iJ | +J  | +i  | -1  |
+//     | αΓΛ | 0   | 0   | 0   | 0   | 0   | 0   | 0   |
 //     +-----+-----+-----+-----+-----+-----+-----+-----+
 // This binary operation is commutative and associative.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
@@ -231,16 +231,11 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	n := y.Norm()
-	temp := new(Int64)
-	z.Mul(x, temp.Star3(y))
-	z.Mul(z, temp.Star2(temp))
-	z.Mul(z, temp.Star1(temp))
-	z.Mul(z, temp.Star2(y))
-	z.Mul(z, temp.Star1(temp))
-	z.Mul(z, temp.Star1(y))
-	z.Mul(z, temp.Star3(temp))
-	return z.Divide(z, n)
+	a := y.Quad()
+	z.Mul(x, z.Star3(y))
+	z.l.Quo(&z.l, a)
+	z.r.Quo(&z.r, a)
+	return z
 }
 
 // Generate returns a random Int64 value for quick.Check testing.
