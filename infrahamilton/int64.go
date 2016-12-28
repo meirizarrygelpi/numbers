@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package cayley
+package infrahamilton
 
 import (
 	"math/rand"
@@ -15,7 +15,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int64 is a Cayley octonion with int64 components.
+// An Int64 is an infra-Hamilton quaternion with int64 components.
 type Int64 struct {
 	l, r hamilton.Int64
 }
@@ -49,8 +49,8 @@ func (z *Int64) Unreal() *vec7.Int64 {
 
 // String returns the string version of a Int64 value.
 //
-// If z corresponds to a+bi+cj+dk+em+fn+gp+hq, then the string is
-// "⦗a+bi+cj+dk+em+fn+gp+hq⦘", similar to complex128 values.
+// If z corresponds to a+bi+cj+dk+eα+fβ+gγ+hδ, then the string is
+// "⦗a+bi+cj+dk+eα+fβ+gγ+hδ⦘", similar to complex128 values.
 func (z *Int64) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
@@ -82,7 +82,7 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to a Cayley octonion made with a given pair, and
+// SetPair sets z equal to an infra-Hamilton quaternion made with a given pair, and
 // then it returns z.
 func (z *Int64) SetPair(a, b *hamilton.Int64) *Int64 {
 	z.l.Set(a)
@@ -90,7 +90,7 @@ func (z *Int64) SetPair(a, b *hamilton.Int64) *Int64 {
 	return z
 }
 
-// NewInt64 returns a pointer to the Int64 value a+bi+cj+dk+em+fn+gp+hq.
+// NewInt64 returns a pointer to the Int64 value a+bi+cj+dk+eα+fβ+gγ+hδ.
 func NewInt64(a, b, c, d, e, f, g, h int64) *Int64 {
 	z := new(Int64)
 	z.l.SetPair(
@@ -149,10 +149,7 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
 	a, b, temp := new(hamilton.Int64), new(hamilton.Int64), new(hamilton.Int64)
-	a.Sub(
-		a.Mul(&x.l, &y.l),
-		temp.Mul(temp.Conj(&y.r), &x.r),
-	)
+	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
 		temp.Mul(&x.r, temp.Conj(&y.l)),
@@ -182,30 +179,36 @@ func (z *Int64) Associator(w, x, y *Int64) *Int64 {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bi+cj+dk+em+fn+gp+hq, then the
+// Quad returns the quadrance of z. If z = a+bi+cj+dk+eα+fβ+gγ+hδ, then the
 // quadrance is
-// 		a² + b² + c² + d² + e² + f² + g² + h²
+// 		a² + b² + c² + d²
 // This is always non-negative.
 func (z *Int64) Quad() int64 {
-	return z.l.Quad() + z.r.Quad()
+	return z.l.Quad()
+}
+
+// IsZeroDivisor returns true if z is a zero divisor.
+func (z *Int64) IsZeroDivisor() bool {
+	zero := new(hamilton.Int64)
+	return z.l.Equals(zero)
 }
 
 // QuoL sets z equal to the left quotient of x and y:
 // 		Mul(Inv(y), x)
-// Then it returns z. If y is zero, then QuoL panics.
+// Then it returns z. If y is a zero divisor, then QuoL panics.
 func (z *Int64) QuoL(x, y *Int64) *Int64 {
-	if zero := new(Int64); y.Equals(zero) {
-		panic(zeroDenominator)
+	if y.IsZeroDivisor() {
+		panic(zeroDivisorDenominator)
 	}
 	return z.Divide(z.Mul(z.Conj(y), x), y.Quad())
 }
 
 // QuoR sets z equal to the right quotient of x and y:
 // 		Mul(x, Inv(y))
-// Then it returns z. If y is zero, then QuoR panics.
+// Then it returns z. If y is a zero divisor, then QuoR panics.
 func (z *Int64) QuoR(x, y *Int64) *Int64 {
-	if zero := new(Int64); y.Equals(zero) {
-		panic(zeroDenominator)
+	if y.IsZeroDivisor() {
+		panic(zeroDivisorDenominator)
 	}
 	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
 }
