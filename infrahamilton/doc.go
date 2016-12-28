@@ -16,7 +16,7 @@ The multiplication table is
 The multiplcation operation for infra-Hamilton quaternions is non-commutative and
 non-associative.
 
-Infra-Hamilton quaternions are a parabolic Cayley-Dickson construct with hamilton
+Infra-Hamilton quaternions are a parabolic Cayley-Dickson construct with Hamilton
 quaternions.
 */
 package infrahamilton
