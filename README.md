@@ -36,6 +36,7 @@ Here is a list of available packages:
 1. `infrahamilton`: infra-Hamilton quaternions (different from the dual-Hamilton quaternions; eight-dimensional)
 1. `infracockle`: infra-Cockle quaternions (different from the dual-Cockle quaternions; eight-dimensional)
 1. `supracplex`: supra-complex numbers (different from the hyper-complex numbers; eight-dimensional)
+1. `suprapplex`: supra-perplex numbers (different from the hyper-perplex numbers; eight-dimensional)
 1. `tricplex`: tri-complex numbers (complexification of the bi-complex numbers; eight-dimensional)
 1. `trinplex`: tri-nilplex numbers (nilplexification of the hyper numbers; eight-dimensional)
 1. `tripplex`: tri-perplex numbers (perplexification of the bi-perplex numbers; eight-dimensional)
@@ -44,7 +45,6 @@ Here is a list of available packages:
 
 Here is a list of future packages:
 
-1. `suprapplex`: supra-perplex numbers (different from the hyper-perplex numbers; eight-dimensional)
 1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
 1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
 1. `laurent`: Laurent polynomials
