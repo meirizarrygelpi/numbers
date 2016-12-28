@@ -9,8 +9,22 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A dual-complex number has four components and it is written in the form
+    a+bi+cΓ+diΓ
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | i  | Γ  | iΓ |
+    +-----+----+----+----+
+    | i   | -1 | iΓ | -Γ |
+    +-----+----+----+----+
+    | Γ   | iΓ | 0  | 0  |
+    +-----+----+----+----+
+    | iΓ  | -Γ | 0  | 0  |
+    +-----+----+----+----+
 The multiplcation operation for dual-complex numbers is commutative and
 associative (for non-floats).
+
+Dual-complex numbers are a nilplexification of complex numbers.
 */
 package dualcplex
 

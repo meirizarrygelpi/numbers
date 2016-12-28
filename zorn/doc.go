@@ -9,8 +9,15 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A Zorn octonion has eight components and it is written in the form
+    a+bi+cj+dk+er+fs+gt+hu
+The multiplication table is
+    ...
 The multiplcation operation for Zorn octonions is non-commutative and
 non-associative.
+
+Zorn octonions are a hyperbolic Cayley-Dickson construct with Hamilton
+quaternions.
 */
 package zorn
 

@@ -9,8 +9,23 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+An infra-perplex number has four components and it is written in the form
+    a+bs+cτ+dυ
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | s  | τ  | υ  |
+    +-----+----+----+----+
+    | s   | +1 | +υ | +τ |
+    +-----+----+----+----+
+    | τ   | -υ | 0  | 0  |
+    +-----+----+----+----+
+    | υ   | -τ | 0  | 0  |
+    +-----+----+----+----+
 The multiplcation operation for infra-perplex numbers is non-commutative but
 associative (for non-floats).
+
+Infra-perplex numbers are a parabolic Cayley-Dickson construct with perplex
+numbers.
 */
 package infrapplex
 

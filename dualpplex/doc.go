@@ -9,8 +9,22 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A dual-perplex number has four components and it is written in the form
+    a+bs+cΓ+dsΓ
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | s  | Γ  | sΓ |
+    +-----+----+----+----+
+    | s   | +1 | sΓ | +Γ |
+    +-----+----+----+----+
+    | Γ   | sΓ | 0  | 0  |
+    +-----+----+----+----+
+    | sΓ  | +Γ | 0  | 0  |
+    +-----+----+----+----+
 The multiplcation operation for dual-perplex numbers is commutative and
 associative (for non-floats).
+
+Dual-perplex numbers are a nilplexification of perplex numbers.
 */
 package dualpplex
 

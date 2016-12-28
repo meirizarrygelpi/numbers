@@ -9,8 +9,23 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+An infra-complex number has four components and it is written in the form
+    a+bi+cβ+dγ
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | i  | β  | γ  |
+    +-----+----+----+----+
+    | i   | -1 | +γ | -β |
+    +-----+----+----+----+
+    | β   | -γ | 0  | 0  |
+    +-----+----+----+----+
+    | γ   | +β | 0  | 0  |
+    +-----+----+----+----+
 The multiplcation operation for infra-complex numbers is non-commutative but
 associative (for non-floats).
+
+Infra-complex numbers are a parabolic Cayley-Dickson construct with complex
+numbers.
 */
 package infracplex
 

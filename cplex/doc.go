@@ -9,8 +9,18 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A complex number has two components and it is written in the form
+    a+bi
+The multiplication table is:
+    +-----+----+
+    | Mul | i  |
+    +-----+----+
+    | i   | -1 |
+    +-----+----+
 The multiplcation operation for complex numbers is commutative and associative
 (for non-floats).
+
+Complex numbers are a complexification of real numbers.
 */
 package cplex
 

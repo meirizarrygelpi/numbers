@@ -9,8 +9,31 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A Cayley octonion has eight components and it is written in the form
+    a+bi+cj+dk+em+fn+gp+hq
+The multiplication table is:
+    +-----+----+----+----+----+----+----+----+
+    | Mul | i  | j  | k  | m  | n  | p  | q  |
+    +-----+----+----+----+----+----+----+----+
+    | i   | -1 | +k | -j | +n | -m | -q | +p |
+    +-----+----+----+----+----+----+----+----+
+    | j   | -k | -1 | +i | +p | +q | -m | -n |
+    +-----+----+----+----+----+----+----+----+
+    | k   | +j | -i | -1 | +q | -p | +n | -m |
+    +-----+----+----+----+----+----+----+----+
+    | m   | -n | -p | -q | -1 | +i | +j | +k |
+    +-----+----+----+----+----+----+----+----+
+    | n   | +m | -q | +p | -i | -1 | -k | +j |
+    +-----+----+----+----+----+----+----+----+
+    | p   | +q | +m | -n | -j | +k | -1 | -i |
+    +-----+----+----+----+----+----+----+----+
+    | q   | -p | +n | +m | -k | -j | +i | -1 |
+    +-----+----+----+----+----+----+----+----+
 The multiplcation operation for Cayley octonions is non-commutative and
 non-associative.
+
+Cayley octonions are an elliptic Cayley-Dickson construct with Hamilton
+quaternions.
 */
 package cayley
 

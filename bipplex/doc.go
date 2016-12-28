@@ -9,8 +9,22 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A bi-perplex number has four components and is written in the form
+    a+bs+cT+dsT
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | s  | T  | sT |
+    +-----+----+----+----+
+    | s   | +1 | sT | T  |
+    +-----+----+----+----+
+    | T   | sT | +1 | s  |
+    +-----+----+----+----+
+    | sT  | T  | s  | +1 |
+    +-----+----+----+----+
 The multiplcation operation for bi-perplex numbers is commutative and
 associative (for non-floats).
+
+Bi-perplex numbers are a perplexification of perplex numbers.
 */
 package bipplex
 

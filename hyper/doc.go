@@ -9,8 +9,22 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A hyper number has four components and it is written in the form
+    a+bα+cΓ+dαΓ
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | α  | Γ  | αΓ |
+    +-----+----+----+----+
+    | α   | 0  | αΓ | 0  |
+    +-----+----+----+----+
+    | Γ   | αΓ | 0  | 0  |
+    +-----+----+----+----+
+    | αΓ  | 0  | 0  | 0  |
+    +-----+----+----+----+
 The multiplcation operation for hyper numbers is commutative and
 associative (for non-floats).
+
+Hyper numbers are a nilplexification of nilplex numbers.
 */
 package hyper
 

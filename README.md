@@ -31,6 +31,8 @@ Here is a list of available packages:
 1. `dualcplex`: dual-complex numbers (nilplexification of the complex numbers; four-dimensional)
 1. `dualpplex`: dual-perplex numbers (nilplexification of the perplex numbers; four-dimensional)
 1. `cayley`: Cayley octonions (i.e. traditional [octonions](https://en.wikipedia.org/wiki/Octonion); can also be referred to as elliptic octonions; eight-dimensional)
+1. `zorn`: Zorn octonions (more commonly known as [split-octonions](https://en.wikipedia.org/wiki/Split-octonion); can also be referred to as hyperbolic octonions; eight-dimensional)
+1. `ultra`: ultra numbers (different from tri-nilplex numbers; can also be referred to as parabolic octonions; eight-dimensional)
 1. `tricplex`: tri-complex numbers (complexification of the bi-complex numbers; eight-dimensional)
 1. `trinplex`: tri-nilplex numbers (nilplexification of the hyper numbers; eight-dimensional)
 1. `tripplex`: tri-perplex numbers (perplexification of the bi-perplex numbers; eight-dimensional)
@@ -39,8 +41,6 @@ Here is a list of available packages:
 
 Here is a list of future packages:
 
-1. `zorn`: Zorn octonions (more commonly known as [split-octonions](https://en.wikipedia.org/wiki/Split-octonion); can also be referred to as hyperbolic octonions; eight-dimensional)
-1. `ultra`: ultra numbers (different from tri-nilplex numbers; can also be referred to as parabolic octonions; eight-dimensional)
 1. `infrahamilton`: infra-Hamilton quaternions (different from the dual-Hamilton quaternions; eight-dimensional)
 1. `infracockle`: infra-Cockle quaternions (different from the dual-Cockle quaternions; eight-dimensional)
 1. `supracplex`: supra-complex numbers (different from the hyper-complex numbers; eight-dimensional)

@@ -9,8 +9,18 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A perplex number has two components and it is written in the form
+    a+bs
+The multiplication table is:
+    +-----+----+
+    | Mul | s  |
+    +-----+----+
+    | s   | +1 |
+    +-----+----+
 The multiplcation operation for perplex numbers is commutative and associative
 (for non-floats).
+
+Perplex numbers are a perplexification of real numbers.
 */
 package pplex
 

@@ -140,18 +140,6 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-//
-// The multiplication table is:
-//     +-----+----+----+----+
-//     | Mul | s  | Γ  | sΓ |
-//     +-----+----+----+----+
-//     | s   | +1 | sΓ | +Γ |
-//     +-----+----+----+----+
-//     | Γ   | sΓ | 0  | 0  |
-//     +-----+----+----+----+
-//     | sΓ  | +Γ | 0  | 0  |
-//     +-----+----+----+----+
-// This binary operation is commutative and associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
 	a, b, temp := new(pplex.Rat), new(pplex.Rat), new(pplex.Rat)
 	a.Mul(&x.l, &y.l)

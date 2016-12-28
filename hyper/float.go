@@ -190,18 +190,6 @@ func (z *Float) Sub(x, y *Float) *Float {
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-//
-// The multiplication table is:
-//     +-----+----+----+----+
-//     | Mul | α  | Γ  | αΓ |
-//     +-----+----+----+----+
-//     | α   | 0  | αΓ | 0  |
-//     +-----+----+----+----+
-//     | Γ   | αΓ | 0  | 0  |
-//     +-----+----+----+----+
-//     | αΓ  | 0  | 0  | 0  |
-//     +-----+----+----+----+
-// This binary operation is commutative and associative.
 func (z *Float) Mul(x, y *Float) *Float {
 	a, b, temp := new(nplex.Float), new(nplex.Float), new(nplex.Float)
 	a.Mul(&x.l, &y.l)

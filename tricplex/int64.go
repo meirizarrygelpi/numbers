@@ -168,26 +168,6 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-//
-// The multiplication table is:
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | Mul | i   | J   | iJ  | K   | iK  | JK  | iJK |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | i   | -1  | iJ  | -J  | iK  | -K  | iJK | -JK |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | J   | iJ  | -1  | -i  | JK  | iJK | -K  | -iK |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | iJ  | -J  | -i  | +1  | iJK | -JK | -iK | +K  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | K   | iK  | JK  | iJK | -1  | -i  | -J  | -iJ |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | iK  | -K  | iJK | -JK | -i  | +1  | -iJ | +J  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | JK  | iJK | -K  | -iK | -J  | -iK | +1  | +i  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | iJK | -JK | -iK | +K  | -iJ | +J  | +i  | -1  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-// This binary operation is commutative and associative.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
 	a, b, temp := new(bicplex.Int64), new(bicplex.Int64), new(bicplex.Int64)
 	a.Sub(

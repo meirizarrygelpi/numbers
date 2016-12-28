@@ -9,8 +9,30 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A tri-nilplex number has eight components and it is written in the form
+    a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ
+The multiplication table is:
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | Mul | α   | Γ   | αΓ  | Λ   | αΛ  | ΓΛ  | αΓΛ |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | α   | 0   | αΓ  | 0   | αΛ  | 0   | αΓΛ | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | Γ   | αΓ  | 0   | 0   | ΓΛ  | αΓΛ | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | αΓ  | 0   | 0   | 0   | αΓΛ | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | Λ   | αΛ  | ΓΛ  | αΓΛ | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | αΛ  | 0   | αΓΛ | 0   | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | ΓΛ  | αΓΛ | 0   | 0   | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | αΓΛ | 0   | 0   | 0   | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 The multiplcation operation for tri-nilplex numbers is commutative and
 associative (for non-floats).
+
+Tri-nilplex numbers are a nilplexification of hyper numbers.
 */
 package trinplex
 

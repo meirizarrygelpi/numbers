@@ -155,26 +155,6 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-//
-// The multiplication table is:
-//     +-----+----+----+----+----+----+----+----+
-//     | Mul | i  | j  | k  | m  | n  | p  | q  |
-//     +-----+----+----+----+----+----+----+----+
-//     | i   | -1 | +k | -j | +n | -m | -q | +p |
-//     +-----+----+----+----+----+----+----+----+
-//     | j   | -k | -1 | +i | +p | +q | -m | -n |
-//     +-----+----+----+----+----+----+----+----+
-//     | k   | +j | -i | -1 | +q | -p | +n | -m |
-//     +-----+----+----+----+----+----+----+----+
-//     | m   | -n | -p | -q | -1 | +i | +j | +k |
-//     +-----+----+----+----+----+----+----+----+
-//     | n   | +m | -q | +p | -i | -1 | -k | +j |
-//     +-----+----+----+----+----+----+----+----+
-//     | p   | +q | +m | -n | -j | +k | -1 | -i |
-//     +-----+----+----+----+----+----+----+----+
-//     | q   | -p | +n | +m | -k | -j | +i | -1 |
-//     +-----+----+----+----+----+----+----+----+
-// This binary operation is non-commutative and non-associative.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
 	a, b, temp := new(hamilton.Float64), new(hamilton.Float64), new(hamilton.Float64)
 	a.Add(

@@ -160,26 +160,6 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-//
-// The multiplication table is:
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | Mul | s   | T   | sT  | U   | sU  | TU  | sTU |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | s   | 1   | sT  | T   | sU  | U   | sTU | TU  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | T   | sT  | 1   | s   | TU  | sTU | U   | sU  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | sT  | T   | s   | 1   | sTU | TU  | sU  | U   |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | U   | sU  | TU  | sTU | 1   | s   | T   | sT  |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | sU  | U   | sTU | TU  | s   | 1   | sT  | T   |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | TU  | sTU | U   | sU  | T   | sT  | 1   | s   |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-//     | sTU | TU  | sU  | U   | sT  | T   | s   | 1   |
-//     +-----+-----+-----+-----+-----+-----+-----+-----+
-// This binary operation is commutative and associative.
 func (z *Rat) Mul(x, y *Rat) *Rat {
 	a, b, temp := new(bipplex.Rat), new(bipplex.Rat), new(bipplex.Rat)
 	a.Add(

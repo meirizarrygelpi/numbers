@@ -9,8 +9,30 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A hyper-perplex number has eight components and it is written in the form
+    a+bs+cΓ+dsΓ+eΛ+fsΛ+gΓΛ+hsΓΛ
+The multiplication table is:
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | Mul | s   | Γ   | sΓ  | Λ   | sΛ  | ΓΛ  | sΓΛ |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | s   | 1   | sΓ  | Γ   | sΛ  | Λ   | sΓΛ | ΓΛ  |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | Γ   | sΓ  | 0   | 0   | ΓΛ  | sΓΛ | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | sΓ  | Γ   | 0   | 0   | sΓΛ | ΓΛ  | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | Λ   | sΛ  | ΓΛ  | sΓΛ | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | sΛ  | Λ   | sΓΛ | ΓΛ  | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | ΓΛ  | sΓΛ | 0   | 0   | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | sΓΛ | ΓΛ  | 0   | 0   | 0   | 0   | 0   | 0   |
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 The multiplcation operation for hyper-perplex numbers is commutative and
 associative (for non-floats).
+
+Hyper-perplex numbers are a nilplexification of dual-perplex numbers.
 */
 package hyperpplex
 

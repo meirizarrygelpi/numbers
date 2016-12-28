@@ -9,8 +9,22 @@ implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
+A bi-complex number has four components and is written in the form
+    a+bi+cJ+diJ
+The multiplication table is:
+    +-----+----+----+----+
+    | Mul | i  | J  | iJ |
+    +-----+----+----+----+
+    | i   | -1 | iJ | -J |
+    +-----+----+----+----+
+    | J   | iJ | -1 | -i |
+    +-----+----+----+----+
+    | iJ  | -J | -i | +1 |
+    +-----+----+----+----+
 The multiplcation operation for bi-complex numbers is commutative and
 associative (for non-floats).
+
+Bi-complex numbers are a complexification of complex numbers.
 */
 package bicplex
 
