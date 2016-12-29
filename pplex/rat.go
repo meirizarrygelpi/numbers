@@ -120,8 +120,8 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 		temp.Mul(&y.r, &x.r),
 	)
 	b.Add(
-		b.Mul(&y.r, &x.l),
 		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
 	return z
@@ -161,7 +161,18 @@ func (z *Rat) Quo(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	q := y.Quad()
+	a, b, temp := new(big.Rat), new(big.Rat), new(big.Rat)
+	a.Sub(
+		a.Mul(&x.l, &y.l),
+		temp.Mul(&y.r, &x.r),
+	)
+	b.Sub(
+		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
+	)
+	z.SetPair(a, b)
+	return z.Scale(z, q.Inv(q))
 }
 
 // CrossRatio sets z equal to the cross-ratio of v, w, x, and y:

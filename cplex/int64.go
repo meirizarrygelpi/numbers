@@ -140,10 +140,11 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if zero := new(Int64); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
+	q := y.Quad()
 	a := (x.l * y.l) + (y.r * x.r)
 	b := (x.r * y.l) - (y.r * x.l)
 	z.SetPair(a, b)
-	return z.Divide(z, y.Quad())
+	return z.Divide(z, q)
 }
 
 // Generate returns a random Int64 value for quick.Check testing.

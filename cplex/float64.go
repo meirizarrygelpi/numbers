@@ -156,10 +156,11 @@ func (z *Float64) Quo(x, y *Float64) *Float64 {
 	if zero := new(Float64); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
+	q := y.Quad()
 	a := (x.l * y.l) + (y.r * x.r)
 	b := (x.r * y.l) - (y.r * x.l)
 	z.SetPair(a, b)
-	return z.Divide(z, y.Quad())
+	return z.Divide(z, q)
 }
 
 // Gauss sets z equal to the Gaussian integer a+bi, and returns z.

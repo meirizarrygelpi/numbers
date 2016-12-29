@@ -171,8 +171,8 @@ func (z *Float) Mul(x, y *Float) *Float {
 		temp.Mul(&y.r, &x.r),
 	)
 	b.Add(
-		b.Mul(&y.r, &x.l),
 		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
 	return z
@@ -195,8 +195,8 @@ func (z *Float) IsZeroDivisor() bool {
 	return z.l.Cmp(&z.r) == 0 || z.l.Cmp(new(big.Float).Neg(&z.r)) == 0
 }
 
-// Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
-// panics.
+// Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
+// then Inv panics.
 func (z *Float) Inv(y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
@@ -204,13 +204,24 @@ func (z *Float) Inv(y *Float) *Float {
 	return z.Divide(z.Conj(y), y.Quad())
 }
 
-// Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
-// then Quo panics.
+// Quo sets z equal to the quotient of x and y, and returns z. If y is a zero
+// divisor, then Quo panics.
 func (z *Float) Quo(x, y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
+	q := y.Quad()
+	a, b, temp := new(big.Float), new(big.Float), new(big.Float)
+	a.Sub(
+		a.Mul(&x.l, &y.l),
+		temp.Mul(&y.r, &x.r),
+	)
+	b.Sub(
+		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
+	)
+	z.SetPair(a, b)
+	return z.Divide(z, q)
 }
 
 // CrossRatio sets z equal to the cross-ratio of v, w, x, and y:

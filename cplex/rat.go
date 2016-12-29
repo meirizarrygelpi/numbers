@@ -155,6 +155,7 @@ func (z *Rat) Quo(x, y *Rat) *Rat {
 	if zero := new(Rat); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
+	q := y.Quad()
 	a, b, temp := new(big.Rat), new(big.Rat), new(big.Rat)
 	a.Add(
 		a.Mul(&x.l, &y.l),
@@ -165,7 +166,6 @@ func (z *Rat) Quo(x, y *Rat) *Rat {
 		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
-	q := y.Quad()
 	return z.Scale(z, q.Inv(q))
 }
 

@@ -151,6 +151,7 @@ func (z *Int) Quo(x, y *Int) *Int {
 	if zero := new(Int); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
+	q := y.Quad()
 	a, b, temp := new(big.Int), new(big.Int), new(big.Int)
 	a.Add(
 		a.Mul(&x.l, &y.l),
@@ -161,7 +162,7 @@ func (z *Int) Quo(x, y *Int) *Int {
 		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
-	return z.Divide(z, y.Quad())
+	return z.Divide(z, q)
 }
 
 // Generate returns a random Int value for quick.Check testing.

@@ -327,3 +327,19 @@ func TestCompositionRat(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+// Quotient
+
+func TestQuotientsRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		z, p, q := new(Rat), new(Rat), new(Rat)
+		z.Mul(x, y)
+		p.Quo(z, y)
+		q.Quo(z, x)
+		return p.Equals(x) && q.Equals(y)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
