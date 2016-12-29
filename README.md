@@ -45,6 +45,8 @@ Here is a list of available packages:
 
 Here is a list of future packages:
 
+1. `bihamilton`: bi-Hamilton quaternions (complexification of Hamilton quaternions; eight-dimensional)
+1. `bicockle`: bi-Cockle quaternions (complexification of Cockle quaternions; eight-dimensional)
 1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
 1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
 1. `laurent`: Laurent polynomials

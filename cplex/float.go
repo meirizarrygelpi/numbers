@@ -171,8 +171,8 @@ func (z *Float) Mul(x, y *Float) *Float {
 		temp.Mul(&y.r, &x.r),
 	)
 	b.Add(
-		b.Mul(&y.r, &x.l),
-		temp.Mul(&x.r, &y.l),
+		b.Mul(&x.r, &y.l),
+		temp.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
 	return z
@@ -204,7 +204,17 @@ func (z *Float) Quo(x, y *Float) *Float {
 	if zero := new(Float).Zero(); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	a, b, temp := new(big.Float), new(big.Float), new(big.Float)
+	a.Add(
+		a.Mul(&x.l, &y.l),
+		temp.Mul(&y.r, &x.r),
+	)
+	b.Sub(
+		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
+	)
+	z.SetPair(a, b)
+	return z.Divide(z, y.Quad())
 }
 
 // Gauss sets z equal to the Gaussian integer a+bi, and returns z.

@@ -129,7 +129,7 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
 	a := (x.l * y.l) - (y.r * x.r)
-	b := (y.r * x.l) + (x.r * y.l)
+	b := (x.r * y.l) + (y.r * x.l)
 	z.SetPair(a, b)
 	return z
 }
@@ -156,7 +156,10 @@ func (z *Float64) Quo(x, y *Float64) *Float64 {
 	if zero := new(Float64); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	a := (x.l * y.l) + (y.r * x.r)
+	b := (x.r * y.l) - (y.r * x.l)
+	z.SetPair(a, b)
+	return z.Divide(z, y.Quad())
 }
 
 // Gauss sets z equal to the Gaussian integer a+bi, and returns z.

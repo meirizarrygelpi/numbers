@@ -120,8 +120,8 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 		temp.Mul(&y.r, &x.r),
 	)
 	b.Add(
-		b.Mul(&y.r, &x.l),
 		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
 	return z
@@ -155,7 +155,18 @@ func (z *Rat) Quo(x, y *Rat) *Rat {
 	if zero := new(Rat); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	a, b, temp := new(big.Rat), new(big.Rat), new(big.Rat)
+	a.Add(
+		a.Mul(&x.l, &y.l),
+		temp.Mul(&y.r, &x.r),
+	)
+	b.Sub(
+		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
+	)
+	z.SetPair(a, b)
+	q := y.Quad()
+	return z.Scale(z, q.Inv(q))
 }
 
 // Gauss sets z equal to the Gaussian integer a+bi, and returns z.

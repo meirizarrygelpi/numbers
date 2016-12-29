@@ -122,7 +122,7 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
 	a := (x.l * y.l) - (y.r * x.r)
-	b := (y.r * x.l) + (x.r * y.l)
+	b := (x.r * y.l) + (y.r * x.l)
 	z.SetPair(a, b)
 	return z
 }
@@ -140,11 +140,10 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	if zero := new(Int64); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
-	q := y.Quad()
-	z.Conj(y)
-	z.Mul(x, z)
-	z.Divide(z, q)
-	return z
+	a := (x.l * y.l) + (y.r * x.r)
+	b := (x.r * y.l) - (y.r * x.l)
+	z.SetPair(a, b)
+	return z.Divide(z, y.Quad())
 }
 
 // Generate returns a random Int64 value for quick.Check testing.

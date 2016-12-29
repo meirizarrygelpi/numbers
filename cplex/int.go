@@ -127,8 +127,8 @@ func (z *Int) Mul(x, y *Int) *Int {
 		temp.Mul(&y.r, &x.r),
 	)
 	b.Add(
-		b.Mul(&y.r, &x.l),
 		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
 	return z
@@ -151,11 +151,17 @@ func (z *Int) Quo(x, y *Int) *Int {
 	if zero := new(Int); y.Equals(zero) {
 		panic(zeroDenominator)
 	}
-	q := y.Quad()
-	z.Conj(y)
-	z.Mul(x, z)
-	z.Divide(z, q)
-	return z
+	a, b, temp := new(big.Int), new(big.Int), new(big.Int)
+	a.Add(
+		a.Mul(&x.l, &y.l),
+		temp.Mul(&y.r, &x.r),
+	)
+	b.Sub(
+		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
+	)
+	z.SetPair(a, b)
+	return z.Divide(z, y.Quad())
 }
 
 // Generate returns a random Int value for quick.Check testing.
