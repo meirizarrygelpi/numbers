@@ -129,7 +129,7 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
 	a := x.l * y.l
-	b := (y.r * x.l) + (x.r * y.l)
+	b := (x.r * y.l) + (y.r * x.l)
 	z.SetPair(a, b)
 	return z
 }
@@ -156,13 +156,17 @@ func (z *Float64) Inv(y *Float64) *Float64 {
 	return z.Divide(z.Conj(y), y.Quad())
 }
 
-// Quo sets z equal to the quotient of x and y, and returns z. If y is zero
+// Quo sets z equal to the quotient of x and y, and returns z. If y is a zero
 // divisor, then Quo panics.
 func (z *Float64) Quo(x, y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	q := y.Quad()
+	a := x.l * y.l
+	b := (x.r * y.l) - (y.r * x.l)
+	z.SetPair(a, b)
+	return z.Divide(z, q)
 }
 
 // CrossRatio sets z equal to the cross-ratio of v, w, x, and y:

@@ -168,8 +168,8 @@ func (z *Float) Mul(x, y *Float) *Float {
 	a, b, temp := new(big.Float), new(big.Float), new(big.Float)
 	a.Mul(&x.l, &y.l)
 	b.Add(
-		b.Mul(&y.r, &x.l),
 		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
 	)
 	z.SetPair(a, b)
 	return z
@@ -205,7 +205,15 @@ func (z *Float) Quo(x, y *Float) *Float {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	q := y.Quad()
+	a, b, temp := new(big.Float), new(big.Float), new(big.Float)
+	a.Mul(&x.l, &y.l)
+	b.Sub(
+		temp.Mul(&x.r, &y.l),
+		b.Mul(&y.r, &x.l),
+	)
+	z.SetPair(a, b)
+	return z.Divide(z, q)
 }
 
 // CrossRatio sets z equal to the cross-ratio of v, w, x, and y:
