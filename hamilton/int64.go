@@ -50,7 +50,7 @@ func (z *Int64) String() string {
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l.Real())
 	i := 2
-	for j, u := range [3]string{unit1, unit2, unit3} {
+	for j, u := range unitNames {
 		if v[j] < 0 {
 			a[i] = fmt.Sprint(v[j])
 		} else {
