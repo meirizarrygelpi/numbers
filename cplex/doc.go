@@ -31,3 +31,22 @@ const (
 	zeroInverse     = "inverse of zero"
 	unit            = "i"
 )
+
+var (
+	unitName = unit
+)
+
+// ResetUnitName sets the name of the complex unit to its default value.
+func ResetUnitName() {
+	unitName = unit
+}
+
+// SetUnitName sets the name of the complex unit.
+func SetUnitName(s string) {
+	unitName = s
+}
+
+// UnitName returns the current value of the name of the complex unit.
+func UnitName() string {
+	return unitName
+}

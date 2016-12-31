@@ -89,7 +89,7 @@ func (z *Float) String() string {
 	a[0] = leftBracket
 	a[1] = z.l.String()
 	a[2] = sprintFloat(&z.r)
-	a[3] = unit
+	a[3] = unitName
 	a[4] = rightBracket
 	return strings.Join(a, "")
 }

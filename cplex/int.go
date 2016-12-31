@@ -45,7 +45,7 @@ func (z *Int) String() string {
 	} else {
 		a[2] = "+" + z.r.String()
 	}
-	a[3] = unit
+	a[3] = unitName
 	a[4] = rightBracket
 	return strings.Join(a, "")
 }
