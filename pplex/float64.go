@@ -52,7 +52,7 @@ func (z *Float64) String() string {
 	a[0] = leftBracket
 	a[1] = fmt.Sprintf("%g", z.l)
 	a[2] = sprintFloat64(z.r)
-	a[3] = unit
+	a[3] = unitName
 	a[4] = rightBracket
 	return strings.Join(a, "")
 }

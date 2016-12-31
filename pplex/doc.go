@@ -31,3 +31,22 @@ const (
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit                   = "s"
 )
+
+var (
+	unitName = unit
+)
+
+// ResetUnitName sets the name of the perplex unit to its default value.
+func ResetUnitName() {
+	unitName = unit
+}
+
+// SetUnitName sets the name of the perplex unit.
+func SetUnitName(s string) {
+	unitName = s
+}
+
+// UnitName returns the current value of the name of the perplex unit.
+func UnitName() string {
+	return unitName
+}
