@@ -33,3 +33,22 @@ const (
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit                   = "α"
 )
+
+var (
+	unitName = unit
+)
+
+// ResetUnitName sets the name of the nilplex unit to its default value.
+func ResetUnitName() {
+	unitName = unit
+}
+
+// SetUnitName sets the name of the nilplex unit.
+func SetUnitName(s string) {
+	unitName = s
+}
+
+// UnitName returns the current value of the name of the nilplex unit.
+func UnitName() string {
+	return unitName
+}
