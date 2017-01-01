@@ -96,7 +96,7 @@ func (z *Float) String() string {
 	a[0] = leftBracket
 	a[1] = z.l.Real().String()
 	i := 2
-	for j, u := range [3]string{unit1, unit2, unit3} {
+	for j, u := range unitNames {
 		a[i] = sprintFloat(v[j])
 		a[i+1] = u
 		i += 2
