@@ -37,3 +37,27 @@ const (
 	unit2                  = "β"
 	unit3                  = "γ"
 )
+
+var (
+	unitNames = [3]string{unit1, unit2, unit3}
+)
+
+// ResetUnitNames sets the names of the supra units equal to their
+// default values.
+func ResetUnitNames() {
+	unitNames[0] = unit1
+	unitNames[1] = unit2
+	unitNames[2] = unit3
+}
+
+// SetUnitNames sets the names of the supra units.
+func SetUnitNames(u1, u2, u3 string) {
+	unitNames[0] = u1
+	unitNames[1] = u2
+	unitNames[2] = u3
+}
+
+// UnitNames returns the current names of the supra units.
+func UnitNames() [3]string {
+	return unitNames
+}
