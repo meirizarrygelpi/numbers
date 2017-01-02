@@ -56,7 +56,7 @@ func (z *Rat) String() string {
 	a[0] = leftBracket
 	a[1] = z.l.Real().RatString()
 	i := 2
-	for j, u := range [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7} {
+	for j, u := range unitNames {
 		if v[j].Sign() < 0 {
 			a[i] = v[j].RatString()
 		} else {
