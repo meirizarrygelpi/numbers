@@ -69,7 +69,7 @@ func (z *Float64) String() string {
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l.Real())
 	i := 2
-	for j, u := range [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7} {
+	for j, u := range unitNames {
 		a[i] = sprintFloat64(v[j])
 		a[i+1] = u
 		i += 2
