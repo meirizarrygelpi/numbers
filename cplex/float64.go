@@ -77,6 +77,18 @@ func (z *Float64) SetPair(a, b float64) *Float64 {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Float64) SetReal(a float64) *Float64 {
+	z.l = a
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to b, and then it returns z.
+func (z *Float64) SetUnreal(b float64) *Float64 {
+	z.r = b
+	return z
+}
+
 // NewFloat64 returns a pointer to the Float64 value a+bi.
 func NewFloat64(a, b float64) *Float64 {
 	z := new(Float64)

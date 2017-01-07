@@ -70,6 +70,18 @@ func (z *Int) SetPair(a, b *big.Int) *Int {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Int) SetReal(a *big.Int) *Int {
+	z.l.Set(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to b, and then it returns z.
+func (z *Int) SetUnreal(b *big.Int) *Int {
+	z.r.Set(b)
+	return z
+}
+
 // NewInt returns a pointer to the Int value a+bi.
 func NewInt(a, b *big.Int) *Int {
 	z := new(Int)
