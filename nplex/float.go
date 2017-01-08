@@ -35,7 +35,7 @@ func (z *Float) Mode() big.RoundingMode {
 	return z.l.Mode()
 }
 
-// Prec returns the precision of z in bits of the real part of z.
+// Prec returns the precision in bits of the real part of z.
 func (z *Float) Prec() uint {
 	return z.l.Prec()
 }
