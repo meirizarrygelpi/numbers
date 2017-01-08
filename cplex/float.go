@@ -8,6 +8,8 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
 )
 
 // A Float is a complex number with big.Float components.
@@ -278,6 +280,33 @@ func (z *Float) Möbius(y, a, b, c, d *Float) *Float {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Float) Maclaurin(y *Float, p maclaurin.Float) *Float {
+	if len(p) == 0 {
+		return z.Zero()
+	}
+	deg := p.Degrees()
+	n := deg[0]
+	if n == 0 {
+		z = new(Float)
+		z.SetReal(p[n])
+		return z
+	}
+	z.Dilate(y, p[n])
+	for n > 1 {
+		n--
+		if a, ok := p[n]; ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p[0]; ok {
+		z.Plus(z, a)
+	}
+	return z
 }
 
 // Generate returns a random Float value for quick.Check testing.

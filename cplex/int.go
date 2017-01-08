@@ -8,6 +8,8 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
 )
 
 // An Int represents a rational complex number.
@@ -189,6 +191,34 @@ func (z *Int) Quo(x, y *Int) *Int {
 	)
 	z.SetPair(a, b)
 	return z.Divide(z, q)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Int) Maclaurin(y *Int, p maclaurin.Int) *Int {
+	if len(p) == 0 {
+		z = new(Int)
+		return z
+	}
+	deg := p.Degrees()
+	n := deg[0]
+	if n == 0 {
+		z = new(Int)
+		z.SetReal(p[n])
+		return z
+	}
+	z.Dilate(y, p[n])
+	for n > 1 {
+		n--
+		if a, ok := p[n]; ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p[0]; ok {
+		z.Plus(z, a)
+	}
+	return z
 }
 
 // Generate returns a random Int value for quick.Check testing.

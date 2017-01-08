@@ -8,6 +8,8 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
 )
 
 // A Int64 is a complex number with int64 components.
@@ -171,6 +173,34 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	b := (x.r * y.l) - (y.r * x.l)
 	z.SetPair(a, b)
 	return z.Divide(z, q)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Int64) Maclaurin(y *Int64, p maclaurin.Int64) *Int64 {
+	if len(p) == 0 {
+		z = new(Int64)
+		return z
+	}
+	deg := p.Degrees()
+	n := deg[0]
+	if n == 0 {
+		z = new(Int64)
+		z.SetReal(p[n])
+		return z
+	}
+	z.Dilate(y, p[n])
+	for n > 1 {
+		n--
+		if a, ok := p[n]; ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p[0]; ok {
+		z.Plus(z, a)
+	}
+	return z
 }
 
 // Generate returns a random Int64 value for quick.Check testing.

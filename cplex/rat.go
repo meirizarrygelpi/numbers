@@ -8,6 +8,8 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
 )
 
 // A Rat represents an arbitrary-precision complex rational.
@@ -229,6 +231,34 @@ func (z *Rat) Möbius(y, a, b, c, d *Rat) *Rat {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Rat) Maclaurin(y *Rat, p maclaurin.Rat) *Rat {
+	if len(p) == 0 {
+		z = new(Rat)
+		return z
+	}
+	deg := p.Degrees()
+	n := deg[0]
+	if n == 0 {
+		z = new(Rat)
+		z.SetReal(p[n])
+		return z
+	}
+	z.Scale(y, p[n])
+	for n > 1 {
+		n--
+		if a, ok := p[n]; ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p[0]; ok {
+		z.Plus(z, a)
+	}
+	return z
 }
 
 // Generate returns a random Rat value for quick.Check testing.

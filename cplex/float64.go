@@ -9,6 +9,8 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
 )
 
 // A Float64 is a complex number with float64 components.
@@ -223,6 +225,34 @@ func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Float64) Maclaurin(y *Float64, p maclaurin.Float64) *Float64 {
+	if len(p) == 0 {
+		z = new(Float64)
+		return z
+	}
+	deg := p.Degrees()
+	n := deg[0]
+	if n == 0 {
+		z = new(Float64)
+		z.SetReal(p[n])
+		return z
+	}
+	z.Dilate(y, p[n])
+	for n > 1 {
+		n--
+		if a, ok := p[n]; ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p[0]; ok {
+		z.Plus(z, a)
+	}
+	return z
 }
 
 // Generate returns a random Float64 value for quick.Check testing.
