@@ -96,6 +96,20 @@ func NewFloat64(a, b float64) *Float64 {
 	return z
 }
 
+// Plus sets z equal to y+a, with a real, and returns z.
+func (z *Float64) Plus(y *Float64, a float64) *Float64 {
+	z.l = y.l + a
+	z.r = y.r
+	return z
+}
+
+// Minus sets z equal to y-a, with a real, and returns z.
+func (z *Float64) Minus(y *Float64, a float64) *Float64 {
+	z.l = y.l - a
+	z.r = y.r
+	return z
+}
+
 // Dilate sets z equal to y dilated by a, and returns z.
 func (z *Float64) Dilate(y *Float64, a float64) *Float64 {
 	z.l = y.l * a

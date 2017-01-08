@@ -89,6 +89,20 @@ func NewRat(a, b *big.Rat) *Rat {
 	return z
 }
 
+// Plus sets z equal to y+a, with a real, and returns z.
+func (z *Rat) Plus(y *Rat, a *big.Rat) *Rat {
+	z.l.Add(&y.l, a)
+	z.r.Set(&y.r)
+	return z
+}
+
+// Minus sets z equal to y-a, with a real, and returns z.
+func (z *Rat) Minus(y *Rat, a *big.Rat) *Rat {
+	z.l.Sub(&y.l, a)
+	z.r.Set(&y.r)
+	return z
+}
+
 // Scale sets z equal to y scaled by a, and returns z.
 func (z *Rat) Scale(y *Rat, a *big.Rat) *Rat {
 	z.l.Mul(&y.l, a)
