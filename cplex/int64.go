@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // A Int64 is a complex number with int64 components.
@@ -203,6 +204,15 @@ func (z *Int64) Maclaurin(y *Int64, p *maclaurin.Int64) *Int64 {
 		z.Plus(z, a)
 	}
 	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Int64) Padé(y *Int64, r *pade.Int64) *Int64 {
+	p, q := new(Int64), new(Int64)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Int64 value for quick.Check testing.

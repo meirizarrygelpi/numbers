@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // A Rat represents an arbitrary-precision complex rational.
@@ -261,6 +262,15 @@ func (z *Rat) Maclaurin(y *Rat, p *maclaurin.Rat) *Rat {
 		z.Plus(z, a)
 	}
 	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Rat) Padé(y *Rat, r *pade.Rat) *Rat {
+	p, q := new(Rat), new(Rat)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Rat value for quick.Check testing.

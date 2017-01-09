@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // A Float64 is a complex number with float64 components.
@@ -255,6 +256,15 @@ func (z *Float64) Maclaurin(y *Float64, p *maclaurin.Float64) *Float64 {
 		z.Plus(z, a)
 	}
 	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Float64) Padé(y *Float64, r *pade.Float64) *Float64 {
+	p, q := new(Float64), new(Float64)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Float64 value for quick.Check testing.

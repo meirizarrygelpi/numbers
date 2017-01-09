@@ -37,7 +37,7 @@ func (p *Rat) Len() int {
 }
 
 // Degrees returns a reverse-sorted slice with the non-negative degrees of p.
-func (p Rat) Degrees() Degrees {
+func (p *Rat) Degrees() Degrees {
 	n := p.Len()
 	deg := make(Degrees, n)
 	i := 0

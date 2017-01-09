@@ -37,7 +37,7 @@ func (p *Int) Len() int {
 }
 
 // Degrees returns a reverse-sorted slice with the non-negative degrees of p.
-func (p Int) Degrees() Degrees {
+func (p *Int) Degrees() Degrees {
 	n := p.Len()
 	deg := make(Degrees, n)
 	i := 0

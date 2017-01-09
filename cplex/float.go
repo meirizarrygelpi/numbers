@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // A Float is a complex number with big.Float components.
@@ -309,6 +310,15 @@ func (z *Float) Maclaurin(y *Float, p *maclaurin.Float) *Float {
 		z.Plus(z, a)
 	}
 	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Float) Padé(y *Float, r *pade.Float) *Float {
+	p, q := new(Float), new(Float)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Float value for quick.Check testing.

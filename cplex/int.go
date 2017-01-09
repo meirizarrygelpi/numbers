@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // An Int represents a rational complex number.
@@ -221,6 +222,15 @@ func (z *Int) Maclaurin(y *Int, p *maclaurin.Int) *Int {
 		z.Plus(z, a)
 	}
 	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Int) Padé(y *Int, r *pade.Int) *Int {
+	p, q := new(Int), new(Int)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Int value for quick.Check testing.
