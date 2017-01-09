@@ -177,7 +177,7 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 
 // Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
 // at y, and returns z. Horner's method is used.
-func (z *Int64) Maclaurin(y *Int64, p maclaurin.Int64) *Int64 {
+func (z *Int64) Maclaurin(y *Int64, p *maclaurin.Int64) *Int64 {
 	if p.Len() == 0 {
 		z = new(Int64)
 		return z

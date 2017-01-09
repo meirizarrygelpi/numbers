@@ -9,6 +9,11 @@ type Int64 struct {
 	Degree uint64
 }
 
+// NewInt64 returns a new zero-valued polynomial.
+func NewInt64() *Int64 {
+	return &Int64{c: make(map[uint64]int64)}
+}
+
 // SetTerm sets a term in p with degree n and coefficient a.
 func (p *Int64) SetTerm(n uint64, a int64) {
 	if n > p.Degree {

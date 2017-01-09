@@ -235,7 +235,7 @@ func (z *Rat) Möbius(y, a, b, c, d *Rat) *Rat {
 
 // Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
 // at y, and returns z. Horner's method is used.
-func (z *Rat) Maclaurin(y *Rat, p maclaurin.Rat) *Rat {
+func (z *Rat) Maclaurin(y *Rat, p *maclaurin.Rat) *Rat {
 	if p.Len() == 0 {
 		z = new(Rat)
 		return z

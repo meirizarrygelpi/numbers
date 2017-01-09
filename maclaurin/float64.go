@@ -9,6 +9,11 @@ type Float64 struct {
 	Degree uint64
 }
 
+// NewFloat64 returns a new zero-valued polynomial.
+func NewFloat64() *Float64 {
+	return &Float64{c: make(map[uint64]float64)}
+}
+
 // SetTerm sets a term in p with degree n and coefficient a.
 func (p *Float64) SetTerm(n uint64, a float64) {
 	if n > p.Degree {

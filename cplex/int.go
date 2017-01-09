@@ -195,7 +195,7 @@ func (z *Int) Quo(x, y *Int) *Int {
 
 // Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
 // at y, and returns z. Horner's method is used.
-func (z *Int) Maclaurin(y *Int, p maclaurin.Int) *Int {
+func (z *Int) Maclaurin(y *Int, p *maclaurin.Int) *Int {
 	if p.Len() == 0 {
 		z = new(Int)
 		return z

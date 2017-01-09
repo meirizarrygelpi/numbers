@@ -229,7 +229,7 @@ func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 
 // Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
 // at y, and returns z. Horner's method is used.
-func (z *Float64) Maclaurin(y *Float64, p maclaurin.Float64) *Float64 {
+func (z *Float64) Maclaurin(y *Float64, p *maclaurin.Float64) *Float64 {
 	if p.Len() == 0 {
 		z = new(Float64)
 		return z

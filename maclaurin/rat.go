@@ -11,6 +11,11 @@ type Rat struct {
 	Degree uint64
 }
 
+// NewRat returns a new zero-valued polynomial.
+func NewRat() *Rat {
+	return &Rat{c: make(map[uint64]*big.Rat)}
+}
+
 // SetTerm sets a term in p with degree n and coefficient a.
 func (p *Rat) SetTerm(n uint64, a *big.Rat) {
 	if n > p.Degree {
