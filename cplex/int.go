@@ -196,26 +196,28 @@ func (z *Int) Quo(x, y *Int) *Int {
 // Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
 // at y, and returns z. Horner's method is used.
 func (z *Int) Maclaurin(y *Int, p maclaurin.Int) *Int {
-	if len(p) == 0 {
+	if p.Len() == 0 {
 		z = new(Int)
 		return z
 	}
-	deg := p.Degrees()
-	n := deg[0]
+	n := p.Degree
+	var a *big.Int
 	if n == 0 {
 		z = new(Int)
-		z.SetReal(p[n])
+		a, _ = p.Coeff(n)
+		z.SetReal(a)
 		return z
 	}
-	z.Dilate(y, p[n])
+	a, _ = p.Coeff(n)
+	z.Dilate(y, a)
 	for n > 1 {
 		n--
-		if a, ok := p[n]; ok {
+		if a, ok := p.Coeff(n); ok {
 			z.Plus(z, a)
 		}
 		z.Mul(z, y)
 	}
-	if a, ok := p[0]; ok {
+	if a, ok := p.Coeff(0); ok {
 		z.Plus(z, a)
 	}
 	return z

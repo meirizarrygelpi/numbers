@@ -230,26 +230,28 @@ func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 // Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
 // at y, and returns z. Horner's method is used.
 func (z *Float64) Maclaurin(y *Float64, p maclaurin.Float64) *Float64 {
-	if len(p) == 0 {
+	if p.Len() == 0 {
 		z = new(Float64)
 		return z
 	}
-	deg := p.Degrees()
-	n := deg[0]
+	n := p.Degree
+	var a float64
 	if n == 0 {
 		z = new(Float64)
-		z.SetReal(p[n])
+		a, _ = p.Coeff(n)
+		z.SetReal(a)
 		return z
 	}
-	z.Dilate(y, p[n])
+	a, _ = p.Coeff(n)
+	z.Dilate(y, a)
 	for n > 1 {
 		n--
-		if a, ok := p[n]; ok {
+		if a, ok := p.Coeff(n); ok {
 			z.Plus(z, a)
 		}
 		z.Mul(z, y)
 	}
-	if a, ok := p[0]; ok {
+	if a, ok := p.Coeff(0); ok {
 		z.Plus(z, a)
 	}
 	return z
