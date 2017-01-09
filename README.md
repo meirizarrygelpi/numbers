@@ -42,7 +42,8 @@ Here is a list of available packages:
 1. `tripplex`: tri-perplex numbers (perplexification of the bi-perplex numbers; eight-dimensional)
 1. `hypercplex`: hyper-complex numbers (nilplexification of dual-complex numbers; eight-dimensional)
 1. `hyperpplex`: hyper-perplex numbers (nilplexification of dual-perplex numbers; eight-dimensional)
-1. `maclaurin`: Maclaurin polynomials
+1. `maclaurin`: [Maclaurin polynomials](https://en.wikipedia.org/wiki/Polynomial)
+1. `pade`: [Padé approximants](https://en.wikipedia.org/wiki/Pad%C3%A9_approximant)
 
 Here is a list of future packages:
 
@@ -50,5 +51,4 @@ Here is a list of future packages:
 1. `bicockle`: bi-Cockle quaternions (complexification of Cockle quaternions; eight-dimensional)
 1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
 1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
-1. `laurent`: Laurent polynomials
-1. `pade`: Padé approximants
+1. `laurent`: [Laurent polynomials](https://en.wikipedia.org/wiki/Laurent_polynomial)
