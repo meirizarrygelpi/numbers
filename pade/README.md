@@ -133,20 +133,20 @@ func main() {
 	rSN3 := pade.NewRat()
 
 	rSN3.P.SetTerm(1, big.NewRat(1, 1))
-	rSN3.P.SetTerm(3, big.NewRat(-1493060, 2638911))
-	rSN3.P.SetTerm(5, big.NewRat(-9853969, 39583665))
+	rSN3.P.SetTerm(3, big.NewRat(-572744, 4726821))
+	rSN3.P.SetTerm(5, big.NewRat(-9851629, 283609260))
 
 	rSN3.Q.SetTerm(0, big.NewRat(1, 1))
-	rSN3.Q.SetTerm(2, big.NewRat(968375, 879637))
-	rSN3.Q.SetTerm(4, big.NewRat(-1167506, 7916733))
-	rSN3.Q.SetTerm(6, big.NewRat(867043, 2159109))
+	rSN3.Q.SetTerm(2, big.NewRat(859490, 1575607))
+	rSN3.Q.SetTerm(4, big.NewRat(-5922035, 56721852))
+	rSN3.Q.SetTerm(6, big.NewRat(62531591, 2977897230))
 
 	y := new(cplex.Rat).Padé(z, rSN3)
 
 	fmt.Println("Padé approximant [5/6] of Jacobi sn(z, 3):")
 	fmt.Println(y.Real().FloatString(16), y.Unreal().FloatString(16))
 	// Output:
-	// 0.9723766007728252 0.0264431336739116
+	// 0.8637651266236634 0.4065519445560218
 
 	// WolframAlpha Output:
 	// 0.8637789783432315 0.4065354881306624
