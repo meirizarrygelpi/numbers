@@ -52,3 +52,10 @@ Here is a list of future packages:
 1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
 1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
 1. `laurent`: [Laurent polynomials](https://en.wikipedia.org/wiki/Laurent_polynomial)
+
+To-Do:
+
+1. `SetReal` and `SetUnreal` methods
+1. `Plus` and `Minus` methods
+1. `Maclaurin` methods
+1. `Padé` methods
