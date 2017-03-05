@@ -59,3 +59,5 @@ To-Do:
 1. `Plus` and `Minus` methods
 1. `Maclaurin` methods
 1. `Padé` methods
+1. `Inf` and `NaN` methods
+1. `IsInf` and `IsNaN` methods
