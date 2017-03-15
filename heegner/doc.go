@@ -15,11 +15,66 @@ class number equal to one. Nine types are implemented:
     Rat163      (big.Rat values with adjoined √−163)
 An element of one of these imaginary quadratic fields has two components
 and it is written in the form
-    a+b√−d
-where d is one of the nine Heegner number. The multiplcation operation for
-these elements is commutative and associative, since they are also complex
-numbers. Prime factorization is unique in each of these imaginary quadratic
-fields.
+    a+bX
+where X is the square root of the negative of one of the nine Heegner number.
+
+The multiplication tables are as follow. For Rat1 you have:
+    +-----+----+
+    | Mul | i  |
+    +-----+----+
+    | i   | -1 |
+    +-----+----+
+For Rat2 you have:
+	+-----+----+
+	| Mul | H  |
+	+-----+----+
+	| H   | -2 |
+	+-----+----+
+For Rat3 you have:
+	+-----+----+
+	| Mul | G  |
+	+-----+----+
+	| G   | -3 |
+	+-----+----+
+For Rat7 you have:
+	+-----+----+
+	| Mul | F  |
+	+-----+----+
+	| F   | -7 |
+	+-----+----+
+For Rat11 you have:
+	+-----+-----+
+	| Mul | E   |
+	+-----+-----+
+	| E   | -11 |
+	+-----+-----+
+For Rat19 you have:
+	+-----+-----+
+	| Mul | D   |
+	+-----+-----+
+	| D   | -19 |
+	+-----+-----+
+For Rat43 you have:
+	+-----+-----+
+	| Mul | C   |
+	+-----+-----+
+	| C   | -43 |
+	+-----+-----+
+For Rat67 you have:
+	+-----+-----+
+	| Mul | B   |
+	+-----+-----+
+	| B   | -67 |
+	+-----+-----+
+For Rat163 you have:
+	+-----+------+
+	| Mul | A    |
+	+-----+------+
+	| A   | -163 |
+	+-----+------+
+The multiplcation operation for these elements is commutative and associative,
+since they are also complex numbers. Prime factorization is unique in each of
+these imaginary quadratic fields.
 */
 package heegner
 
@@ -30,15 +85,15 @@ const (
 	rightBracket    = "⦘"
 	zeroDenominator = "denominator is zero"
 	zeroInverse     = "inverse of zero"
-	radical1        = "√₋₁"
-	radical2        = "√₋₂"
-	radical3        = "√₋₃"
-	radical7        = "√₋₇"
-	radical11       = "√₋₁₁"
-	radical19       = "√₋₁₉"
-	radical43       = "√₋₄₃"
-	radical67       = "√₋₆₇"
-	radical163      = "√₋₁₆₃"
+	radical1        = "i"
+	radical2        = "H"
+	radical3        = "G"
+	radical7        = "F"
+	radical11       = "E"
+	radical19       = "D"
+	radical43       = "C"
+	radical67       = "B"
+	radical163      = "A"
 )
 
 var (

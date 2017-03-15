@@ -37,7 +37,7 @@ func (z *Rat11) Unreal() *big.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a + b√−11, then the string is "⦗a+b√−11⦘", similar to
+// If z corresponds to a + bE, then the string is "⦗a+bE⦘", similar to
 // complex128 values.
 func (z *Rat11) String() string {
 	a := make([]string, 5)
@@ -85,7 +85,7 @@ func (z *Rat11) SetUnreal(b *big.Rat) *Rat11 {
 	return z
 }
 
-// NewRat11 returns a pointer to the Rat11 value a+b√−11.
+// NewRat11 returns a pointer to the Rat11 value a+bE.
 func NewRat11(a, b *big.Rat) *Rat11 {
 	z := new(Rat11)
 	z.SetPair(a, b)
@@ -156,7 +156,7 @@ func (z *Rat11) Mul(x, y *Rat11) *Rat11 {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+b√−11, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bE, then the quadrance is
 // 		a² + 11b²
 // This is always non-negative.
 func (z *Rat11) Quad() *big.Rat {

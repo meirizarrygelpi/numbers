@@ -37,7 +37,7 @@ func (z *Rat163) Unreal() *big.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a + b√−163, then the string is "⦗a+b√−163⦘", similar to
+// If z corresponds to a + bA, then the string is "⦗a+bA⦘", similar to
 // complex128 values.
 func (z *Rat163) String() string {
 	a := make([]string, 5)
@@ -85,7 +85,7 @@ func (z *Rat163) SetUnreal(b *big.Rat) *Rat163 {
 	return z
 }
 
-// NewRat163 returns a pointer to the Rat163 value a+b√−163.
+// NewRat163 returns a pointer to the Rat163 value a+bA.
 func NewRat163(a, b *big.Rat) *Rat163 {
 	z := new(Rat163)
 	z.SetPair(a, b)
@@ -156,7 +156,7 @@ func (z *Rat163) Mul(x, y *Rat163) *Rat163 {
 	return z
 }
 
-// Quad returns the quadrance of z. If z = a+b√−163, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bA, then the quadrance is
 // 		a² + 163b²
 // This is always non-negative.
 func (z *Rat163) Quad() *big.Rat {
