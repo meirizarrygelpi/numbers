@@ -44,6 +44,7 @@ Here is a list of available packages:
 1. `hyperpplex`: hyper-perplex numbers (nilplexification of dual-perplex numbers; eight-dimensional)
 1. `maclaurin`: [Maclaurin polynomials](https://en.wikipedia.org/wiki/Polynomial)
 1. `pade`: [Padé approximants](https://en.wikipedia.org/wiki/Pad%C3%A9_approximant)
+1. `heegner`: imaginary quadratic fields with class number 1. See [Heegner numbers](https://en.wikipedia.org/wiki/Heegner_number).
 
 Here is a list of future packages:
 
