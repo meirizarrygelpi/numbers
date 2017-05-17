@@ -12,7 +12,7 @@ implemented:
 A supra-complex number has eight components and it is written in the form
     a+bi+cα+dβ+eγ+fδ+gε+hζ
 The multiplication table is
-    +-----+----+----+----+----+----+----+----+
+	+-----+----+----+----+----+----+----+----+
 	| Mul | i  | α  | β  | γ  | δ  | ε  | ζ  |
 	+-----+----+----+----+----+----+----+----+
 	| i   | -1 | +β | -α | +δ | -γ | -ζ | +ε |

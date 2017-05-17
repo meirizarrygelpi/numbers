@@ -12,7 +12,7 @@ implemented:
 An ultra number has eight components and it is written in the form
     a+bα+cβ+dγ+eδ+fε+gζ+hη
 The multiplication table is
-    +-----+----+----+----+----+----+----+----+
+	+-----+----+----+----+----+----+----+----+
 	| Mul | α  | β  | γ  | δ  | ε  | ζ  | η  |
 	+-----+----+----+----+----+----+----+----+
 	| α   | +1 | +γ | 0  | +ε | 0  | -η | 0  |

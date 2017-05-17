@@ -12,7 +12,7 @@ implemented:
 An infra-Cockle quaternion has eight components and it is written in the form
     a+bi+ct+du+eρ+fσ+gτ+hυ
 The multiplication table is
-    +-----+----+----+----+----+----+----+----+
+	+-----+----+----+----+----+----+----+----+
 	| Mul | i  | t  | u  | ρ  | σ  | τ  | υ  |
 	+-----+----+----+----+----+----+----+----+
 	| i   | -1 | +u | -t | +σ | -ρ | -υ | +τ |

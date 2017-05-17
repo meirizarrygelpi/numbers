@@ -12,7 +12,7 @@ implemented:
 A supra-perplex number has eight components and it is written in the form
     a+bs+cρ+dσ+eτ+fυ+gφ+hψ
 The multiplication table is
-    +-----+----+----+----+----+----+----+----+
+	+-----+----+----+----+----+----+----+----+
 	| Mul | s  | ρ  | σ  | τ  | υ  | φ  | ψ  |
 	+-----+----+----+----+----+----+----+----+
 	| s   | +1 | +σ | +ρ | +υ | +τ | -ψ | -φ |
