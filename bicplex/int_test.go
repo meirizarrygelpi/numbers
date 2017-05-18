@@ -23,12 +23,12 @@ func TestAddCommutativeInt(t *testing.T) {
 	}
 }
 
-func TestNegStar1CommutativeInt(t *testing.T) {
+func TestNegBarCommutativeInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int), new(Int)
-		l.Neg(l.Star1(x))
-		r.Star1(r.Neg(x))
+		l.Neg(l.Bar(x))
+		r.Bar(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -36,12 +36,12 @@ func TestNegStar1CommutativeInt(t *testing.T) {
 	}
 }
 
-func TestNegStar2CommutativeInt(t *testing.T) {
+func TestNegTildeCommutativeInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int), new(Int)
-		l.Neg(l.Star2(x))
-		r.Star2(r.Neg(x))
+		l.Neg(l.Tilde(x))
+		r.Tilde(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -159,11 +159,11 @@ func TestNegInvolutiveInt(t *testing.T) {
 	}
 }
 
-func TestStar1InvolutiveInt(t *testing.T) {
+func TestBarInvolutiveInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int)
-		l.Star1(l.Star1(x))
+		l.Bar(l.Bar(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -171,11 +171,11 @@ func TestStar1InvolutiveInt(t *testing.T) {
 	}
 }
 
-func TestStar2InvolutiveInt(t *testing.T) {
+func TestTildeInvolutiveInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int)
-		l.Star2(l.Star2(x))
+		l.Tilde(l.Tilde(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -185,12 +185,12 @@ func TestStar2InvolutiveInt(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulStar1AntiDistributiveInt(t *testing.T) {
+func TestMulBarAntiDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
-		l.Star1(l.Mul(x, y))
-		r.Mul(r.Star1(y), new(Int).Star1(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Int).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -198,12 +198,12 @@ func TestMulStar1AntiDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestMulStar2AntiDistributiveInt(t *testing.T) {
+func TestMulTildeAntiDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
-		l.Star2(l.Mul(x, y))
-		r.Mul(r.Star2(y), new(Int).Star2(x))
+		l.Tilde(l.Mul(x, y))
+		r.Mul(r.Tilde(y), new(Int).Tilde(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -213,13 +213,13 @@ func TestMulStar2AntiDistributiveInt(t *testing.T) {
 
 // Distributivity
 
-func TestAddStar1DistributiveInt(t *testing.T) {
+func TestAddBarDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
 		l.Add(x, y)
-		l.Star1(l)
-		r.Add(r.Star1(x), new(Int).Star1(y))
+		l.Bar(l)
+		r.Add(r.Bar(x), new(Int).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -227,13 +227,13 @@ func TestAddStar1DistributiveInt(t *testing.T) {
 	}
 }
 
-func TestAddStar2DistributiveInt(t *testing.T) {
+func TestAddTildeDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
 		l.Add(x, y)
-		l.Star2(l)
-		r.Add(r.Star2(x), new(Int).Star2(y))
+		l.Tilde(l)
+		r.Add(r.Tilde(x), new(Int).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -241,13 +241,13 @@ func TestAddStar2DistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubStar1DistributiveInt(t *testing.T) {
+func TestSubBarDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
 		l.Sub(x, y)
-		l.Star1(l)
-		r.Sub(r.Star1(x), new(Int).Star1(y))
+		l.Bar(l)
+		r.Sub(r.Bar(x), new(Int).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -255,13 +255,13 @@ func TestSubStar1DistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubStar2DistributiveInt(t *testing.T) {
+func TestSubTildeDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
 		l.Sub(x, y)
-		l.Star2(l)
-		r.Sub(r.Star2(x), new(Int).Star2(y))
+		l.Tilde(l)
+		r.Sub(r.Tilde(x), new(Int).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
