@@ -49,7 +49,7 @@ func (z *Int) Unreal() *vec7.Int {
 // String returns the string version of an Int value.
 //
 // If z corresponds to a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then the string is
-// "⦗a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ⦘", similar to nilplex128 values.
+// "⦗a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ⦘", similar to complex128 values.
 func (z *Int) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)

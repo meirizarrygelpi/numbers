@@ -49,7 +49,7 @@ func (z *Rat) Unreal() *vec7.Rat {
 // String returns the string version of a Rat value.
 //
 // If z corresponds to a+bs+cΓ+dsΓ+eΛ+fsΛ+gΓΛ+hsΓΛ, then the string is
-// "⦗a+bs+cΓ+dsΓ+eΛ+fsΛ+gΓΛ+hsΓΛ⦘", similar to nilplex128 values.
+// "⦗a+bs+cΓ+dsΓ+eΛ+fsΛ+gΓΛ+hsΓΛ⦘", similar to complex128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
