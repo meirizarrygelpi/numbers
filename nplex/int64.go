@@ -127,11 +127,32 @@ func (z *Int64) Mul(x, y *Int64) *Int64 {
 	return z
 }
 
+// Dot returns the dot product of y and z. If z = a+bα and y = c+dα, then the
+// dot product is
+// 		ac
+// This can be positive, negative, or zero. The dot product is equivalent to
+// 		½(Mul(Conj(z), y) + Mu(Conj(y), z))
+// In this form it is clear that Dot is symmetric.
+func (z *Int64) Dot(y *Int64) int64 {
+	return z.l * y.l
+}
+
 // Quad returns the quadrance of z. If z = a+bα, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Int64) Quad() int64 {
-	return z.l * z.l
+	return z.Dot(z)
+}
+
+// Cross returns the cross product of y and z. If z = a+bα and y = c+dα, then
+// the cross product is
+// 		ad - bc
+// This can be positive, negative, or zero. The cross product is equivalent to
+// the unreal part of
+// 		½(Mul(Conj(z), y) - Mu(Conj(y), z))
+// In this form it is clear that Cross is anti-symmetric.
+func (z *Int64) Cross(y *Int64) int64 {
+	return (z.l * y.r) - (z.r * y.l)
 }
 
 // IsZeroDivisor returns true if z is a zero divisor. This is equivalent to z

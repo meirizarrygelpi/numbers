@@ -311,6 +311,30 @@ func TestSubMulDistributiveRat(t *testing.T) {
 	}
 }
 
+// Symmetry
+
+func TestSymmetryRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Dot(y).Cmp(y.Dot(x)) == 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
+// Anti-symmetry
+
+func TestAntisymmetryRat(t *testing.T) {
+	f := func(x, y *Rat) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Cross(y).Cmp(new(big.Rat).Neg(y.Cross(x))) == 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Positivity
 
 func TestQuadPositiveRat(t *testing.T) {

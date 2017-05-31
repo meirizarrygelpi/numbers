@@ -175,12 +175,37 @@ func (z *Float) Mul(x, y *Float) *Float {
 	return z
 }
 
+// Dot returns the dot product of y and z. If z = a+bα and y = c+dα, then the
+// dot product is
+// 		ac
+// This can be positive, negative, or zero. The dot product is equivalent to
+// 		½(Mul(Conj(z), y) + Mu(Conj(y), z))
+// In this form it is clear that Dot is symmetric.
+func (z *Float) Dot(y *Float) *big.Float {
+	dot := new(big.Float)
+	return dot.Mul(&z.l, &y.l)
+}
+
 // Quad returns the quadrance of z. If z = a+bα, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Float) Quad() *big.Float {
-	quad := new(big.Float)
-	return quad.Mul(&z.l, &z.l)
+	return z.Dot(z)
+}
+
+// Cross returns the cross product of y and z. If z = a+bα and y = c+dα, then
+// the cross product is
+// 		ad - bc
+// This can be positive, negative, or zero. The cross product is equivalent to
+// the unreal part of
+// 		½(Mul(Conj(z), y) - Mu(Conj(y), z))
+// In this form it is clear that Cross is anti-symmetric.
+func (z *Float) Cross(y *Float) *big.Float {
+	cross := new(big.Float)
+	return cross.Sub(
+		cross.Mul(&z.l, &y.r),
+		new(big.Float).Mul(&z.r, &y.l),
+	)
 }
 
 // IsZeroDivisor returns true if z is a zero divisor. This is equivalent to z
