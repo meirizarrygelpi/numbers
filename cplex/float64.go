@@ -163,11 +163,32 @@ func (z *Float64) Mul(x, y *Float64) *Float64 {
 	return z
 }
 
+// Dot returns the dot product of y and z. If z = a+bi and y = c+di, then the
+// dot product is
+// 		ac + bd
+// This can be positive, negative, or zero. The dot product is equivalent to
+// 		½(Mul(Conj(z), y) + Mu(Conj(y), z))
+// In this form it is clear that Dot is symmetric.
+func (z *Float64) Dot(y *Float64) float64 {
+	return (z.l * y.l) + (z.r * y.r)
+}
+
 // Quad returns the quadrance of z. If z = a+bi, then the quadrance is
 // 		a² + b²
 // This is always non-negative.
 func (z *Float64) Quad() float64 {
-	return (z.l * z.l) + (z.r * z.r)
+	return z.Dot(z)
+}
+
+// Cross returns the cross product of y and z. If z = a+bi and y = c+di, then
+// the cross product is
+// 		ad - bc
+// This can be positive, negative, or zero. The cross product is equivalent to
+// the unreal part of
+// 		½(Mul(Conj(z), y) - Mu(Conj(y), z))
+// In this form it is clear that Cross is anti-symmetric.
+func (z *Float64) Cross(y *Float64) float64 {
+	return (z.l * y.r) - (z.r * y.l)
 }
 
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv

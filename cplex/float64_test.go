@@ -306,6 +306,30 @@ func XTestSubMulDistributiveFloat64(t *testing.T) {
 	}
 }
 
+// Symmetry
+
+func TestSymmetryFloat64(t *testing.T) {
+	f := func(x, y *Float64) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Dot(y) == y.Dot(x)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
+// Anti-symmetry
+
+func TestAntisymmetryFloat64(t *testing.T) {
+	f := func(x, y *Float64) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Cross(y) == -y.Cross(x)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Positivity
 
 func TestQuadPositiveFloat64(t *testing.T) {

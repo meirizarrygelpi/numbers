@@ -156,14 +156,39 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 	return z
 }
 
+// Dot returns the dot product of y and z. If z = a+bi and y = c+di, then the
+// dot product is
+// 		ac + bd
+// This can be positive, negative, or zero. The dot product is equivalent to
+// 		½(Mul(Conj(z), y) + Mu(Conj(y), z))
+// In this form it is clear that Dot is symmetric.
+func (z *Rat) Dot(y *Rat) *big.Rat {
+	dot := new(big.Rat)
+	return dot.Add(
+		dot.Mul(&z.l, &y.l),
+		new(big.Rat).Mul(&z.r, &y.r),
+	)
+}
+
 // Quad returns the quadrance of z. If z = a+bi, then the quadrance is
 // 		a² + b²
 // This is always non-negative.
 func (z *Rat) Quad() *big.Rat {
-	quad := new(big.Rat)
-	return quad.Add(
-		quad.Mul(&z.l, &z.l),
-		new(big.Rat).Mul(&z.r, &z.r),
+	return z.Dot(z)
+}
+
+// Cross returns the cross product of y and z. If z = a+bi and y = c+di, then
+// the cross product is
+// 		ad - bc
+// This can be positive, negative, or zero. The cross product is equivalent to
+// the unreal part of
+// 		½(Mul(Conj(z), y) - Mu(Conj(y), z))
+// In this form it is clear that Cross is anti-symmetric.
+func (z *Rat) Cross(y *Rat) *big.Rat {
+	cross := new(big.Rat)
+	return cross.Sub(
+		cross.Mul(&z.l, &y.r),
+		new(big.Rat).Mul(&z.r, &y.l),
 	)
 }
 

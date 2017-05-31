@@ -17,6 +17,7 @@ Here is a list of available packages:
 1. `vec3`: three-dimensional vectors
 1. `vec7`: seven-dimensional vectors
 1. `eisenstein`: [Eisenstein numbers](https://en.wikipedia.org/wiki/Eisenstein_integer)
+1. `heegner`: imaginary quadratic fields with class number 1. See [Heegner numbers](https://en.wikipedia.org/wiki/Heegner_number)
 1. `cplex`: [complex numbers](https://en.wikipedia.org/wiki/Complex_number)
 1. `nplex`: nilplex numbers (more commonly known as [dual numbers](https://en.wikipedia.org/wiki/Dual_number))
 1. `pplex`: perplex numbers (more commonly known as [split-complex numbers](https://en.wikipedia.org/wiki/Split-complex_number))
@@ -42,11 +43,10 @@ Here is a list of available packages:
 1. `tripplex`: tri-perplex numbers (perplexification of the bi-perplex numbers; eight-dimensional)
 1. `hypercplex`: hyper-complex numbers (nilplexification of dual-complex numbers; eight-dimensional)
 1. `hyperpplex`: hyper-perplex numbers (nilplexification of dual-perplex numbers; eight-dimensional)
-1. `maclaurin`: [Maclaurin polynomials](https://en.wikipedia.org/wiki/Polynomial)
-1. `pade`: [Padé approximants](https://en.wikipedia.org/wiki/Pad%C3%A9_approximant)
-1. `heegner`: imaginary quadratic fields with class number 1. See [Heegner numbers](https://en.wikipedia.org/wiki/Heegner_number).
 1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
 1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
+1. `maclaurin`: [Maclaurin polynomials](https://en.wikipedia.org/wiki/Polynomial)
+1. `pade`: [Padé approximants](https://en.wikipedia.org/wiki/Pad%C3%A9_approximant)
 
 Here is a list of future packages:
 
@@ -65,3 +65,4 @@ To-Do:
 1. Rename `Star1` methods `Bar`
 1. Rename `Star2` methods `Tilde`
 1. Rename `Star3` methods `Star`
+1. `Dot` methods
