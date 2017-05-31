@@ -199,6 +199,16 @@ func (z *Int) Cross(y *Int) *big.Int {
 	)
 }
 
+// Lozenge sets z equal to the lozenge product of v, w, x, and y:
+// 		Mul(v, Conj(w)) - Mul(x, Conj(y))
+// Then it returns z.
+func (z *Int) Lozenge(v, w, x, y *Int) *Int {
+	a, b := new(Int), new(Int)
+	a.Mul(v, a.Conj(w))
+	b.Mul(x, b.Conj(y))
+	return z.Sub(a, b)
+}
+
 // Quo sets z equal to the quotient of x and y, and returns z. Note that
 // truncated division is used.
 func (z *Int) Quo(x, y *Int) *Int {

@@ -243,6 +243,16 @@ func (z *Float) Cross(y *Float) *big.Float {
 	)
 }
 
+// Lozenge sets z equal to the lozenge product of v, w, x, and y:
+// 		Mul(v, Conj(w)) - Mul(x, Conj(y))
+// Then it returns z.
+func (z *Float) Lozenge(v, w, x, y *Float) *Float {
+	a, b := new(Float), new(Float)
+	a.Mul(v, a.Conj(w))
+	b.Mul(x, b.Conj(y))
+	return z.Sub(a, b)
+}
+
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
 // panics.
 func (z *Float) Inv(y *Float) *Float {

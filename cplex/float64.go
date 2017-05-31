@@ -191,6 +191,16 @@ func (z *Float64) Cross(y *Float64) float64 {
 	return (z.l * y.r) - (z.r * y.l)
 }
 
+// Lozenge sets z equal to the lozenge product of v, w, x, and y:
+// 		Mul(v, Conj(w)) - Mul(x, Conj(y))
+// Then it returns z.
+func (z *Float64) Lozenge(v, w, x, y *Float64) *Float64 {
+	a, b := new(Float64), new(Float64)
+	a.Mul(v, a.Conj(w))
+	b.Mul(x, b.Conj(y))
+	return z.Sub(a, b)
+}
+
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
 // panics.
 func (z *Float64) Inv(y *Float64) *Float64 {

@@ -184,6 +184,16 @@ func (z *Int64) Cross(y *Int64) int64 {
 	return (z.l * y.r) - (z.r * y.l)
 }
 
+// Lozenge sets z equal to the lozenge product of v, w, x, and y:
+// 		Mul(v, Conj(w)) - Mul(x, Conj(y))
+// Then it returns z.
+func (z *Int64) Lozenge(v, w, x, y *Int64) *Int64 {
+	a, b := new(Int64), new(Int64)
+	a.Mul(v, a.Conj(w))
+	b.Mul(x, b.Conj(y))
+	return z.Sub(a, b)
+}
+
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
 // then Quo panics.
 func (z *Int64) Quo(x, y *Int64) *Int64 {

@@ -192,6 +192,16 @@ func (z *Rat) Cross(y *Rat) *big.Rat {
 	)
 }
 
+// Lozenge sets z equal to the lozenge product of v, w, x, and y:
+// 		Mul(v, Conj(w)) - Mul(x, Conj(y))
+// Then it returns z.
+func (z *Rat) Lozenge(v, w, x, y *Rat) *Rat {
+	a, b := new(Rat), new(Rat)
+	a.Mul(v, a.Conj(w))
+	b.Mul(x, b.Conj(y))
+	return z.Sub(a, b)
+}
+
 // Inv sets z equal to the inverse of y, and returns z. If y is zero, then Inv
 // panics.
 func (z *Rat) Inv(y *Rat) *Rat {
