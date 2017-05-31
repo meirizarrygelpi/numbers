@@ -45,13 +45,13 @@ Here is a list of available packages:
 1. `maclaurin`: [Maclaurin polynomials](https://en.wikipedia.org/wiki/Polynomial)
 1. `pade`: [Padé approximants](https://en.wikipedia.org/wiki/Pad%C3%A9_approximant)
 1. `heegner`: imaginary quadratic fields with class number 1. See [Heegner numbers](https://en.wikipedia.org/wiki/Heegner_number).
+1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
+1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
 
 Here is a list of future packages:
 
 1. `bihamilton`: bi-Hamilton quaternions (complexification of Hamilton quaternions; eight-dimensional)
 1. `bicockle`: bi-Cockle quaternions (complexification of Cockle quaternions; eight-dimensional)
-1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
-1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
 1. `laurent`: [Laurent polynomials](https://en.wikipedia.org/wiki/Laurent_polynomial)
 
 To-Do:

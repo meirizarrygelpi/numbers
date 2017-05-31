@@ -160,12 +160,12 @@ func TestConjInvolutiveInt64(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulConjAntiDistributiveInt64(t *testing.T) {
+func TestMulBarAntiDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
-		l.Conj(l.Mul(x, y))
-		r.Mul(r.Conj(y), new(Int64).Conj(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Int64).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -257,6 +257,18 @@ func TestSubMulDistributiveInt64(t *testing.T) {
 	}
 }
 
+// Positivity
+
+func XTestNormPositiveInt64(t *testing.T) {
+	f := func(x *Int64) bool {
+		// t.Logf("x = %v", x)
+		return x.Norm() > 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func TestCompositionInt64(t *testing.T) {
@@ -264,8 +276,8 @@ func TestCompositionInt64(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		p := new(Int64)
 		p.Mul(x, y)
-		a := p.Quad()
-		b := x.Quad() * y.Quad()
+		a := p.Norm()
+		b := x.Norm() * y.Norm()
 		return a == b
 	}
 	if err := quick.Check(f, nil); err != nil {

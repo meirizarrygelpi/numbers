@@ -161,12 +161,12 @@ func TestConjInvolutiveInt(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulConjAntiDistributiveInt(t *testing.T) {
+func TestMulBarAntiDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
-		l.Conj(l.Mul(x, y))
-		r.Mul(r.Conj(y), new(Int).Conj(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Int).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -258,6 +258,18 @@ func TestSubMulDistributiveInt(t *testing.T) {
 	}
 }
 
+// Positivity
+
+func TestNormPositiveInt(t *testing.T) {
+	f := func(x *Int) bool {
+		// t.Logf("x = %v", x)
+		return x.Norm().Sign() > 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func TestCompositionInt(t *testing.T) {
@@ -266,8 +278,8 @@ func TestCompositionInt(t *testing.T) {
 		p := new(Int)
 		a, b := new(big.Int), new(big.Int)
 		p.Mul(x, y)
-		a.Set(p.Quad())
-		b.Mul(x.Quad(), y.Quad())
+		a.Set(p.Norm())
+		b.Mul(x.Norm(), y.Norm())
 		return a.Cmp(b) == 0
 	}
 	if err := quick.Check(f, nil); err != nil {

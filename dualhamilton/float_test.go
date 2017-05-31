@@ -296,6 +296,18 @@ func XTestSubMulDistributiveFloat(t *testing.T) {
 	}
 }
 
+// Positivity
+
+func TestNormPositiveFloat(t *testing.T) {
+	f := func(x *Float) bool {
+		// t.Logf("x = %v", x)
+		return x.Norm().Sign() > 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func XTestCompositionFloat(t *testing.T) {
@@ -304,8 +316,8 @@ func XTestCompositionFloat(t *testing.T) {
 		p := new(Float)
 		a, b := new(big.Float), new(big.Float)
 		p.Mul(x, y)
-		a.Set(p.Quad())
-		b.Mul(x.Quad(), y.Quad())
+		a.Set(p.Norm())
+		b.Mul(x.Norm(), y.Norm())
 		return a.Cmp(b) == 0
 	}
 	if err := quick.Check(f, nil); err != nil {

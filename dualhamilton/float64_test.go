@@ -185,12 +185,12 @@ func TestConjInvolutiveFloat64(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulConjAntiDistributiveFloat64(t *testing.T) {
+func TestMulBarAntiDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
-		l.Conj(l.Mul(x, y))
-		r.Mul(r.Conj(y), new(Float64).Conj(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Float64).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -295,6 +295,18 @@ func XTestSubMulDistributiveFloat64(t *testing.T) {
 	}
 }
 
+// Positivity
+
+func TestNormPositiveFloat64(t *testing.T) {
+	f := func(x *Float64) bool {
+		// t.Logf("x = %v", x)
+		return x.Norm() > 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func XTestCompositionFloat64(t *testing.T) {
@@ -302,8 +314,8 @@ func XTestCompositionFloat64(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		p := new(Float64)
 		p.Mul(x, y)
-		a := p.Quad()
-		b := x.Quad() * y.Quad()
+		a := p.Norm()
+		b := x.Norm() * y.Norm()
 		return a == b
 	}
 	if err := quick.Check(f, nil); err != nil {

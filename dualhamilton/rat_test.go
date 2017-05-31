@@ -186,12 +186,12 @@ func TestConjInvolutiveRat(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulConjAntiDistributiveRat(t *testing.T) {
+func TestMulBarAntiDistributiveRat(t *testing.T) {
 	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
-		l.Conj(l.Mul(x, y))
-		r.Mul(r.Conj(y), new(Rat).Conj(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Rat).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -296,6 +296,18 @@ func TestSubMulDistributiveRat(t *testing.T) {
 	}
 }
 
+// Positivity
+
+func TestNormPositiveRat(t *testing.T) {
+	f := func(x *Rat) bool {
+		// t.Logf("x = %v", x)
+		return x.Norm().Sign() > 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func TestCompositionRat(t *testing.T) {
@@ -304,8 +316,8 @@ func TestCompositionRat(t *testing.T) {
 		p := new(Rat)
 		a, b := new(big.Rat), new(big.Rat)
 		p.Mul(x, y)
-		a.Set(p.Quad())
-		b.Mul(x.Quad(), y.Quad())
+		a.Set(p.Norm())
+		b.Mul(x.Norm(), y.Norm())
 		return a.Cmp(b) == 0
 	}
 	if err := quick.Check(f, nil); err != nil {
