@@ -269,6 +269,30 @@ func TestSubMulDistributiveInt(t *testing.T) {
 	}
 }
 
+// Symmetry
+
+func TestSymmetryInt(t *testing.T) {
+	f := func(x, y *Int) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Dot(y).Cmp(y.Dot(x)) == 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
+// Anti-symmetry
+
+func TestAntisymmetryInt(t *testing.T) {
+	f := func(x, y *Int) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Cross(y).Cmp(new(big.Int).Neg(y.Cross(x))) == 0
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func TestCompositionInt(t *testing.T) {

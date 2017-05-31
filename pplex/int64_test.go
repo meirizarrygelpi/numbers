@@ -270,6 +270,30 @@ func TestSubMulDistributiveInt64(t *testing.T) {
 	}
 }
 
+// Symmetry
+
+func TestSymmetryInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Dot(y) == y.Dot(x)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
+// Anti-symmetry
+
+func TestAntisymmetryInt64(t *testing.T) {
+	f := func(x, y *Int64) bool {
+		// t.Logf("x = %v, y = %v", x, y)
+		return x.Cross(y) == -y.Cross(x)
+	}
+	if err := quick.Check(f, nil); err != nil {
+		t.Error(err)
+	}
+}
+
 // Composition
 
 func TestCompositionInt64(t *testing.T) {

@@ -134,14 +134,39 @@ func (z *Int) Mul(x, y *Int) *Int {
 	return z
 }
 
+// Dot returns the dot product of y and z. If z = a+bs and y = c+ds, then the
+// dot product is
+// 		ac - bd
+// This can be positive, negative, or zero. The dot product is equivalent to
+// 		½(Mul(Conj(z), y) + Mu(Conj(y), z))
+// In this form it is clear that Dot is symmetric.
+func (z *Int) Dot(y *Int) *big.Int {
+	dot := new(big.Int)
+	return dot.Sub(
+		dot.Mul(&z.l, &y.l),
+		new(big.Int).Mul(&z.r, &y.r),
+	)
+}
+
 // Quad returns the quadrance of z. If z = a+bs, then the quadrance is
 // 		a² - b²
-// This is can be positive, negative, or zero.
+// This can be positive, negative, or zero.
 func (z *Int) Quad() *big.Int {
-	quad := new(big.Int)
-	return quad.Sub(
-		quad.Mul(&z.l, &z.l),
-		new(big.Int).Mul(&z.r, &z.r),
+	return z.Dot(z)
+}
+
+// Cross returns the cross product of y and z. If z = a+bs and y = c+ds, then
+// the cross product is
+// 		ad - bc
+// This can be positive, negative, or zero. The cross product is equivalent to
+// the unreal part of
+// 		½(Mul(Conj(z), y) - Mu(Conj(y), z))
+// In this form it is clear that Cross is anti-symmetric.
+func (z *Int) Cross(y *Int) *big.Int {
+	cross := new(big.Int)
+	return cross.Sub(
+		cross.Mul(&z.l, &y.r),
+		new(big.Int).Mul(&z.r, &y.l),
 	)
 }
 
