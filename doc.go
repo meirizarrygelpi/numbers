@@ -20,22 +20,22 @@ The two-dimensional packages are:
 The four-dimensional packages are:
     hamilton   (quaternions; elliptic quaternions)
     cockle     (Cockle quaternions; split-quaternions; hyperbolic quaternions)
-    supra      (supra numbers; parabolic quaternions)
-    infracplex (infra-complex numbers)
-    infrapplex (infra-perplex numbers)
+    supernplex (super-nilplex numbers; parabolic quaternions)
+    supercplex (super-complex numbers)
+    superpplex (super-perplex numbers)
     bicplex    (bi-complex numbers; tessarines; complexification of the complex numbers)
     bipplex    (bi-perplex numbers; perplexification of the perplex numbers)
-    hyper      (hyper-numbers; nilplexification of the nilplex numbers)
+    binplex    (bi-nilplex numbers; nilplexification of the nilplex numbers)
     dualcplex  (dual-complex numbers; nilplexification of the complex numbers)
     dualpplex  (dual-perplex numbers; nilplexification of the perplex numbers)
 The eight-dimensional packages are:
     cayley        (octonions; elliptic octonions)
     zorn          (Zorn octonions; split-octonions; hyperbolic octonions)
-    ultra         (ultra numbers; parabolic octonions)
-    infrahamilton (infra-Hamilton quaternions)
-    infracockle   (infra-Cockle quaternions)
-    supracplex    (supra-complex numbers)
-    suprapplex    (supra-perplex numbers)
+    ultranplex    (ultra-nilplex numbers; parabolic octonions)
+    superhamilton (super-Hamilton quaternions)
+    supercockle   (super-Cockle quaternions)
+    ultracplex    (ultra-complex numbers)
+    ultrapplex    (ultra-perplex numbers)
     tricplex      (tri-complex numbers; complexification of the bi-complex numbers)
     tripplex      (tri-perplex numbers; perplexification of the bi-perplex numbers)
     trinplex      (tri-nilplex numbers; nilplexification of the hyper-numbers)
@@ -43,13 +43,15 @@ The eight-dimensional packages are:
     dualcockle    (dual-Cockle quaternions; nilplexification of the Cockle quaternions)
     hypercplex    (hyper-complex numbers; nilplexification of the dual-complex numbers)
     hyperpplex    (hyper-perplex numbers; nilplexification of the dual-perplex numbers)
+    bihamilton    (bi-Hamilton quaternions; complexification of the Hamilton quaternions)
+    bicockle      (bi-Cockle quaternions; complexification of the Cockle quaternions)
 All three two-dimensional systems include a binary multiplication operation that
 is commutative and associative (for non-floats). Both the nilplex and perplex numbers include
 non-trivial zero divisors.
 
 Five of the ten four-dimensional systems include a binary multiplication operation
 that is non-commutative but associative (for non-floats). These are the Hamilton quaternions, Cockle
-quaternions, supra numbers, infra-complex numbers, and infra-perplex numbers.
+quaternions, super-nilplex numbers, super-complex numbers, and super-perplex numbers.
 
 The other five four-dimensional numbers systems are plexifications of the three
 two-dimensional number systems. Here the binary multiplication operation is
@@ -58,15 +60,16 @@ commutative and associative (for non-floats).
 Except for the Hamilton quaternions, all other four-dimensional number systems
 include non-trivial zero divisors.
 
-Seven of the fourteen eight-dimensional systems include a binary multiplication
+Seven of the sixteen eight-dimensional systems include a binary multiplication
 operation that is non-commutative and non-associative. These are the Cayley octonions,
-Zorn octonions, ultra numbers, infra-Hamilton quaternions, infra-Cockle quaternions,
-supra-complex numbers, and supra-perplex numbers.
+Zorn octonions, ultra-nilplex numbers, super-Hamilton quaternions, super-Cockle quaternions,
+ultra-complex numbers, and ultra-perplex numbers.
 
-The other seven eight-dimensional number systems are plexifications of
-four-dimensional number systems. For dual-Hamilton quaternions, and dual-Cockle
-quaternions, the multiplication operation is non-commutative but associative (for
-non-floats). For tri-complex numbers, tri-perplex numbers, tri-nilplex numbers,
+The other nine eight-dimensional number systems are plexifications of
+four-dimensional number systems. For dual-Hamilton quaternions, dual-Cockle
+quaternions, bi-Hamilton quaternions and bi-Cockle quaternions, the
+multiplication operation is non-commutative but associative (for non-floats).
+For tri-complex numbers, tri-perplex numbers, tri-nilplex numbers,
 hyper-complex numbers, and hyper-perplex numbers the multiplication operation is
 commutative and associative (for non-floats).
 */
