@@ -70,6 +70,18 @@ func (z *Rat) SetPair(a, b *big.Rat) *Rat {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Rat) SetReal(a *big.Rat) *Rat {
+	z.l.Set(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to b, and then it returns z.
+func (z *Rat) SetUnreal(b *big.Rat) *Rat {
+	z.r.Set(b)
+	return z
+}
+
 // NewRat returns a pointer to the Rat value a+bα.
 func NewRat(a, b *big.Rat) *Rat {
 	z := new(Rat)
