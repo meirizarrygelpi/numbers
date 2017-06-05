@@ -55,3 +55,23 @@ func (p *Float64) Degrees() Degrees {
 	deg.ReverseSort()
 	return deg
 }
+
+// Add sets p equal to q+r, and returns z.
+func (p *Float64) Add(q, r *Float64) *Float64 {
+	x, y := new(Float64), new(Float64)
+	x.Set(q)
+	y.Set(r)
+	for n, a := range x.c {
+		if b, ok := y.Coeff(n); ok {
+			p.SetCoeff(n, a+b)
+		} else {
+			p.SetCoeff(n, a)
+		}
+	}
+	for n, b := range y.c {
+		if _, ok := y.Coeff(n); !ok {
+			p.SetCoeff(n, b)
+		}
+	}
+	return p
+}

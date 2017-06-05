@@ -57,3 +57,23 @@ func (p *Rat) Degrees() Degrees {
 	deg.ReverseSort()
 	return deg
 }
+
+// Add sets p equal to q+r, and returns z.
+func (p *Rat) Add(q, r *Rat) *Rat {
+	x, y := new(Rat), new(Rat)
+	x.Set(q)
+	y.Set(r)
+	for n, a := range x.c {
+		if b, ok := y.Coeff(n); ok {
+			p.SetCoeff(n, new(big.Rat).Add(a, b))
+		} else {
+			p.SetCoeff(n, a)
+		}
+	}
+	for n, b := range y.c {
+		if _, ok := y.Coeff(n); !ok {
+			p.SetCoeff(n, b)
+		}
+	}
+	return p
+}
