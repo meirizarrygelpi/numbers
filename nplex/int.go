@@ -8,6 +8,9 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // An Int is a nilplex number with big.Int components.
@@ -212,6 +215,45 @@ func (z *Int) Quo(x, y *Int) *Int {
 	)
 	z.SetPair(a, b)
 	return z.Divide(z, q)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Int) Maclaurin(y *Int, p *maclaurin.Int) *Int {
+	if p.Len() == 0 {
+		z = new(Int)
+		return z
+	}
+	n := p.Degree
+	var a *big.Int
+	if n == 0 {
+		z = new(Int)
+		a, _ = p.Coeff(n)
+		z.SetReal(a)
+		return z
+	}
+	a, _ = p.Coeff(n)
+	z.Dilate(y, a)
+	for n > 1 {
+		n--
+		if a, ok := p.Coeff(n); ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p.Coeff(0); ok {
+		z.Plus(z, a)
+	}
+	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Int) Padé(y *Int, r *pade.Int) *Int {
+	p, q := new(Int), new(Int)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Int value for quick.Check testing.
