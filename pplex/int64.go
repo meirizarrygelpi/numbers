@@ -70,6 +70,18 @@ func (z *Int64) SetPair(a, b int64) *Int64 {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Int64) SetReal(a int64) *Int64 {
+	z.l = a
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to b, and then it returns z.
+func (z *Int64) SetUnreal(b int64) *Int64 {
+	z.r = b
+	return z
+}
+
 // NewInt64 returns a pointer to the Int64 value a+bs.
 func NewInt64(a, b int64) *Int64 {
 	z := new(Int64)
