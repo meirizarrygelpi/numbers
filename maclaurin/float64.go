@@ -14,8 +14,8 @@ func NewFloat64() *Float64 {
 	return &Float64{c: make(map[uint64]float64)}
 }
 
-// SetTerm sets a term in p with degree n and coefficient a.
-func (p *Float64) SetTerm(n uint64, a float64) {
+// SetCoeff sets a term in p with degree n and coefficient a.
+func (p *Float64) SetCoeff(n uint64, a float64) {
 	if n > p.Degree {
 		p.Degree = n
 	}

@@ -16,8 +16,8 @@ func NewRat() *Rat {
 	return &Rat{c: make(map[uint64]*big.Rat)}
 }
 
-// SetTerm sets a term in p with degree n and coefficient a.
-func (p *Rat) SetTerm(n uint64, a *big.Rat) {
+// SetCoeff sets a term in p with degree n and coefficient a.
+func (p *Rat) SetCoeff(n uint64, a *big.Rat) {
 	if n > p.Degree {
 		p.Degree = n
 	}

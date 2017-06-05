@@ -14,8 +14,8 @@ func NewInt64() *Int64 {
 	return &Int64{c: make(map[uint64]int64)}
 }
 
-// SetTerm sets a term in p with degree n and coefficient a.
-func (p *Int64) SetTerm(n uint64, a int64) {
+// SetCoeff sets a term in p with degree n and coefficient a.
+func (p *Int64) SetCoeff(n uint64, a int64) {
 	if n > p.Degree {
 		p.Degree = n
 	}

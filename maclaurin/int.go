@@ -16,8 +16,8 @@ func NewInt() *Int {
 	return &Int{c: make(map[uint64]*big.Int)}
 }
 
-// SetTerm sets a term in p with degree n and coefficient a.
-func (p *Int) SetTerm(n uint64, a *big.Int) {
+// SetCoeff sets a term in p with degree n and coefficient a.
+func (p *Int) SetCoeff(n uint64, a *big.Int) {
 	if n > p.Degree {
 		p.Degree = n
 	}

@@ -36,14 +36,14 @@ func main() {
 
     rSin := pade.NewRat()
 
-    rSin.P.SetTerm(1, big.NewRat(1, 1))
-    rSin.P.SetTerm(3, big.NewRat(-2363, 18183))
-    rSin.P.SetTerm(5, big.NewRat(12671, 4363920))
+    rSin.P.SetCoeff(1, big.NewRat(1, 1))
+    rSin.P.SetCoeff(3, big.NewRat(-2363, 18183))
+    rSin.P.SetCoeff(5, big.NewRat(12671, 4363920))
 
-    rSin.Q.SetTerm(0, big.NewRat(1, 1))
-    rSin.Q.SetTerm(2, big.NewRat(445, 12122))
-    rSin.Q.SetTerm(4, big.NewRat(601, 872784))
-    rSin.Q.SetTerm(6, big.NewRat(121, 16662240))
+    rSin.Q.SetCoeff(0, big.NewRat(1, 1))
+    rSin.Q.SetCoeff(2, big.NewRat(445, 12122))
+    rSin.Q.SetCoeff(4, big.NewRat(601, 872784))
+    rSin.Q.SetCoeff(6, big.NewRat(121, 16662240))
 
     y := new(cplex.Rat).Padé(z, rSin)
 
@@ -82,19 +82,19 @@ func main() {
 
 	rExp := pade.NewRat()
 
-	rExp.P.SetTerm(0, big.NewRat(1, 1))
-	rExp.P.SetTerm(1, big.NewRat(1, 2))
-	rExp.P.SetTerm(2, big.NewRat(1, 9))
-	rExp.P.SetTerm(3, big.NewRat(1, 72))
-	rExp.P.SetTerm(4, big.NewRat(1, 1008))
-	rExp.P.SetTerm(5, big.NewRat(1, 30240))
+	rExp.P.SetCoeff(0, big.NewRat(1, 1))
+	rExp.P.SetCoeff(1, big.NewRat(1, 2))
+	rExp.P.SetCoeff(2, big.NewRat(1, 9))
+	rExp.P.SetCoeff(3, big.NewRat(1, 72))
+	rExp.P.SetCoeff(4, big.NewRat(1, 1008))
+	rExp.P.SetCoeff(5, big.NewRat(1, 30240))
 
-	rExp.Q.SetTerm(0, big.NewRat(1, 1))
-	rExp.Q.SetTerm(1, big.NewRat(-1, 2))
-	rExp.Q.SetTerm(2, big.NewRat(1, 9))
-	rExp.Q.SetTerm(3, big.NewRat(-1, 72))
-	rExp.Q.SetTerm(4, big.NewRat(1, 1008))
-	rExp.Q.SetTerm(5, big.NewRat(-1, 30240))
+	rExp.Q.SetCoeff(0, big.NewRat(1, 1))
+	rExp.Q.SetCoeff(1, big.NewRat(-1, 2))
+	rExp.Q.SetCoeff(2, big.NewRat(1, 9))
+	rExp.Q.SetCoeff(3, big.NewRat(-1, 72))
+	rExp.Q.SetCoeff(4, big.NewRat(1, 1008))
+	rExp.Q.SetCoeff(5, big.NewRat(-1, 30240))
 
 	y := new(cplex.Rat).Padé(z, rExp)
 
@@ -132,14 +132,14 @@ func main() {
 
 	rSN3 := pade.NewRat()
 
-	rSN3.P.SetTerm(1, big.NewRat(1, 1))
-	rSN3.P.SetTerm(3, big.NewRat(-572744, 4726821))
-	rSN3.P.SetTerm(5, big.NewRat(-9851629, 283609260))
+	rSN3.P.SetCoeff(1, big.NewRat(1, 1))
+	rSN3.P.SetCoeff(3, big.NewRat(-572744, 4726821))
+	rSN3.P.SetCoeff(5, big.NewRat(-9851629, 283609260))
 
-	rSN3.Q.SetTerm(0, big.NewRat(1, 1))
-	rSN3.Q.SetTerm(2, big.NewRat(859490, 1575607))
-	rSN3.Q.SetTerm(4, big.NewRat(-5922035, 56721852))
-	rSN3.Q.SetTerm(6, big.NewRat(62531591, 2977897230))
+	rSN3.Q.SetCoeff(0, big.NewRat(1, 1))
+	rSN3.Q.SetCoeff(2, big.NewRat(859490, 1575607))
+	rSN3.Q.SetCoeff(4, big.NewRat(-5922035, 56721852))
+	rSN3.Q.SetCoeff(6, big.NewRat(62531591, 2977897230))
 
 	y := new(cplex.Rat).Padé(z, rSN3)
 
@@ -174,14 +174,14 @@ func main() {
 
 	rJ5 := pade.NewRat()
 
-	rJ5.P.SetTerm(5, big.NewRat(1, 3840))
-	rJ5.P.SetTerm(7, big.NewRat(-107, 28416000))
+	rJ5.P.SetCoeff(5, big.NewRat(1, 3840))
+	rJ5.P.SetCoeff(7, big.NewRat(-107, 28416000))
 
-	rJ5.Q.SetTerm(0, big.NewRat(1, 1))
-	rJ5.Q.SetTerm(2, big.NewRat(151, 5550))
-	rJ5.Q.SetTerm(4, big.NewRat(1453, 3729600))
-	rJ5.Q.SetTerm(6, big.NewRat(1339, 358041600))
-	rJ5.Q.SetTerm(8, big.NewRat(2767, 120301977600))
+	rJ5.Q.SetCoeff(0, big.NewRat(1, 1))
+	rJ5.Q.SetCoeff(2, big.NewRat(151, 5550))
+	rJ5.Q.SetCoeff(4, big.NewRat(1453, 3729600))
+	rJ5.Q.SetCoeff(6, big.NewRat(1339, 358041600))
+	rJ5.Q.SetCoeff(8, big.NewRat(2767, 120301977600))
 
 	y := new(cplex.Rat).Padé(z, rJ5)
 
@@ -218,14 +218,14 @@ func main() {
 
 	rJ5 := pade.NewRat()
 
-	rJ5.P.SetTerm(5, big.NewRat(1, 3840))
-	rJ5.P.SetTerm(7, big.NewRat(-107, 28416000))
+	rJ5.P.SetCoeff(5, big.NewRat(1, 3840))
+	rJ5.P.SetCoeff(7, big.NewRat(-107, 28416000))
 
-	rJ5.Q.SetTerm(0, big.NewRat(1, 1))
-	rJ5.Q.SetTerm(2, big.NewRat(151, 5550))
-	rJ5.Q.SetTerm(4, big.NewRat(1453, 3729600))
-	rJ5.Q.SetTerm(6, big.NewRat(1339, 358041600))
-	rJ5.Q.SetTerm(8, big.NewRat(2767, 120301977600))
+	rJ5.Q.SetCoeff(0, big.NewRat(1, 1))
+	rJ5.Q.SetCoeff(2, big.NewRat(151, 5550))
+	rJ5.Q.SetCoeff(4, big.NewRat(1453, 3729600))
+	rJ5.Q.SetCoeff(6, big.NewRat(1339, 358041600))
+	rJ5.Q.SetCoeff(8, big.NewRat(2767, 120301977600))
 
 	y := new(cplex.Rat).Padé(z, rJ5)
 
