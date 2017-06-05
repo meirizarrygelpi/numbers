@@ -58,6 +58,15 @@ func (p *Rat) Degrees() Degrees {
 	return deg
 }
 
+// Neg sets p equal to the negative of q, and returns p.
+func (p *Rat) Neg(q *Rat) *Rat {
+	x := new(Rat)
+	for n, a := range q.c {
+		x.SetCoeff(n, new(big.Rat).Neg(a))
+	}
+	return p.Set(x)
+}
+
 // Add sets p equal to q+r, and returns z.
 func (p *Rat) Add(q, r *Rat) *Rat {
 	x, y := new(Rat), new(Rat)

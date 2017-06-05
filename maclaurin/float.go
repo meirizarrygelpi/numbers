@@ -58,6 +58,15 @@ func (p *Float) Degrees() Degrees {
 	return deg
 }
 
+// Neg sets p equal to the negative of q, and returns p.
+func (p *Float) Neg(q *Float) *Float {
+	x := new(Float)
+	for n, a := range q.c {
+		x.SetCoeff(n, new(big.Float).Neg(a))
+	}
+	return p.Set(x)
+}
+
 // Add sets p equal to q+r, and returns z.
 func (p *Float) Add(q, r *Float) *Float {
 	x, y := new(Float), new(Float)

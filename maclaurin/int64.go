@@ -56,6 +56,15 @@ func (p *Int64) Degrees() Degrees {
 	return deg
 }
 
+// Neg sets p equal to the negative of q, and returns p.
+func (p *Int64) Neg(q *Int64) *Int64 {
+	x := new(Int64)
+	for n, a := range q.c {
+		x.SetCoeff(n, -a)
+	}
+	return p.Set(x)
+}
+
 // Add sets p equal to q+r, and returns z.
 func (p *Int64) Add(q, r *Int64) *Int64 {
 	x, y := new(Int64), new(Int64)

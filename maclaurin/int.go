@@ -58,6 +58,15 @@ func (p *Int) Degrees() Degrees {
 	return deg
 }
 
+// Neg sets p equal to the negative of q, and returns p.
+func (p *Int) Neg(q *Int) *Int {
+	x := new(Int)
+	for n, a := range q.c {
+		x.SetCoeff(n, new(big.Int).Neg(a))
+	}
+	return p.Set(x)
+}
+
 // Add sets p equal to q+r, and returns z.
 func (p *Int) Add(q, r *Int) *Int {
 	x, y := new(Int), new(Int)
