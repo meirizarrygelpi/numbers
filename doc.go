@@ -43,8 +43,9 @@ The eight-dimensional packages are:
     dualcockle    (dual-Cockle quaternions; nilplexification of the Cockle quaternions)
     hypercplex    (hyper-complex numbers; nilplexification of the dual-complex numbers)
     hyperpplex    (hyper-perplex numbers; nilplexification of the dual-perplex numbers)
-    bihamilton    (bi-Hamilton quaternions; complexification of the Hamilton quaternions)
-    bicockle      (bi-Cockle quaternions; complexification of the Cockle quaternions)
+    comhamilton   (complex-Hamilton quaternions; complexification of the Hamilton quaternions)
+    perhamilton   (perplex-Hamilton quaternions; perplexification of the Hamilton quaternions)
+    percockle     (perplex-Cockle quaternions; perplexification of the Cockle quaternions)
 All three two-dimensional systems include a binary multiplication operation that
 is commutative and associative (for non-floats). Both the nilplex and perplex numbers include
 non-trivial zero divisors.
@@ -60,17 +61,17 @@ commutative and associative (for non-floats).
 Except for the Hamilton quaternions, all other four-dimensional number systems
 include non-trivial zero divisors.
 
-Seven of the sixteen eight-dimensional systems include a binary multiplication
+Seven of the seventeen eight-dimensional systems include a binary multiplication
 operation that is non-commutative and non-associative. These are the Cayley octonions,
 Zorn octonions, ultra-nilplex numbers, super-Hamilton quaternions, super-Cockle quaternions,
 ultra-complex numbers, and ultra-perplex numbers.
 
-The other nine eight-dimensional number systems are plexifications of
+The other ten eight-dimensional number systems are plexifications of
 four-dimensional number systems. For dual-Hamilton quaternions, dual-Cockle
-quaternions, bi-Hamilton quaternions and bi-Cockle quaternions, the
-multiplication operation is non-commutative but associative (for non-floats).
-For tri-complex numbers, tri-perplex numbers, tri-nilplex numbers,
-hyper-complex numbers, and hyper-perplex numbers the multiplication operation is
-commutative and associative (for non-floats).
+quaternions, complex-Hamilton quaternions, perplex-Hamilton quaternions and
+perplex-Cockle quaternions, the multiplication operation is non-commutative but
+associative (for non-floats). For tri-complex numbers, tri-perplex numbers,
+tri-nilplex numbers, hyper-complex numbers, and hyper-perplex numbers the
+multiplication operation is commutative and associative (for non-floats).
 */
 package numbers
