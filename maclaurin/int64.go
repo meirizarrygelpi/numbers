@@ -22,6 +22,15 @@ func (p *Int64) SetCoeff(n uint64, a int64) {
 	p.c[n] = a
 }
 
+// Set sets p equal to q, and returns p.
+func (p *Int64) Set(q *Int64) *Int64 {
+	p = new(Int64)
+	for n, a := range q.c {
+		p.SetCoeff(n, a)
+	}
+	return p
+}
+
 // Coeff returns the coefficient of the term in p with degree n. If p does
 // not have a term of degree n, ok is false.
 func (p *Int64) Coeff(n uint64) (a int64, ok bool) {

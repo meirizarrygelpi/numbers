@@ -24,6 +24,15 @@ func (p *Rat) SetCoeff(n uint64, a *big.Rat) {
 	p.c[n] = a
 }
 
+// Set sets p equal to q, and returns p.
+func (p *Rat) Set(q *Rat) *Rat {
+	p = new(Rat)
+	for n, a := range q.c {
+		p.SetCoeff(n, a)
+	}
+	return p
+}
+
 // Coeff returns the coefficient of the term in p with degree n. If p does
 // not have a term of degree n, ok is false.
 func (p *Rat) Coeff(n uint64) (a *big.Rat, ok bool) {
