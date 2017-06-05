@@ -133,6 +133,20 @@ func NewFloat(a, b *big.Float) *Float {
 	return z
 }
 
+// Plus sets z equal to y+a, with a real, and returns z.
+func (z *Float) Plus(y *Float, a *big.Float) *Float {
+	z.l.Add(&y.l, a)
+	z.r.Set(&y.r)
+	return z
+}
+
+// Minus sets z equal to y-a, with a real, and returns z.
+func (z *Float) Minus(y *Float, a *big.Float) *Float {
+	z.l.Sub(&y.l, a)
+	z.r.Set(&y.r)
+	return z
+}
+
 // Dilate sets z equal to y dilated by a, and returns z.
 func (z *Float) Dilate(y *Float, a *big.Float) *Float {
 	z.l.Mul(&y.l, a)
