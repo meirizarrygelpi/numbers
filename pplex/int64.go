@@ -8,6 +8,9 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // An Int64 is a perplex number with int64 components.
@@ -198,6 +201,45 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	b := (x.r * y.l) - (y.r * x.l)
 	z.SetPair(a, b)
 	return z.Divide(z, q)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Int64) Maclaurin(y *Int64, p *maclaurin.Int64) *Int64 {
+	if p.Len() == 0 {
+		z = new(Int64)
+		return z
+	}
+	n := p.Degree
+	var a int64
+	if n == 0 {
+		z = new(Int64)
+		a, _ = p.Coeff(n)
+		z.SetReal(a)
+		return z
+	}
+	a, _ = p.Coeff(n)
+	z.Dilate(y, a)
+	for n > 1 {
+		n--
+		if a, ok := p.Coeff(n); ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p.Coeff(0); ok {
+		z.Plus(z, a)
+	}
+	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Int64) Padé(y *Int64, r *pade.Int64) *Int64 {
+	p, q := new(Int64), new(Int64)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Int64 value for quick.Check testing.

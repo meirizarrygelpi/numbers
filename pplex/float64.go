@@ -9,6 +9,9 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // A Float64 is a perplex number with float64 components.
@@ -243,6 +246,45 @@ func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Float64) Maclaurin(y *Float64, p *maclaurin.Float64) *Float64 {
+	if p.Len() == 0 {
+		z = new(Float64)
+		return z
+	}
+	n := p.Degree
+	var a float64
+	if n == 0 {
+		z = new(Float64)
+		a, _ = p.Coeff(n)
+		z.SetReal(a)
+		return z
+	}
+	a, _ = p.Coeff(n)
+	z.Dilate(y, a)
+	for n > 1 {
+		n--
+		if a, ok := p.Coeff(n); ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p.Coeff(0); ok {
+		z.Plus(z, a)
+	}
+	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Float64) Padé(y *Float64, r *pade.Float64) *Float64 {
+	p, q := new(Float64), new(Float64)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Float64 value for quick.Check testing.

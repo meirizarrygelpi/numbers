@@ -8,6 +8,9 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+
+	"github.com/meirizarrygelpi/numbers/maclaurin"
+	"github.com/meirizarrygelpi/numbers/pade"
 )
 
 // A Rat represents an arbitrary-precision perplex rational.
@@ -253,6 +256,45 @@ func (z *Rat) Möbius(y, a, b, c, d *Rat) *Rat {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
+}
+
+// Maclaurin sets z equal to the value of the Maclaurin polynomial p evaluated
+// at y, and returns z. Horner's method is used.
+func (z *Rat) Maclaurin(y *Rat, p *maclaurin.Rat) *Rat {
+	if p.Len() == 0 {
+		z = new(Rat)
+		return z
+	}
+	n := p.Degree
+	var a *big.Rat
+	if n == 0 {
+		z = new(Rat)
+		a, _ = p.Coeff(n)
+		z.SetReal(a)
+		return z
+	}
+	a, _ = p.Coeff(n)
+	z.Scale(y, a)
+	for n > 1 {
+		n--
+		if a, ok := p.Coeff(n); ok {
+			z.Plus(z, a)
+		}
+		z.Mul(z, y)
+	}
+	if a, ok := p.Coeff(0); ok {
+		z.Plus(z, a)
+	}
+	return z
+}
+
+// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// and returns z.
+func (z *Rat) Padé(y *Rat, r *pade.Rat) *Rat {
+	p, q := new(Rat), new(Rat)
+	p.Maclaurin(y, &r.P)
+	q.Maclaurin(y, &r.Q)
+	return z.Quo(p, q)
 }
 
 // Generate returns a random Rat value for quick.Check testing.
