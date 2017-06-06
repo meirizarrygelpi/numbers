@@ -3,7 +3,10 @@
 
 package maclaurin
 
-import "math/big"
+import (
+	"fmt"
+	"math/big"
+)
 
 // A Rat is a Maclaurin polynomial where each coefficient is a *big.Rat.
 type Rat struct {
@@ -13,7 +16,10 @@ type Rat struct {
 
 // NewRat returns a new zero-valued polynomial.
 func NewRat() *Rat {
-	return &Rat{c: make(map[uint64]*big.Rat)}
+	return &Rat{
+		Degree: 0,
+		c:      map[uint64]*big.Rat{0: big.NewRat(0, 1)},
+	}
 }
 
 // SetCoeff sets a term in p with degree n and coefficient a.
@@ -26,7 +32,7 @@ func (p *Rat) SetCoeff(n uint64, a *big.Rat) {
 
 // Set sets p equal to q, and returns p.
 func (p *Rat) Set(q *Rat) *Rat {
-	p = new(Rat)
+	p = NewRat()
 	for n, a := range q.c {
 		p.SetCoeff(n, a)
 	}
@@ -58,9 +64,34 @@ func (p *Rat) Degrees() Degrees {
 	return deg
 }
 
+// String returns the string version of a polynomial.
+func (p *Rat) String() string {
+	l := p.Len()
+	if l == 0 {
+		return "0"
+	}
+	var s string
+	degs := p.Degrees()
+	s += p.c[degs[0]].RatString()
+	s += "x^"
+	s += fmt.Sprint(degs[0])
+	if l > 2 {
+		for _, n := range degs[1:] {
+			if p.c[n].Sign() < 0 {
+				s += p.c[n].RatString()
+			} else {
+				s += "+" + p.c[n].RatString()
+			}
+			s += "x^"
+			s += fmt.Sprint(n)
+		}
+	}
+	return s
+}
+
 // Neg sets p equal to the negative of q, and returns p.
 func (p *Rat) Neg(q *Rat) *Rat {
-	x := new(Rat)
+	x := NewRat()
 	for n, a := range q.c {
 		x.SetCoeff(n, new(big.Rat).Neg(a))
 	}
@@ -69,20 +100,59 @@ func (p *Rat) Neg(q *Rat) *Rat {
 
 // Add sets p equal to q+r, and returns z.
 func (p *Rat) Add(q, r *Rat) *Rat {
-	x, y := new(Rat), new(Rat)
-	x.Set(q)
-	y.Set(r)
+	x := new(Rat).Set(q)
+	y := new(Rat).Set(r)
+	z := NewRat()
 	for n, a := range x.c {
 		if b, ok := y.Coeff(n); ok {
-			p.SetCoeff(n, new(big.Rat).Add(a, b))
+			z.SetCoeff(n, new(big.Rat).Add(a, b))
 		} else {
-			p.SetCoeff(n, a)
+			z.SetCoeff(n, a)
 		}
 	}
 	for n, b := range y.c {
-		if _, ok := y.Coeff(n); !ok {
-			p.SetCoeff(n, b)
+		if _, ok := x.Coeff(n); !ok {
+			z.SetCoeff(n, b)
 		}
 	}
-	return p
+	return p.Set(z)
+}
+
+// Sub sets p equal to q-r, and returns z.
+func (p *Rat) Sub(q, r *Rat) *Rat {
+	x := new(Rat).Set(q)
+	y := new(Rat).Set(r)
+	z := NewRat()
+	for n, a := range x.c {
+		if b, ok := y.Coeff(n); ok {
+			z.SetCoeff(n, new(big.Rat).Sub(a, b))
+		} else {
+			z.SetCoeff(n, a)
+		}
+	}
+	for n, b := range y.c {
+		if _, ok := x.Coeff(n); !ok {
+			z.SetCoeff(n, new(big.Rat).Neg(b))
+		}
+	}
+	return p.Set(z)
+}
+
+// Mul sets p equal to q*r, and returns z.
+func (p *Rat) Mul(q, r *Rat) *Rat {
+	x := new(Rat).Set(q)
+	y := new(Rat).Set(r)
+	z := NewRat()
+	var l uint64
+	for n, a := range x.c {
+		for m, b := range y.c {
+			l = n + m
+			if coeff, ok := z.Coeff(l); ok {
+				z.SetCoeff(l, new(big.Rat).Add(coeff, new(big.Rat).Mul(a, b)))
+			} else {
+				z.SetCoeff(l, new(big.Rat).Mul(a, b))
+			}
+		}
+	}
+	return p.Set(z)
 }

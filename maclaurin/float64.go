@@ -3,6 +3,11 @@
 
 package maclaurin
 
+import (
+	"fmt"
+	"math"
+)
+
 // A Float64 is a Maclaurin polynomial where each coefficient is a float64.
 type Float64 struct {
 	c      map[uint64]float64
@@ -11,7 +16,10 @@ type Float64 struct {
 
 // NewFloat64 returns a new zero-valued polynomial.
 func NewFloat64() *Float64 {
-	return &Float64{c: make(map[uint64]float64)}
+	return &Float64{
+		Degree: 0,
+		c:      map[uint64]float64{0: 0.0},
+	}
 }
 
 // SetCoeff sets a term in p with degree n and coefficient a.
@@ -24,7 +32,7 @@ func (p *Float64) SetCoeff(n uint64, a float64) {
 
 // Set sets p equal to q, and returns p.
 func (p *Float64) Set(q *Float64) *Float64 {
-	p = new(Float64)
+	p = NewFloat64()
 	for n, a := range q.c {
 		p.SetCoeff(n, a)
 	}
@@ -56,9 +64,40 @@ func (p *Float64) Degrees() Degrees {
 	return deg
 }
 
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
+}
+
+// String returns the string version of a polynomial.
+func (p *Float64) String() string {
+	l := p.Len()
+	if l == 0 {
+		return "0.0"
+	}
+	var s string
+	degs := p.Degrees()
+	s += fmt.Sprintf("%g", p.c[degs[0]])
+	s += "x^"
+	s += fmt.Sprint(degs[0])
+	if l > 2 {
+		for _, n := range degs[1:] {
+			s += sprintFloat64(p.c[n])
+			s += "x^"
+			s += fmt.Sprint(n)
+		}
+	}
+	return s
+}
+
 // Neg sets p equal to the negative of q, and returns p.
 func (p *Float64) Neg(q *Float64) *Float64 {
-	x := new(Float64)
+	x := NewFloat64()
 	for n, a := range q.c {
 		x.SetCoeff(n, -a)
 	}
@@ -67,20 +106,59 @@ func (p *Float64) Neg(q *Float64) *Float64 {
 
 // Add sets p equal to q+r, and returns z.
 func (p *Float64) Add(q, r *Float64) *Float64 {
-	x, y := new(Float64), new(Float64)
-	x.Set(q)
-	y.Set(r)
+	x := new(Float64).Set(q)
+	y := new(Float64).Set(r)
+	z := NewFloat64()
 	for n, a := range x.c {
 		if b, ok := y.Coeff(n); ok {
-			p.SetCoeff(n, a+b)
+			z.SetCoeff(n, a+b)
 		} else {
-			p.SetCoeff(n, a)
+			z.SetCoeff(n, a)
 		}
 	}
 	for n, b := range y.c {
-		if _, ok := y.Coeff(n); !ok {
-			p.SetCoeff(n, b)
+		if _, ok := x.Coeff(n); !ok {
+			z.SetCoeff(n, b)
 		}
 	}
-	return p
+	return p.Set(z)
+}
+
+// Sub sets p equal to q-r, and returns z.
+func (p *Float64) Sub(q, r *Float64) *Float64 {
+	x := new(Float64).Set(q)
+	y := new(Float64).Set(r)
+	z := NewFloat64()
+	for n, a := range x.c {
+		if b, ok := y.Coeff(n); ok {
+			z.SetCoeff(n, a-b)
+		} else {
+			z.SetCoeff(n, a)
+		}
+	}
+	for n, b := range y.c {
+		if _, ok := x.Coeff(n); !ok {
+			z.SetCoeff(n, -b)
+		}
+	}
+	return p.Set(z)
+}
+
+// Mul sets p equal to q*r, and returns z.
+func (p *Float64) Mul(q, r *Float64) *Float64 {
+	x := new(Float64).Set(q)
+	y := new(Float64).Set(r)
+	z := NewFloat64()
+	var l uint64
+	for n, a := range x.c {
+		for m, b := range y.c {
+			l = n + m
+			if coeff, ok := z.Coeff(l); ok {
+				z.SetCoeff(l, coeff+(a*b))
+			} else {
+				z.SetCoeff(l, a*b)
+			}
+		}
+	}
+	return p.Set(z)
 }

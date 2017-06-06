@@ -3,7 +3,10 @@
 
 package maclaurin
 
-import "math/big"
+import (
+	"fmt"
+	"math/big"
+)
 
 // A Int is a Maclaurin polynomial where each coefficient is a *big.Int.
 type Int struct {
@@ -13,7 +16,10 @@ type Int struct {
 
 // NewInt returns a new zero-valued polynomial.
 func NewInt() *Int {
-	return &Int{c: make(map[uint64]*big.Int)}
+	return &Int{
+		Degree: 0,
+		c:      map[uint64]*big.Int{0: big.NewInt(0)},
+	}
 }
 
 // SetCoeff sets a term in p with degree n and coefficient a.
@@ -26,7 +32,7 @@ func (p *Int) SetCoeff(n uint64, a *big.Int) {
 
 // Set sets p equal to q, and returns p.
 func (p *Int) Set(q *Int) *Int {
-	p = new(Int)
+	p = NewInt()
 	for n, a := range q.c {
 		p.SetCoeff(n, a)
 	}
@@ -58,9 +64,34 @@ func (p *Int) Degrees() Degrees {
 	return deg
 }
 
+// String returns the string version of a polynomial.
+func (p *Int) String() string {
+	l := p.Len()
+	if l == 0 {
+		return "0"
+	}
+	var s string
+	degs := p.Degrees()
+	s += p.c[degs[0]].String()
+	s += "x^"
+	s += fmt.Sprint(degs[0])
+	if l > 2 {
+		for _, n := range degs[1:] {
+			if p.c[n].Sign() < 0 {
+				s += p.c[n].String()
+			} else {
+				s += "+" + p.c[n].String()
+			}
+			s += "x^"
+			s += fmt.Sprint(n)
+		}
+	}
+	return s
+}
+
 // Neg sets p equal to the negative of q, and returns p.
 func (p *Int) Neg(q *Int) *Int {
-	x := new(Int)
+	x := NewInt()
 	for n, a := range q.c {
 		x.SetCoeff(n, new(big.Int).Neg(a))
 	}
@@ -69,20 +100,59 @@ func (p *Int) Neg(q *Int) *Int {
 
 // Add sets p equal to q+r, and returns z.
 func (p *Int) Add(q, r *Int) *Int {
-	x, y := new(Int), new(Int)
-	x.Set(q)
-	y.Set(r)
+	x := new(Int).Set(q)
+	y := new(Int).Set(r)
+	z := NewInt()
 	for n, a := range x.c {
 		if b, ok := y.Coeff(n); ok {
-			p.SetCoeff(n, new(big.Int).Add(a, b))
+			z.SetCoeff(n, new(big.Int).Add(a, b))
 		} else {
-			p.SetCoeff(n, a)
+			z.SetCoeff(n, a)
 		}
 	}
 	for n, b := range y.c {
-		if _, ok := y.Coeff(n); !ok {
-			p.SetCoeff(n, b)
+		if _, ok := x.Coeff(n); !ok {
+			z.SetCoeff(n, b)
 		}
 	}
-	return p
+	return p.Set(z)
+}
+
+// Sub sets p equal to q-r, and returns z.
+func (p *Int) Sub(q, r *Int) *Int {
+	x := new(Int).Set(q)
+	y := new(Int).Set(r)
+	z := NewInt()
+	for n, a := range x.c {
+		if b, ok := y.Coeff(n); ok {
+			z.SetCoeff(n, new(big.Int).Sub(a, b))
+		} else {
+			z.SetCoeff(n, a)
+		}
+	}
+	for n, b := range y.c {
+		if _, ok := x.Coeff(n); !ok {
+			z.SetCoeff(n, new(big.Int).Neg(b))
+		}
+	}
+	return p.Set(z)
+}
+
+// Mul sets p equal to q*r, and returns z.
+func (p *Int) Mul(q, r *Int) *Int {
+	x := new(Int).Set(q)
+	y := new(Int).Set(r)
+	z := NewInt()
+	var l uint64
+	for n, a := range x.c {
+		for m, b := range y.c {
+			l = n + m
+			if coeff, ok := z.Coeff(l); ok {
+				z.SetCoeff(l, new(big.Int).Add(coeff, new(big.Int).Mul(a, b)))
+			} else {
+				z.SetCoeff(l, new(big.Int).Mul(a, b))
+			}
+		}
+	}
+	return p.Set(z)
 }
