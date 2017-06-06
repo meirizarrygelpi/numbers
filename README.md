@@ -47,12 +47,12 @@ Here is a list of available packages:
 1. `hyperpplex`: hyper-perplex numbers (nilplexification of dual-perplex numbers; eight-dimensional)
 1. `dualhamilton`: dual-Hamilton quaternions (nilplexification of Hamilton quaternions; eight-dimensional)
 1. `dualcockle`: dual-Cockle quaternions (nilplexification of Cockle quaternions; eight-dimensional)
-
-Here is a list of future packages:
-
 1. `comhamilton`: complex-Hamilton quaternions (complexification of Hamilton quaternions; eight-dimensional)
 1. `perhamilton`: perplex-Hamilton quaternions (perplexification of Hamilton quaternions; eight-dimensional)
 1. `percockle`: perplex-Cockle quaternions (perplexification of Cockle quaternions; eight-dimensional)
+
+Here is a list of future packages:
+
 1. `laurent`: [Laurent polynomials](https://en.wikipedia.org/wiki/Laurent_polynomial)
 
 To-Do:
