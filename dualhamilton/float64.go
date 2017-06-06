@@ -251,6 +251,64 @@ func (z *Float64) QuoR(x, y *Float64) *Float64 {
 	return z.Mul(x, z.Inv(y))
 }
 
+// CrossRatioL sets z equal to the left cross-ratio of v, w, x, and y:
+// 		Inv(w - x) * (v - x) * Inv(v - y) * (w - y)
+// Then it returns z.
+func (z *Float64) CrossRatioL(v, w, x, y *Float64) *Float64 {
+	temp := new(Float64)
+	z.Sub(w, x)
+	z.Inv(z)
+	temp.Sub(v, x)
+	z.Mul(z, temp)
+	temp.Sub(v, y)
+	temp.Inv(temp)
+	z.Mul(z, temp)
+	temp.Sub(w, y)
+	return z.Mul(z, temp)
+}
+
+// CrossRatioR sets z equal to the right cross-ratio of v, w, x, and y:
+// 		(v - x) * Inv(w - x) * (w - y) * Inv(v - y)
+// Then it returns z.
+func (z *Float64) CrossRatioR(v, w, x, y *Float64) *Float64 {
+	temp := new(Float64)
+	z.Sub(v, x)
+	temp.Sub(w, x)
+	temp.Inv(temp)
+	z.Mul(z, temp)
+	temp.Sub(w, y)
+	z.Mul(z, temp)
+	temp.Sub(v, y)
+	temp.Inv(temp)
+	return z.Mul(z, temp)
+}
+
+// MöbiusL sets z equal to the left Möbius (fractional linear) transform of y:
+// 		Inv(y*c + d) * (y*a + b)
+// Then it returns z.
+func (z *Float64) MöbiusL(y, a, b, c, d *Float64) *Float64 {
+	z.Mul(y, a)
+	z.Add(z, b)
+	temp := new(Float64)
+	temp.Mul(y, c)
+	temp.Add(temp, d)
+	temp.Inv(temp)
+	return z.Mul(temp, z)
+}
+
+// MöbiusR sets z equal to the right Möbius (fractional linear) transform of y:
+// 		(a*y + b) * Inv(c*y + d)
+// Then it returns z.
+func (z *Float64) MöbiusR(y, a, b, c, d *Float64) *Float64 {
+	z.Mul(a, y)
+	z.Add(z, b)
+	temp := new(Float64)
+	temp.Mul(c, y)
+	temp.Add(temp, d)
+	temp.Inv(temp)
+	return z.Mul(z, temp)
+}
+
 // Generate returns a random Float64 value for quick.Check testing.
 func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat64 := &Float64{
