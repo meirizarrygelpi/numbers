@@ -63,6 +63,4 @@ To-Do:
 1. `Padé` methods
 1. `Inf` and `NaN` methods
 1. `IsInf` and `IsNaN` methods
-1. Rename `Star1` methods `Bar`
-1. Rename `Star2` methods `Tilde`
 1. `Dot` and `Cross` methods

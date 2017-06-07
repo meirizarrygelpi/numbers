@@ -22,7 +22,7 @@ func TestAddCommutativeFloat64(t *testing.T) {
 	}
 }
 
-func TestNegStar1CommutativeFloat64(t *testing.T) {
+func TestNegBarCommutativeFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Float64), new(Float64)
@@ -35,7 +35,7 @@ func TestNegStar1CommutativeFloat64(t *testing.T) {
 	}
 }
 
-func TestNegStar2CommutativeFloat64(t *testing.T) {
+func TestNegTildeCommutativeFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Float64), new(Float64)
@@ -183,7 +183,7 @@ func TestNegInvolutiveFloat64(t *testing.T) {
 	}
 }
 
-func TestStar1InvolutiveFloat64(t *testing.T) {
+func TestBarInvolutiveFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Float64)
@@ -195,7 +195,7 @@ func TestStar1InvolutiveFloat64(t *testing.T) {
 	}
 }
 
-func TestStar2InvolutiveFloat64(t *testing.T) {
+func TestTildeInvolutiveFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Float64)
@@ -209,7 +209,7 @@ func TestStar2InvolutiveFloat64(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulStar1AntiDistributiveFloat64(t *testing.T) {
+func TestMulBarAntiDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
@@ -222,7 +222,7 @@ func TestMulStar1AntiDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestMulStar2AntiDistributiveFloat64(t *testing.T) {
+func TestMulTildeAntiDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
@@ -250,7 +250,7 @@ func XTestMulInvAntiDistributiveFloat64(t *testing.T) {
 
 // Distributivity
 
-func TestAddStar1DistributiveFloat64(t *testing.T) {
+func TestAddBarDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
@@ -264,7 +264,7 @@ func TestAddStar1DistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestAddStar2DistributiveFloat64(t *testing.T) {
+func TestAddTildeDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
@@ -278,7 +278,7 @@ func TestAddStar2DistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubStar1DistributiveFloat64(t *testing.T) {
+func TestSubBarDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
@@ -292,7 +292,7 @@ func TestSubStar1DistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubStar2DistributiveFloat64(t *testing.T) {
+func TestSubTildeDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)

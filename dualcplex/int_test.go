@@ -23,7 +23,7 @@ func TestAddCommutativeInt(t *testing.T) {
 	}
 }
 
-func TestNegStar1CommutativeInt(t *testing.T) {
+func TestNegBarCommutativeInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int), new(Int)
@@ -36,7 +36,7 @@ func TestNegStar1CommutativeInt(t *testing.T) {
 	}
 }
 
-func TestNegStar2CommutativeInt(t *testing.T) {
+func TestNegTildeCommutativeInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int), new(Int)
@@ -159,7 +159,7 @@ func TestNegInvolutiveInt(t *testing.T) {
 	}
 }
 
-func TestStar1InvolutiveInt(t *testing.T) {
+func TestBarInvolutiveInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int)
@@ -171,7 +171,7 @@ func TestStar1InvolutiveInt(t *testing.T) {
 	}
 }
 
-func TestStar2InvolutiveInt(t *testing.T) {
+func TestTildeInvolutiveInt(t *testing.T) {
 	f := func(x *Int) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int)
@@ -185,7 +185,7 @@ func TestStar2InvolutiveInt(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulStar1AntiDistributiveInt(t *testing.T) {
+func TestMulBarAntiDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
@@ -198,7 +198,7 @@ func TestMulStar1AntiDistributiveInt(t *testing.T) {
 	}
 }
 
-func TestMulStar2AntiDistributiveInt(t *testing.T) {
+func TestMulTildeAntiDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
@@ -213,7 +213,7 @@ func TestMulStar2AntiDistributiveInt(t *testing.T) {
 
 // Distributivity
 
-func TestAddStar1DistributiveInt(t *testing.T) {
+func TestAddBarDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
@@ -227,7 +227,7 @@ func TestAddStar1DistributiveInt(t *testing.T) {
 	}
 }
 
-func TestAddStar2DistributiveInt(t *testing.T) {
+func TestAddTildeDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
@@ -241,7 +241,7 @@ func TestAddStar2DistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubStar1DistributiveInt(t *testing.T) {
+func TestSubBarDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)
@@ -255,7 +255,7 @@ func TestSubStar1DistributiveInt(t *testing.T) {
 	}
 }
 
-func TestSubStar2DistributiveInt(t *testing.T) {
+func TestSubTildeDistributiveInt(t *testing.T) {
 	f := func(x, y *Int) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int), new(Int)

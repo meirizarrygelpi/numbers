@@ -22,7 +22,7 @@ func TestAddCommutativeInt64(t *testing.T) {
 	}
 }
 
-func TestNegStar1CommutativeInt64(t *testing.T) {
+func TestNegBarCommutativeInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int64), new(Int64)
@@ -35,7 +35,7 @@ func TestNegStar1CommutativeInt64(t *testing.T) {
 	}
 }
 
-func TestNegStar2CommutativeInt64(t *testing.T) {
+func TestNegTildeCommutativeInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int64), new(Int64)
@@ -158,7 +158,7 @@ func TestNegInvolutiveInt64(t *testing.T) {
 	}
 }
 
-func TestStar1InvolutiveInt64(t *testing.T) {
+func TestBarInvolutiveInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int64)
@@ -170,7 +170,7 @@ func TestStar1InvolutiveInt64(t *testing.T) {
 	}
 }
 
-func TestStar2InvolutiveInt64(t *testing.T) {
+func TestTildeInvolutiveInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int64)
@@ -184,7 +184,7 @@ func TestStar2InvolutiveInt64(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulStar1AntiDistributiveInt64(t *testing.T) {
+func TestMulBarAntiDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
@@ -197,7 +197,7 @@ func TestMulStar1AntiDistributiveInt64(t *testing.T) {
 	}
 }
 
-func TestMulStar2AntiDistributiveInt64(t *testing.T) {
+func TestMulTildeAntiDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
@@ -212,7 +212,7 @@ func TestMulStar2AntiDistributiveInt64(t *testing.T) {
 
 // Distributivity
 
-func TestAddStar1DistributiveInt64(t *testing.T) {
+func TestAddBarDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
@@ -226,7 +226,7 @@ func TestAddStar1DistributiveInt64(t *testing.T) {
 	}
 }
 
-func TestAddStar2DistributiveInt64(t *testing.T) {
+func TestAddTildeDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
@@ -240,7 +240,7 @@ func TestAddStar2DistributiveInt64(t *testing.T) {
 	}
 }
 
-func TestSubStar1DistributiveInt64(t *testing.T) {
+func TestSubBarDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
@@ -254,7 +254,7 @@ func TestSubStar1DistributiveInt64(t *testing.T) {
 	}
 }
 
-func TestSubStar2DistributiveInt64(t *testing.T) {
+func TestSubTildeDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
