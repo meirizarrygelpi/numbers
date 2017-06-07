@@ -27,8 +27,8 @@ func TestNegStar1CommutativeRat(t *testing.T) {
 	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Rat), new(Rat)
-		l.Neg(l.Star1(x))
-		r.Star1(r.Neg(x))
+		l.Neg(l.Bar(x))
+		r.Bar(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -40,8 +40,8 @@ func TestNegStar2CommutativeRat(t *testing.T) {
 	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Rat), new(Rat)
-		l.Neg(l.Star2(x))
-		r.Star2(r.Neg(x))
+		l.Neg(l.Tilde(x))
+		r.Tilde(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -188,7 +188,7 @@ func TestStar1InvolutiveRat(t *testing.T) {
 	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
 		l := new(Rat)
-		l.Star1(l.Star1(x))
+		l.Bar(l.Bar(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -200,7 +200,7 @@ func TestStar2InvolutiveRat(t *testing.T) {
 	f := func(x *Rat) bool {
 		// t.Logf("x = %v", x)
 		l := new(Rat)
-		l.Star2(l.Star2(x))
+		l.Tilde(l.Tilde(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -214,8 +214,8 @@ func TestMulStar1AntiDistributiveRat(t *testing.T) {
 	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
-		l.Star1(l.Mul(x, y))
-		r.Mul(r.Star1(y), new(Rat).Star1(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Rat).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -227,8 +227,8 @@ func TestMulStar2AntiDistributiveRat(t *testing.T) {
 	f := func(x, y *Rat) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
-		l.Star2(l.Mul(x, y))
-		r.Mul(r.Star2(y), new(Rat).Star2(x))
+		l.Tilde(l.Mul(x, y))
+		r.Mul(r.Tilde(y), new(Rat).Tilde(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -256,8 +256,8 @@ func TestAddStar1DistributiveRat(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
 		l.Add(x, y)
-		l.Star1(l)
-		r.Add(r.Star1(x), new(Rat).Star1(y))
+		l.Bar(l)
+		r.Add(r.Bar(x), new(Rat).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -270,8 +270,8 @@ func TestAddStar2DistributiveRat(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
 		l.Add(x, y)
-		l.Star2(l)
-		r.Add(r.Star2(x), new(Rat).Star2(y))
+		l.Tilde(l)
+		r.Add(r.Tilde(x), new(Rat).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -284,8 +284,8 @@ func TestSubStar1DistributiveRat(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
 		l.Sub(x, y)
-		l.Star1(l)
-		r.Sub(r.Star1(x), new(Rat).Star1(y))
+		l.Bar(l)
+		r.Sub(r.Bar(x), new(Rat).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -298,8 +298,8 @@ func TestSubStar2DistributiveRat(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Rat), new(Rat)
 		l.Sub(x, y)
-		l.Star2(l)
-		r.Sub(r.Star2(x), new(Rat).Star2(y))
+		l.Tilde(l)
+		r.Sub(r.Tilde(x), new(Rat).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

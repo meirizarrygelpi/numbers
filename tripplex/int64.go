@@ -132,22 +132,22 @@ func (z *Int64) Conj(y *Int64) *Int64 {
 	return z
 }
 
-// Star1 sets z equal to the i-conjugate of y, and returns z.
-func (z *Int64) Star1(y *Int64) *Int64 {
-	z.l.Star1(&y.l)
-	z.r.Star1(&y.r)
+// Bar sets z equal to the i-conjugate of y, and returns z.
+func (z *Int64) Bar(y *Int64) *Int64 {
+	z.l.Bar(&y.l)
+	z.r.Bar(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the J-conjugate of y, and returns z.
-func (z *Int64) Star2(y *Int64) *Int64 {
-	z.l.Star2(&y.l)
-	z.r.Star2(&y.r)
+// Tilde sets z equal to the J-conjugate of y, and returns z.
+func (z *Int64) Tilde(y *Int64) *Int64 {
+	z.l.Tilde(&y.l)
+	z.r.Tilde(&y.r)
 	return z
 }
 
-// Star3 sets z equal to the K-conjugate of y, and returns z.
-func (z *Int64) Star3(y *Int64) *Int64 {
+// Star sets z equal to the K-conjugate of y, and returns z.
+func (z *Int64) Star(y *Int64) *Int64 {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -217,7 +217,7 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 		panic(zeroDivisorDenominator)
 	}
 	a := y.Quad()
-	z.Mul(x, z.Star3(y))
+	z.Mul(x, z.Star(y))
 	z.l.Quo(&z.l, a)
 	z.r.Quo(&z.r, a)
 	return z
