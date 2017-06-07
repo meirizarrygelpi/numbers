@@ -26,6 +26,38 @@ func (z *Float64) One() *Float64 {
 	return z
 }
 
+// Inf sets z equal to a complex infinity, and then it returns z.
+func (z *Float64) Inf(s1, s2 int) *Float64 {
+	return z.SetPair(math.Inf(s1), math.Inf(s2))
+}
+
+// IsInf returns true if z is an infinity.
+func (z *Float64) IsInf(s1, s2 int) bool {
+	return math.IsInf(z.Real(), s1) && math.IsInf(z.Unreal(), s2)
+}
+
+// HasInf returns true if z has an infinite component.
+func (z *Float64) HasInf() bool {
+	return math.IsInf(z.Real(), 0) || math.IsInf(z.Unreal(), 0)
+}
+
+// NaN sets z equal to a complex NaN, and then it returns z.
+func (z *Float64) NaN() *Float64 {
+	nan := math.NaN()
+	return z.SetPair(nan, nan)
+}
+
+// IsNaN returns true if a component of z is NaN and none is infinite.
+func (z *Float64) IsNaN() bool {
+	if math.IsInf(z.Real(), 0) || math.IsInf(z.Unreal(), 0) {
+		return false
+	}
+	if math.IsNaN(z.Real()) || math.IsNaN(z.Unreal()) {
+		return true
+	}
+	return false
+}
+
 // Real returns the real part of z.
 func (z *Float64) Real() float64 {
 	return z.l

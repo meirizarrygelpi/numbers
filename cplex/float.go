@@ -73,6 +73,16 @@ func (z *Float) One() *Float {
 	return z
 }
 
+// SetInf sets z equal to a complex infinity, and then it returns z.
+func (z *Float) SetInf(s1, s2 bool) *Float {
+	return z.SetPair(z.l.SetInf(s1), z.r.SetInf(s2))
+}
+
+// IsInf returns true if z has an infinite component.
+func (z *Float) IsInf() bool {
+	return z.l.IsInf() || z.r.IsInf()
+}
+
 func sprintFloat(a *big.Float) string {
 	if a.Signbit() {
 		return a.String()
