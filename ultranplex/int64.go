@@ -11,19 +11,19 @@ import (
 	"fmt"
 
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supra"
+	"github.com/meirizarrygelpi/numbers/supernplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int64 is an ultra number with int64 components.
+// An Int64 is an ultra-nilplex number with int64 components.
 type Int64 struct {
-	l, r supra.Int64
+	l, r supernplex.Int64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int64) One() *Int64 {
 	z.l.One()
-	z.r.Set(new(supra.Int64))
+	z.r.Set(new(supernplex.Int64))
 	return z
 }
 
@@ -82,9 +82,9 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to an ultra number made with a given pair, and
+// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Int64) SetPair(a, b *supra.Int64) *Int64 {
+func (z *Int64) SetPair(a, b *supernplex.Int64) *Int64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -148,7 +148,7 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
-	a, b, temp := new(supra.Int64), new(supra.Int64), new(supra.Int64)
+	a, b, temp := new(supernplex.Int64), new(supernplex.Int64), new(supernplex.Int64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -215,13 +215,13 @@ func (z *Int64) QuoR(x, y *Int64) *Int64 {
 // Generate returns a random Int64 value for quick.Check testing.
 func (z *Int64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt64 := &Int64{
-		*supra.NewInt64(
+		*supernplex.NewInt64(
 			rand.Int63(),
 			rand.Int63(),
 			rand.Int63(),
 			rand.Int63(),
 		),
-		*supra.NewInt64(
+		*supernplex.NewInt64(
 			rand.Int63(),
 			rand.Int63(),
 			rand.Int63(),

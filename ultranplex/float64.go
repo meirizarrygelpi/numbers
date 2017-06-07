@@ -13,19 +13,19 @@ import (
 	"math"
 
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supra"
+	"github.com/meirizarrygelpi/numbers/supernplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float64 is an ultra number with float64 components.
+// A Float64 is an ultra-nilplex number with float64 components.
 type Float64 struct {
-	l, r supra.Float64
+	l, r supernplex.Float64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Float64) One() *Float64 {
 	z.l.One()
-	z.r.Set(new(supra.Float64))
+	z.r.Set(new(supernplex.Float64))
 	return z
 }
 
@@ -90,9 +90,9 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to an ultra number made with a given pair, and
+// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Float64) SetPair(a, b *supra.Float64) *Float64 {
+func (z *Float64) SetPair(a, b *supernplex.Float64) *Float64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -156,7 +156,7 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
-	a, b, temp := new(supra.Float64), new(supra.Float64), new(supra.Float64)
+	a, b, temp := new(supernplex.Float64), new(supernplex.Float64), new(supernplex.Float64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -232,13 +232,13 @@ func (z *Float64) QuoR(x, y *Float64) *Float64 {
 // Generate returns a random Float64 value for quick.Check testing.
 func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat64 := &Float64{
-		*supra.NewFloat64(
+		*supernplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),
 		),
-		*supra.NewFloat64(
+		*supernplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),

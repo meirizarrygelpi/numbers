@@ -10,13 +10,13 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supra"
+	"github.com/meirizarrygelpi/numbers/supernplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float is an ultra number with big.Float components.
+// A Float is an ultra-nilplex number with big.Float components.
 type Float struct {
-	l, r supra.Float
+	l, r supernplex.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -124,9 +124,9 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to an ultra number made with a given pair, and
+// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *supra.Float) *Float {
+func (z *Float) SetPair(a, b *supernplex.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -190,7 +190,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(supra.Float), new(supra.Float), new(supra.Float)
+	a, b, temp := new(supernplex.Float), new(supernplex.Float), new(supernplex.Float)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -266,13 +266,13 @@ func (z *Float) QuoR(x, y *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*supra.NewFloat(
+		*supernplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*supra.NewFloat(
+		*supernplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),

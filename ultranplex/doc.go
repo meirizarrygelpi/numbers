@@ -2,14 +2,14 @@
 // Licenced under the MIT License.
 
 /*
-Package ultra implements arithmetic for ultra numbers. Five types are
+Package ultranplex implements arithmetic for ultra-nilplex numbers. Five types are
 implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-An ultra number has eight components and it is written in the form
+An ultra-nilplex number has eight components and it is written in the form
     a+bα+cβ+dγ+eδ+fε+gζ+hη
 The multiplication table is
 	+-----+----+----+----+----+----+----+----+
@@ -29,10 +29,11 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| η   | 0  | 0  | 0  | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for ultra numbers is non-commutative and
+The multiplcation operation for ultra-nilplex numbers is non-commutative and
 non-associative.
 
-Ultra numbers are a parabolic Cayley-Dickson construct with supra numbers.
+Ultra-nilplex numbers are a parabolic Cayley-Dickson construct with
+super-nilplex numbers.
 */
 package ultranplex
 

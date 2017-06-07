@@ -10,19 +10,19 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supra"
+	"github.com/meirizarrygelpi/numbers/supernplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Rat is an ultra number with big.Rat components.
+// A Rat is an ultra-nilplex number with big.Rat components.
 type Rat struct {
-	l, r supra.Rat
+	l, r supernplex.Rat
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Rat) One() *Rat {
 	z.l.One()
-	z.r.Set(new(supra.Rat))
+	z.r.Set(new(supernplex.Rat))
 	return z
 }
 
@@ -81,9 +81,9 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to an ultra number made with a given pair, and
+// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Rat) SetPair(a, b *supra.Rat) *Rat {
+func (z *Rat) SetPair(a, b *supernplex.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -140,7 +140,7 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Rat) Mul(x, y *Rat) *Rat {
-	a, b, temp := new(supra.Rat), new(supra.Rat), new(supra.Rat)
+	a, b, temp := new(supernplex.Rat), new(supernplex.Rat), new(supernplex.Rat)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -218,13 +218,13 @@ func (z *Rat) QuoR(x, y *Rat) *Rat {
 // Generate returns a random Rat value for quick.Check testing.
 func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomRat := &Rat{
-		*supra.NewRat(
+		*supernplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 		),
-		*supra.NewRat(
+		*supernplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),

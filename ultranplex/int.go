@@ -10,19 +10,19 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supra"
+	"github.com/meirizarrygelpi/numbers/supernplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int is an ultra number with big.Int components.
+// An Int is an ultra-nilplex number with big.Int components.
 type Int struct {
-	l, r supra.Int
+	l, r supernplex.Int
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int) One() *Int {
 	z.l.One()
-	z.r.Set(new(supra.Int))
+	z.r.Set(new(supernplex.Int))
 	return z
 }
 
@@ -81,9 +81,9 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to an ultra number made with a given pair, and
+// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Int) SetPair(a, b *supra.Int) *Int {
+func (z *Int) SetPair(a, b *supernplex.Int) *Int {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -147,7 +147,7 @@ func (z *Int) Sub(x, y *Int) *Int {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int) Mul(x, y *Int) *Int {
-	a, b, temp := new(supra.Int), new(supra.Int), new(supra.Int)
+	a, b, temp := new(supernplex.Int), new(supernplex.Int), new(supernplex.Int)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -214,13 +214,13 @@ func (z *Int) QuoR(x, y *Int) *Int {
 // Generate returns a random Int value for quick.Check testing.
 func (z *Int) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt := &Int{
-		*supra.NewInt(
+		*supernplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 		),
-		*supra.NewInt(
+		*supernplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
