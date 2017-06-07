@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infrapplex
+package superpplex
 
 import (
 	"math"
@@ -15,7 +15,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float64 is a infra-perplex number with float64 components.
+// A Float64 is a super-perplex number with float64 components.
 type Float64 struct {
 	l, r pplex.Float64
 }
@@ -82,7 +82,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to a infra-perplex number made with a given pair, and
+// SetPair sets z equal to a super-perplex number made with a given pair, and
 // then it returns z.
 func (z *Float64) SetPair(a, b *pplex.Float64) *Float64 {
 	z.l.Set(a)

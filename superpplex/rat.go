@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infrapplex
+package superpplex
 
 import (
 	"math/big"
@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Rat is a infra-perplex number with big.Rat components.
+// A Rat is a super-perplex number with big.Rat components.
 type Rat struct {
 	l, r pplex.Rat
 }
@@ -74,7 +74,7 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to a infra-perplex number made with a given pair, and
+// SetPair sets z equal to a super-perplex number made with a given pair, and
 // then it returns z.
 func (z *Rat) SetPair(a, b *pplex.Rat) *Rat {
 	z.l.Set(a)

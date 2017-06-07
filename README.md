@@ -68,4 +68,3 @@ To-Do:
 1. Rename `Star3` methods `Star`
 1. `Dot` and `Cross` methods
 1. Rename `suprapplex` package `ultrapplex`
-1. Rename `infrapplex` package `superpplex`
