@@ -65,5 +65,4 @@ To-Do:
 1. `IsInf` and `IsNaN` methods
 1. Rename `Star1` methods `Bar`
 1. Rename `Star2` methods `Tilde`
-1. Rename `Star3` methods `Star`
 1. `Dot` and `Cross` methods
