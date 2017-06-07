@@ -69,6 +69,5 @@ To-Do:
 1. `Dot` and `Cross` methods
 1. Rename `supracplex` package `ultracplex`
 1. Rename `suprapplex` package `ultrapplex`
-1. Rename `infracockle` package `supercockle`
 1. Rename `infracplex` package `supercplex`
 1. Rename `infrapplex` package `superpplex`

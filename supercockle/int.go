@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infracockle
+package supercockle
 
 import (
 	"math/big"
@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int is an infra-Cockle quaternion with big.Int components.
+// An Int is a super-Cockle quaternion with big.Int components.
 type Int struct {
 	l, r cockle.Int
 }
@@ -81,7 +81,7 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to an infra-Cockle quaternion made with a given pair, and
+// SetPair sets z equal to a super-Cockle quaternion made with a given pair, and
 // then it returns z.
 func (z *Int) SetPair(a, b *cockle.Int) *Int {
 	z.l.Set(a)

@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infracockle
+package supercockle
 
 import (
 	"math/rand"
@@ -17,7 +17,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float64 is an infra-Cockle quaternion with float64 components.
+// A Float64 is a super-Cockle quaternion with float64 components.
 type Float64 struct {
 	l, r cockle.Float64
 }
@@ -90,7 +90,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to an infra-Cockle quaternion made with a given pair, and
+// SetPair sets z equal to a super-Cockle quaternion made with a given pair, and
 // then it returns z.
 func (z *Float64) SetPair(a, b *cockle.Float64) *Float64 {
 	z.l.Set(a)

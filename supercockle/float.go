@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infracockle
+package supercockle
 
 import (
 	"math/big"
@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float is an infra-Cockle quaternion with big.Float components.
+// A Float is a super-Cockle quaternion with big.Float components.
 type Float struct {
 	l, r cockle.Float
 }
@@ -124,7 +124,7 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to an infra-Cockle quaternion made with a given pair, and
+// SetPair sets z equal to a super-Cockle quaternion made with a given pair, and
 // then it returns z.
 func (z *Float) SetPair(a, b *cockle.Float) *Float {
 	z.l.Set(a)
