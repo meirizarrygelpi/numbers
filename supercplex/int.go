@@ -82,6 +82,20 @@ func (z *Int) SetPair(a, b *cplex.Int) *Int {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Int) SetReal(a *big.Int) *Int {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Int) SetUnreal(v *vec3.Int) *Int {
+	z.l.SetUnreal(v[0])
+	z.r.SetReal(v[1])
+	z.r.SetUnreal(v[2])
+	return z
+}
+
 // NewInt returns a pointer to the Int value a+bi+cβ+dγ.
 func NewInt(a, b, c, d *big.Int) *Int {
 	z := new(Int)

@@ -90,6 +90,20 @@ func (z *Float64) SetPair(a, b *cplex.Float64) *Float64 {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Float64) SetReal(a float64) *Float64 {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Float64) SetUnreal(v *vec3.Float64) *Float64 {
+	z.l.SetUnreal(v[0])
+	z.r.SetReal(v[1])
+	z.r.SetUnreal(v[2])
+	return z
+}
+
 // NewFloat64 returns a pointer to the Float64 value a+bi+cβ+dγ.
 func NewFloat64(a, b, c, d float64) *Float64 {
 	z := new(Float64)
