@@ -11,6 +11,7 @@ import (
 
 	"github.com/meirizarrygelpi/numbers/cplex"
 	"github.com/meirizarrygelpi/numbers/hamilton"
+	"github.com/meirizarrygelpi/numbers/vec3"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
@@ -86,6 +87,22 @@ func (z *Rat) Set(y *Rat) *Rat {
 func (z *Rat) SetPair(a, b *hamilton.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
+	return z
+}
+
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Rat) SetReal(a *big.Rat) *Rat {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Rat) SetUnreal(v *vec7.Rat) *Rat {
+	u := vec3.Rat([3]*big.Rat{v[0], v[1], v[2]})
+	z.l.SetUnreal(&u)
+	z.r.SetReal(v[3])
+	u = vec3.Rat([3]*big.Rat{v[4], v[5], v[6]})
+	z.r.SetUnreal(&u)
 	return z
 }
 

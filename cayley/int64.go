@@ -12,6 +12,7 @@ import (
 
 	"github.com/meirizarrygelpi/numbers/cplex"
 	"github.com/meirizarrygelpi/numbers/hamilton"
+	"github.com/meirizarrygelpi/numbers/vec3"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
@@ -87,6 +88,22 @@ func (z *Int64) Set(y *Int64) *Int64 {
 func (z *Int64) SetPair(a, b *hamilton.Int64) *Int64 {
 	z.l.Set(a)
 	z.r.Set(b)
+	return z
+}
+
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Int64) SetReal(a int64) *Int64 {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Int64) SetUnreal(v *vec7.Int64) *Int64 {
+	u := vec3.Int64([3]int64{v[0], v[1], v[2]})
+	z.l.SetUnreal(&u)
+	z.r.SetReal(v[3])
+	u = vec3.Int64([3]int64{v[4], v[5], v[6]})
+	z.r.SetUnreal(&u)
 	return z
 }
 
