@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package hyper
+package binplex
 
 import (
 	"math"
@@ -15,7 +15,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float64 is a hyper number with float64 components.
+// A Float64 is a bi-nilplex number with float64 components.
 type Float64 struct {
 	l, r nplex.Float64
 }
@@ -82,7 +82,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to a hyper number made with a given pair, and
+// SetPair sets z equal to a bi-nilplex number made with a given pair, and
 // then it returns z.
 func (z *Float64) SetPair(a, b *nplex.Float64) *Float64 {
 	z.l.Set(a)

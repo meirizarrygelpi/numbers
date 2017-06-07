@@ -9,14 +9,14 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/hyper"
+	"github.com/meirizarrygelpi/numbers/binplex"
 	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
 // A Float is a tri-nilplex number with big.Float components.
 type Float struct {
-	l, r hyper.Float
+	l, r binplex.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -126,7 +126,7 @@ func (z *Float) Set(y *Float) *Float {
 
 // SetPair sets z equal to a tri-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *hyper.Float) *Float {
+func (z *Float) SetPair(a, b *binplex.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -211,7 +211,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(hyper.Float), new(hyper.Float), new(hyper.Float)
+	a, b, temp := new(binplex.Float), new(binplex.Float), new(binplex.Float)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
@@ -224,9 +224,9 @@ func (z *Float) Mul(x, y *Float) *Float {
 // Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then
 // the quadrance is
 // 		a² + 2abα + 2acΓ + 2(ad + bc)αΓ
-// Note that this is a hyper number.
-func (z *Float) Quad() *hyper.Float {
-	q := new(hyper.Float)
+// Note that this is a bi-nilplex number.
+func (z *Float) Quad() *binplex.Float {
+	q := new(binplex.Float)
 	return q.Mul(&z.l, &z.l)
 }
 
@@ -306,13 +306,13 @@ func (z *Float) Möbius(y, a, b, c, d *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*hyper.NewFloat(
+		*binplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*hyper.NewFloat(
+		*binplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),

@@ -32,7 +32,7 @@ The multiplication table is:
 The multiplcation operation for tri-nilplex numbers is commutative and
 associative (for non-floats).
 
-Tri-nilplex numbers are a nilplexification of hyper numbers.
+Tri-nilplex numbers are a nilplexification of bi-nilplex numbers.
 */
 package trinplex
 

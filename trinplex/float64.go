@@ -12,20 +12,20 @@ import (
 
 	"math"
 
-	"github.com/meirizarrygelpi/numbers/hyper"
+	"github.com/meirizarrygelpi/numbers/binplex"
 	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
 // A Float64 is a tri-nilplex number with float64 components.
 type Float64 struct {
-	l, r hyper.Float64
+	l, r binplex.Float64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Float64) One() *Float64 {
 	z.l.One()
-	z.r.Set(new(hyper.Float64))
+	z.r.Set(new(binplex.Float64))
 	return z
 }
 
@@ -92,7 +92,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 
 // SetPair sets z equal to a tri-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Float64) SetPair(a, b *hyper.Float64) *Float64 {
+func (z *Float64) SetPair(a, b *binplex.Float64) *Float64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -178,7 +178,7 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
-	a, b, temp := new(hyper.Float64), new(hyper.Float64), new(hyper.Float64)
+	a, b, temp := new(binplex.Float64), new(binplex.Float64), new(binplex.Float64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
@@ -191,9 +191,9 @@ func (z *Float64) Mul(x, y *Float64) *Float64 {
 // Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then
 // the quadrance is
 // 		a² + 2abα + 2acΓ + 2(ad + bc)αΓ
-// Note that this is a hyper number.
-func (z *Float64) Quad() *hyper.Float64 {
-	q := new(hyper.Float64)
+// Note that this is a bi-nilplex number.
+func (z *Float64) Quad() *binplex.Float64 {
+	q := new(binplex.Float64)
 	return q.Mul(&z.l, &z.l)
 }
 
@@ -274,13 +274,13 @@ func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
 // Generate returns a random Float64 value for quick.Check testing.
 func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat64 := &Float64{
-		*hyper.NewFloat64(
+		*binplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),
 		),
-		*hyper.NewFloat64(
+		*binplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),

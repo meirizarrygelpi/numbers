@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package hyper
+package binplex
 
 import (
 	"math/big"
@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// An Int is a hyper number with big.Int components.
+// An Int is a bi-nilplex number with big.Int components.
 type Int struct {
 	l, r nplex.Int
 }
@@ -74,7 +74,7 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to a hyper number made with a given pair, and
+// SetPair sets z equal to a bi-nilplex number made with a given pair, and
 // then it returns z.
 func (z *Int) SetPair(a, b *nplex.Int) *Int {
 	z.l.Set(a)

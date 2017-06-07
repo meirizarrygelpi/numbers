@@ -9,20 +9,20 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/hyper"
+	"github.com/meirizarrygelpi/numbers/binplex"
 	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
 // A Rat is a tri-nilplex number with big.Rat components.
 type Rat struct {
-	l, r hyper.Rat
+	l, r binplex.Rat
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Rat) One() *Rat {
 	z.l.One()
-	z.r.Set(new(hyper.Rat))
+	z.r.Set(new(binplex.Rat))
 	return z
 }
 
@@ -83,7 +83,7 @@ func (z *Rat) Set(y *Rat) *Rat {
 
 // SetPair sets z equal to a tri-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Rat) SetPair(a, b *hyper.Rat) *Rat {
+func (z *Rat) SetPair(a, b *binplex.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -161,7 +161,7 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Rat) Mul(x, y *Rat) *Rat {
-	a, b, temp := new(hyper.Rat), new(hyper.Rat), new(hyper.Rat)
+	a, b, temp := new(binplex.Rat), new(binplex.Rat), new(binplex.Rat)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
@@ -174,9 +174,9 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 // Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then
 // the quadrance is
 // 		a² + 2abα + 2acΓ + 2(ad + bc)αΓ
-// Note that this is a hyper number.
-func (z *Rat) Quad() *hyper.Rat {
-	q := new(hyper.Rat)
+// Note that this is a bi-nilplex number.
+func (z *Rat) Quad() *binplex.Rat {
+	q := new(binplex.Rat)
 	return q.Mul(&z.l, &z.l)
 }
 
@@ -250,13 +250,13 @@ func (z *Rat) Möbius(y, a, b, c, d *Rat) *Rat {
 // Generate returns a random Rat value for quick.Check testing.
 func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomRat := &Rat{
-		*hyper.NewRat(
+		*binplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 		),
-		*hyper.NewRat(
+		*binplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),

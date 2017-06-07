@@ -9,20 +9,20 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/hyper"
+	"github.com/meirizarrygelpi/numbers/binplex"
 	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
 // An Int is a tri-nilplex number with big.Int components.
 type Int struct {
-	l, r hyper.Int
+	l, r binplex.Int
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int) One() *Int {
 	z.l.One()
-	z.r.Set(new(hyper.Int))
+	z.r.Set(new(binplex.Int))
 	return z
 }
 
@@ -83,7 +83,7 @@ func (z *Int) Set(y *Int) *Int {
 
 // SetPair sets z equal to a tri-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Int) SetPair(a, b *hyper.Int) *Int {
+func (z *Int) SetPair(a, b *binplex.Int) *Int {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -168,7 +168,7 @@ func (z *Int) Sub(x, y *Int) *Int {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int) Mul(x, y *Int) *Int {
-	a, b, temp := new(hyper.Int), new(hyper.Int), new(hyper.Int)
+	a, b, temp := new(binplex.Int), new(binplex.Int), new(binplex.Int)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&x.l, &y.r),
@@ -181,9 +181,9 @@ func (z *Int) Mul(x, y *Int) *Int {
 // Quad returns the quadrance of z. If z = a+bα+cΓ+dαΓ+eΛ+fαΛ+gΓΛ+hαΓΛ, then
 // the quadrance is
 // 		a² + 2abα + 2acΓ + 2(ad + bc)αΓ
-// Note that this is a hyper number.
-func (z *Int) Quad() *hyper.Int {
-	q := new(hyper.Int)
+// Note that this is a bi-nilplex number.
+func (z *Int) Quad() *binplex.Int {
+	q := new(binplex.Int)
 	return q.Mul(&z.l, &z.l)
 }
 
@@ -219,13 +219,13 @@ func (z *Int) Quo(x, y *Int) *Int {
 // Generate returns a random Int value for quick.Check testing.
 func (z *Int) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt := &Int{
-		*hyper.NewInt(
+		*binplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 		),
-		*hyper.NewInt(
+		*binplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
