@@ -1,6 +1,6 @@
-# supra
+# supernplex
 
-Package `supra` implements arithmetic for supra numbers. There are five types:
+Package `supernplex` implements arithmetic for super-nilplex numbers. There are five types:
 
 * `Int64`
 * `Float64`
@@ -8,6 +8,6 @@ Package `supra` implements arithmetic for supra numbers. There are five types:
 * `Float`
 * `Rat`
 
-Each supra number value is printed in the form "⦗a+bα+cβ+dγ⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
+Each super-nilplex number value is printed in the form "⦗a+bα+cβ+dγ⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
 
-[![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/supra) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/supra?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/supra)
+[![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/supernplex) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/supernplex?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/supernplex)

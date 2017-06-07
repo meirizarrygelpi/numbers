@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package supra
+package supernplex
 
 import (
 	"math/big"
@@ -40,7 +40,7 @@ func TestNegConjCommutativeFloat(t *testing.T) {
 
 func TestMulNonCommutativeFloat(t *testing.T) {
 	f := func(x, y *Float) bool {
-		// t.Logf("x = %v, y = %v", x, y)
+		t.Logf("x = %v, y = %v", x, y)
 		l := new(Float).Commutator(x, y)
 		zero := new(Float)
 		return !l.Equals(zero)

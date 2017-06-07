@@ -2,14 +2,14 @@
 // Licenced under the MIT License.
 
 /*
-Package supra implements arithmetic for supra numbers. Five types are
+Package supernplex implements arithmetic for super-nilplex numbers. Five types are
 implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-A supra number has four components and it is written in the form
+A super-nilplex number has four components and it is written in the form
     a+bα+cβ+dγ
 The multiplication table is:
     +-----+----+----+---+
@@ -21,12 +21,12 @@ The multiplication table is:
     +-----+----+----+---+
     | γ   | 0  | 0  | 0 |
     +-----+----+----+---+
-The multiplcation operation for supra numbers is non-commutative but
+The multiplcation operation for super-nilplex numbers is non-commutative but
 associative (for non-floats).
 
 Supra numbers are a parabolic Cayley-Dickson construct with nilplex numbers.
 */
-package supra
+package supernplex
 
 const (
 	leftBracket            = "⦗"
@@ -42,7 +42,7 @@ var (
 	unitNames = [3]string{unit1, unit2, unit3}
 )
 
-// ResetUnitNames sets the names of the supra units equal to their
+// ResetUnitNames sets the names of the super-nilplex units equal to their
 // default values.
 func ResetUnitNames() {
 	unitNames[0] = unit1
@@ -50,14 +50,14 @@ func ResetUnitNames() {
 	unitNames[2] = unit3
 }
 
-// SetUnitNames sets the names of the supra units.
+// SetUnitNames sets the names of the super-nilplex units.
 func SetUnitNames(u1, u2, u3 string) {
 	unitNames[0] = u1
 	unitNames[1] = u2
 	unitNames[2] = u3
 }
 
-// UnitNames returns the current names of the supra units.
+// UnitNames returns the current names of the super-nilplex units.
 func UnitNames() [3]string {
 	return unitNames
 }
