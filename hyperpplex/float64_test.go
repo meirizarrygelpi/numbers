@@ -22,12 +22,12 @@ func TestAddCommutativeFloat64(t *testing.T) {
 	}
 }
 
-func TestNegStar1CommutativeFloat64(t *testing.T) {
+func TestNegBarCommutativeFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Float64), new(Float64)
-		l.Neg(l.Star1(x))
-		r.Star1(r.Neg(x))
+		l.Neg(l.Bar(x))
+		r.Bar(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -35,12 +35,12 @@ func TestNegStar1CommutativeFloat64(t *testing.T) {
 	}
 }
 
-func TestNegStar2CommutativeFloat64(t *testing.T) {
+func TestNegTildeCommutativeFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Float64), new(Float64)
-		l.Neg(l.Star2(x))
-		r.Star2(r.Neg(x))
+		l.Neg(l.Tilde(x))
+		r.Tilde(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -183,11 +183,11 @@ func TestNegInvolutiveFloat64(t *testing.T) {
 	}
 }
 
-func TestStar1InvolutiveFloat64(t *testing.T) {
+func TestBarInvolutiveFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Float64)
-		l.Star1(l.Star1(x))
+		l.Bar(l.Bar(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -195,11 +195,11 @@ func TestStar1InvolutiveFloat64(t *testing.T) {
 	}
 }
 
-func TestStar2InvolutiveFloat64(t *testing.T) {
+func TestTildeInvolutiveFloat64(t *testing.T) {
 	f := func(x *Float64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Float64)
-		l.Star2(l.Star2(x))
+		l.Tilde(l.Tilde(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -209,12 +209,12 @@ func TestStar2InvolutiveFloat64(t *testing.T) {
 
 // Anti-distributivity
 
-func TestMulStar1AntiDistributiveFloat64(t *testing.T) {
+func TestMulBarAntiDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
-		l.Star1(l.Mul(x, y))
-		r.Mul(r.Star1(y), new(Float64).Star1(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Float64).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -222,12 +222,12 @@ func TestMulStar1AntiDistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestMulStar2AntiDistributiveFloat64(t *testing.T) {
+func TestMulTildeAntiDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
-		l.Star2(l.Mul(x, y))
-		r.Mul(r.Star2(y), new(Float64).Star2(x))
+		l.Tilde(l.Mul(x, y))
+		r.Mul(r.Tilde(y), new(Float64).Tilde(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -250,13 +250,13 @@ func XTestMulInvAntiDistributiveFloat64(t *testing.T) {
 
 // Distributivity
 
-func TestAddStar1DistributiveFloat64(t *testing.T) {
+func TestAddBarDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
 		l.Add(x, y)
-		l.Star1(l)
-		r.Add(r.Star1(x), new(Float64).Star1(y))
+		l.Bar(l)
+		r.Add(r.Bar(x), new(Float64).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -264,13 +264,13 @@ func TestAddStar1DistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestAddStar2DistributiveFloat64(t *testing.T) {
+func TestAddTildeDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
 		l.Add(x, y)
-		l.Star2(l)
-		r.Add(r.Star2(x), new(Float64).Star2(y))
+		l.Tilde(l)
+		r.Add(r.Tilde(x), new(Float64).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -278,13 +278,13 @@ func TestAddStar2DistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubStar1DistributiveFloat64(t *testing.T) {
+func TestSubBarDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
 		l.Sub(x, y)
-		l.Star1(l)
-		r.Sub(r.Star1(x), new(Float64).Star1(y))
+		l.Bar(l)
+		r.Sub(r.Bar(x), new(Float64).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -292,13 +292,13 @@ func TestSubStar1DistributiveFloat64(t *testing.T) {
 	}
 }
 
-func TestSubStar2DistributiveFloat64(t *testing.T) {
+func TestSubTildeDistributiveFloat64(t *testing.T) {
 	f := func(x, y *Float64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Float64), new(Float64)
 		l.Sub(x, y)
-		l.Star2(l)
-		r.Sub(r.Star2(x), new(Float64).Star2(y))
+		l.Tilde(l)
+		r.Sub(r.Tilde(x), new(Float64).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

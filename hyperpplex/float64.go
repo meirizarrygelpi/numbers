@@ -141,22 +141,22 @@ func (z *Float64) Conj(y *Float64) *Float64 {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
-func (z *Float64) Star1(y *Float64) *Float64 {
-	z.l.Star1(&y.l)
-	z.r.Star1(&y.r)
+// Bar sets z equal to the s-conjugate of y, and returns z.
+func (z *Float64) Bar(y *Float64) *Float64 {
+	z.l.Bar(&y.l)
+	z.r.Bar(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the Γ-conjugate of y, and returns z.
-func (z *Float64) Star2(y *Float64) *Float64 {
-	z.l.Star2(&y.l)
-	z.r.Star2(&y.r)
+// Tilde sets z equal to the Γ-conjugate of y, and returns z.
+func (z *Float64) Tilde(y *Float64) *Float64 {
+	z.l.Tilde(&y.l)
+	z.r.Tilde(&y.r)
 	return z
 }
 
-// Star3 sets z equal to the Λ-conjugate of y, and returns z.
-func (z *Float64) Star3(y *Float64) *Float64 {
+// Star sets z equal to the Λ-conjugate of y, and returns z.
+func (z *Float64) Star(y *Float64) *Float64 {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -218,7 +218,7 @@ func (z *Float64) Inv(y *Float64) *Float64 {
 	}
 	a := y.Quad()
 	a.Inv(a)
-	z.Star3(y)
+	z.Star(y)
 	z.l.Mul(&z.l, a)
 	z.r.Mul(&z.r, a)
 	return z
@@ -232,7 +232,7 @@ func (z *Float64) Quo(x, y *Float64) *Float64 {
 	}
 	a := y.Quad()
 	a.Inv(a)
-	z.Mul(x, z.Star3(y))
+	z.Mul(x, z.Star(y))
 	z.l.Mul(&z.l, a)
 	z.r.Mul(&z.r, a)
 	return z
