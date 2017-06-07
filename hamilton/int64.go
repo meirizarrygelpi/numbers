@@ -83,6 +83,20 @@ func (z *Int64) SetPair(a, b *cplex.Int64) *Int64 {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Int64) SetReal(a int64) *Int64 {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Int64) SetUnreal(v *vec3.Int64) *Int64 {
+	z.l.SetUnreal(v[0])
+	z.r.SetReal(v[1])
+	z.r.SetUnreal(v[2])
+	return z
+}
+
 // NewInt64 returns a pointer to the Int64 value a+bi+cj+dk.
 func NewInt64(a, b, c, d int64) *Int64 {
 	z := new(Int64)

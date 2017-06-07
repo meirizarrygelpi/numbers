@@ -82,6 +82,20 @@ func (z *Rat) SetPair(a, b *cplex.Rat) *Rat {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Rat) SetReal(a *big.Rat) *Rat {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Rat) SetUnreal(v *vec3.Rat) *Rat {
+	z.l.SetUnreal(v[0])
+	z.r.SetReal(v[1])
+	z.r.SetUnreal(v[2])
+	return z
+}
+
 // NewRat returns a pointer to the Rat value a+bi+cj+dk.
 func NewRat(a, b, c, d *big.Rat) *Rat {
 	z := new(Rat)
