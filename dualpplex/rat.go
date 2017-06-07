@@ -111,15 +111,15 @@ func (z *Rat) Conj(y *Rat) *Rat {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
-func (z *Rat) Star1(y *Rat) *Rat {
+// Bar sets z equal to the s-conjugate of y, and returns z.
+func (z *Rat) Bar(y *Rat) *Rat {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the Γ-conjugate of y, and returns z.
-func (z *Rat) Star2(y *Rat) *Rat {
+// Tilde sets z equal to the Γ-conjugate of y, and returns z.
+func (z *Rat) Tilde(y *Rat) *Rat {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -181,7 +181,7 @@ func (z *Rat) Inv(y *Rat) *Rat {
 	a.Inv(a)
 	z.l.Mul(&y.l, a)
 	z.r.Mul(&y.r, a)
-	return z.Star2(z)
+	return z.Tilde(z)
 }
 
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
