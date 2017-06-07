@@ -1,6 +1,6 @@
-# infracplex
+# supercplex
 
-Package `infracplex` implements arithmetic for infra-complex numbers. There are five types:
+Package `supercplex` implements arithmetic for super-complex numbers. There are five types:
 
 * `Int64`
 * `Float64`
@@ -8,6 +8,6 @@ Package `infracplex` implements arithmetic for infra-complex numbers. There are 
 * `Float`
 * `Rat`
 
-Each infra-complex number value is printed in the form "⦗a+bi+cβ+dγ⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
+Each super-complex number value is printed in the form "⦗a+bi+cβ+dγ⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
 
-[![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/infracplex) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/infracplex?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/infracplex)
+[![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/supercplex) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/supercplex?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/supercplex)

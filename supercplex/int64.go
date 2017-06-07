@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infracplex
+package supercplex
 
 import (
 	"math/rand"
@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// An Int64 is a infra-complex number with int64 components.
+// An Int64 is a super-complex number with int64 components.
 type Int64 struct {
 	l, r cplex.Int64
 }
@@ -75,7 +75,7 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to a infra-complex number made with a given pair, and
+// SetPair sets z equal to a super-complex number made with a given pair, and
 // then it returns z.
 func (z *Int64) SetPair(a, b *cplex.Int64) *Int64 {
 	z.l.Set(a)

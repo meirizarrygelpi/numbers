@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infracplex
+package supercplex
 
 import (
 	"math/big"
@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// An Int is a infra-complex number with big.Int components.
+// An Int is a super-complex number with big.Int components.
 type Int struct {
 	l, r cplex.Int
 }
@@ -74,7 +74,7 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to a infra-complex number made with a given pair, and
+// SetPair sets z equal to a super-complex number made with a given pair, and
 // then it returns z.
 func (z *Int) SetPair(a, b *cplex.Int) *Int {
 	z.l.Set(a)

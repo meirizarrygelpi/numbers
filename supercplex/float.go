@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infracplex
+package supercplex
 
 import (
 	"math/big"
@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float is a infra-complex number with big.Float components.
+// A Float is a super-complex number with big.Float components.
 type Float struct {
 	l, r cplex.Float
 }
@@ -117,7 +117,7 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to a infra-complex number made with a given pair, and
+// SetPair sets z equal to a super-complex number made with a given pair, and
 // then it returns z.
 func (z *Float) SetPair(a, b *cplex.Float) *Float {
 	z.l.Set(a)
