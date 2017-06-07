@@ -125,6 +125,20 @@ func (z *Float) SetPair(a, b *pplex.Float) *Float {
 	return z
 }
 
+// SetReal sets the real part of z equal to a, and then it returns z.
+func (z *Float) SetReal(a *big.Float) *Float {
+	z.l.SetReal(a)
+	return z
+}
+
+// SetUnreal sets the unreal part of z equal to v, and then it returns z.
+func (z *Float) SetUnreal(v *vec3.Float) *Float {
+	z.l.SetUnreal(v[0])
+	z.r.SetReal(v[1])
+	z.r.SetUnreal(v[2])
+	return z
+}
+
 // NewFloat returns a pointer to the Float value a+bs+cτ+dυ.
 func NewFloat(a, b, c, d *big.Float) *Float {
 	z := new(Float)
