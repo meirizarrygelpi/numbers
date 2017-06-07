@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package suprapplex
+package ultrapplex
 
 import (
 	"math/big"
@@ -9,14 +9,14 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/infrapplex"
+	"github.com/meirizarrygelpi/numbers/superpplex"
 	"github.com/meirizarrygelpi/numbers/pplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float is a supra-perplex number with big.Float components.
+// A Float is an ultra-perplex number with big.Float components.
 type Float struct {
-	l, r infrapplex.Float
+	l, r superpplex.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -124,9 +124,9 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to a supra-perplex number made with a given pair, and
+// SetPair sets z equal to an ultra-perplex number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *infrapplex.Float) *Float {
+func (z *Float) SetPair(a, b *superpplex.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -190,7 +190,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(infrapplex.Float), new(infrapplex.Float), new(infrapplex.Float)
+	a, b, temp := new(superpplex.Float), new(superpplex.Float), new(superpplex.Float)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -266,13 +266,13 @@ func (z *Float) QuoR(x, y *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*infrapplex.NewFloat(
+		*superpplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*infrapplex.NewFloat(
+		*superpplex.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),

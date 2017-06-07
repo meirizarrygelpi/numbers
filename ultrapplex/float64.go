@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package suprapplex
+package ultrapplex
 
 import (
 	"math/rand"
@@ -12,20 +12,20 @@ import (
 
 	"math"
 
-	"github.com/meirizarrygelpi/numbers/infrapplex"
+	"github.com/meirizarrygelpi/numbers/superpplex"
 	"github.com/meirizarrygelpi/numbers/pplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float64 is a supra-perplex number with float64 components.
+// A Float64 is an ultra-perplex number with float64 components.
 type Float64 struct {
-	l, r infrapplex.Float64
+	l, r superpplex.Float64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Float64) One() *Float64 {
 	z.l.One()
-	z.r.Set(new(infrapplex.Float64))
+	z.r.Set(new(superpplex.Float64))
 	return z
 }
 
@@ -90,9 +90,9 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to a supra-perplex number made with a given pair, and
+// SetPair sets z equal to an ultra-perplex number made with a given pair, and
 // then it returns z.
-func (z *Float64) SetPair(a, b *infrapplex.Float64) *Float64 {
+func (z *Float64) SetPair(a, b *superpplex.Float64) *Float64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -156,7 +156,7 @@ func (z *Float64) Sub(x, y *Float64) *Float64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float64) Mul(x, y *Float64) *Float64 {
-	a, b, temp := new(infrapplex.Float64), new(infrapplex.Float64), new(infrapplex.Float64)
+	a, b, temp := new(superpplex.Float64), new(superpplex.Float64), new(superpplex.Float64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -232,13 +232,13 @@ func (z *Float64) QuoR(x, y *Float64) *Float64 {
 // Generate returns a random Float64 value for quick.Check testing.
 func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat64 := &Float64{
-		*infrapplex.NewFloat64(
+		*superpplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),
 		),
-		*infrapplex.NewFloat64(
+		*superpplex.NewFloat64(
 			rand.Float64(),
 			rand.Float64(),
 			rand.Float64(),

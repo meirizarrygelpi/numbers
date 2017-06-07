@@ -2,14 +2,14 @@
 // Licenced under the MIT License.
 
 /*
-Package suprapplex implements arithmetic for supra-perplex numbers. Five types are
+Package ultrapplex implements arithmetic for ultra-perplex numbers. Five types are
 implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-A supra-perplex number has eight components and it is written in the form
+A ultra-perplex number has eight components and it is written in the form
     a+bs+cρ+dσ+eτ+fυ+gφ+hψ
 The multiplication table is
 	+-----+----+----+----+----+----+----+----+
@@ -29,13 +29,13 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| ψ   | +φ | 0  | 0  | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for supra-perplex numbers is non-commutative and
+The multiplcation operation for ultra-perplex numbers is non-commutative and
 non-associative.
 
-Supra-perplex numbers are a parabolic Cayley-Dickson construct with infra-perplex
+Ultra-perplex numbers are a parabolic Cayley-Dickson construct with infra-perplex
 numbers.
 */
-package suprapplex
+package ultrapplex
 
 const (
 	leftBracket            = "⦗"
@@ -55,7 +55,7 @@ var (
 	unitNames = [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7}
 )
 
-// ResetUnitNames sets the names of the supra-perplex units equal to their
+// ResetUnitNames sets the names of the ultra-perplex units equal to their
 // default values.
 func ResetUnitNames() {
 	unitNames[0] = unit1
@@ -67,7 +67,7 @@ func ResetUnitNames() {
 	unitNames[6] = unit7
 }
 
-// SetUnitNames sets the names of the supra-perplex units.
+// SetUnitNames sets the names of the ultra-perplex units.
 func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[0] = u1
 	unitNames[1] = u2
@@ -78,7 +78,7 @@ func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[6] = u7
 }
 
-// UnitNames returns the current names of the supra-perplex units.
+// UnitNames returns the current names of the ultra-perplex units.
 func UnitNames() [7]string {
 	return unitNames
 }

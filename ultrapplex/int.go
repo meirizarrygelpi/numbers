@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package suprapplex
+package ultrapplex
 
 import (
 	"math/big"
@@ -9,20 +9,20 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/infrapplex"
+	"github.com/meirizarrygelpi/numbers/superpplex"
 	"github.com/meirizarrygelpi/numbers/pplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int is a supra-perplex number with big.Int components.
+// An Int is an ultra-perplex number with big.Int components.
 type Int struct {
-	l, r infrapplex.Int
+	l, r superpplex.Int
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int) One() *Int {
 	z.l.One()
-	z.r.Set(new(infrapplex.Int))
+	z.r.Set(new(superpplex.Int))
 	return z
 }
 
@@ -81,9 +81,9 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to a supra-perplex number made with a given pair, and
+// SetPair sets z equal to an ultra-perplex number made with a given pair, and
 // then it returns z.
-func (z *Int) SetPair(a, b *infrapplex.Int) *Int {
+func (z *Int) SetPair(a, b *superpplex.Int) *Int {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -147,7 +147,7 @@ func (z *Int) Sub(x, y *Int) *Int {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int) Mul(x, y *Int) *Int {
-	a, b, temp := new(infrapplex.Int), new(infrapplex.Int), new(infrapplex.Int)
+	a, b, temp := new(superpplex.Int), new(superpplex.Int), new(superpplex.Int)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -214,13 +214,13 @@ func (z *Int) QuoR(x, y *Int) *Int {
 // Generate returns a random Int value for quick.Check testing.
 func (z *Int) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt := &Int{
-		*infrapplex.NewInt(
+		*superpplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 		),
-		*infrapplex.NewInt(
+		*superpplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),

@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package suprapplex
+package ultrapplex
 
 import (
 	"math/rand"
@@ -10,20 +10,20 @@ import (
 
 	"fmt"
 
-	"github.com/meirizarrygelpi/numbers/infrapplex"
 	"github.com/meirizarrygelpi/numbers/pplex"
+	"github.com/meirizarrygelpi/numbers/superpplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int64 is a supra-perplex number with int64 components.
+// An Int64 is an ultra-perplex number with int64 components.
 type Int64 struct {
-	l, r infrapplex.Int64
+	l, r superpplex.Int64
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int64) One() *Int64 {
 	z.l.One()
-	z.r.Set(new(infrapplex.Int64))
+	z.r.Set(new(superpplex.Int64))
 	return z
 }
 
@@ -82,9 +82,9 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to a supra-perplex number made with a given pair, and
+// SetPair sets z equal to an ultra-perplex number made with a given pair, and
 // then it returns z.
-func (z *Int64) SetPair(a, b *infrapplex.Int64) *Int64 {
+func (z *Int64) SetPair(a, b *superpplex.Int64) *Int64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -148,7 +148,7 @@ func (z *Int64) Sub(x, y *Int64) *Int64 {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int64) Mul(x, y *Int64) *Int64 {
-	a, b, temp := new(infrapplex.Int64), new(infrapplex.Int64), new(infrapplex.Int64)
+	a, b, temp := new(superpplex.Int64), new(superpplex.Int64), new(superpplex.Int64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -215,13 +215,13 @@ func (z *Int64) QuoR(x, y *Int64) *Int64 {
 // Generate returns a random Int64 value for quick.Check testing.
 func (z *Int64) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt64 := &Int64{
-		*infrapplex.NewInt64(
+		*superpplex.NewInt64(
 			rand.Int63(),
 			rand.Int63(),
 			rand.Int63(),
 			rand.Int63(),
 		),
-		*infrapplex.NewInt64(
+		*superpplex.NewInt64(
 			rand.Int63(),
 			rand.Int63(),
 			rand.Int63(),
