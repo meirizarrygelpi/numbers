@@ -26,8 +26,8 @@ func TestNegStar1CommutativeInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int64), new(Int64)
-		l.Neg(l.Star1(x))
-		r.Star1(r.Neg(x))
+		l.Neg(l.Bar(x))
+		r.Bar(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -39,8 +39,8 @@ func TestNegStar2CommutativeInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l, r := new(Int64), new(Int64)
-		l.Neg(l.Star2(x))
-		r.Star2(r.Neg(x))
+		l.Neg(l.Tilde(x))
+		r.Tilde(r.Neg(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -162,7 +162,7 @@ func TestStar1InvolutiveInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int64)
-		l.Star1(l.Star1(x))
+		l.Bar(l.Bar(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -174,7 +174,7 @@ func TestStar2InvolutiveInt64(t *testing.T) {
 	f := func(x *Int64) bool {
 		// t.Logf("x = %v", x)
 		l := new(Int64)
-		l.Star2(l.Star2(x))
+		l.Tilde(l.Tilde(x))
 		return l.Equals(x)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -188,8 +188,8 @@ func TestMulStar1AntiDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
-		l.Star1(l.Mul(x, y))
-		r.Mul(r.Star1(y), new(Int64).Star1(x))
+		l.Bar(l.Mul(x, y))
+		r.Mul(r.Bar(y), new(Int64).Bar(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -201,8 +201,8 @@ func TestMulStar2AntiDistributiveInt64(t *testing.T) {
 	f := func(x, y *Int64) bool {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
-		l.Star2(l.Mul(x, y))
-		r.Mul(r.Star2(y), new(Int64).Star2(x))
+		l.Tilde(l.Mul(x, y))
+		r.Mul(r.Tilde(y), new(Int64).Tilde(x))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -217,8 +217,8 @@ func TestAddStar1DistributiveInt64(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
 		l.Add(x, y)
-		l.Star1(l)
-		r.Add(r.Star1(x), new(Int64).Star1(y))
+		l.Bar(l)
+		r.Add(r.Bar(x), new(Int64).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -231,8 +231,8 @@ func TestAddStar2DistributiveInt64(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
 		l.Add(x, y)
-		l.Star2(l)
-		r.Add(r.Star2(x), new(Int64).Star2(y))
+		l.Tilde(l)
+		r.Add(r.Tilde(x), new(Int64).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -245,8 +245,8 @@ func TestSubStar1DistributiveInt64(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
 		l.Sub(x, y)
-		l.Star1(l)
-		r.Sub(r.Star1(x), new(Int64).Star1(y))
+		l.Bar(l)
+		r.Sub(r.Bar(x), new(Int64).Bar(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {
@@ -259,8 +259,8 @@ func TestSubStar2DistributiveInt64(t *testing.T) {
 		// t.Logf("x = %v, y = %v", x, y)
 		l, r := new(Int64), new(Int64)
 		l.Sub(x, y)
-		l.Star2(l)
-		r.Sub(r.Star2(x), new(Int64).Star2(y))
+		l.Tilde(l)
+		r.Sub(r.Tilde(x), new(Int64).Tilde(y))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

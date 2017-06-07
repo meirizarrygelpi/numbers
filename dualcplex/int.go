@@ -118,15 +118,15 @@ func (z *Int) Conj(y *Int) *Int {
 	return z
 }
 
-// Star1 sets z equal to the i-conjugate of y, and returns z.
-func (z *Int) Star1(y *Int) *Int {
+// Bar sets z equal to the i-conjugate of y, and returns z.
+func (z *Int) Bar(y *Int) *Int {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the Γ-conjugate of y, and returns z.
-func (z *Int) Star2(y *Int) *Int {
+// Tilde sets z equal to the Γ-conjugate of y, and returns z.
+func (z *Int) Tilde(y *Int) *Int {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -187,9 +187,9 @@ func (z *Int) Quo(x, y *Int) *Int {
 	}
 	n := y.Norm()
 	temp := new(Int)
-	z.Mul(x, temp.Star1(y))
-	z.Mul(z, temp.Star2(y))
-	z.Mul(z, temp.Star1(temp))
+	z.Mul(x, temp.Bar(y))
+	z.Mul(z, temp.Tilde(y))
+	z.Mul(z, temp.Bar(temp))
 	return z.Divide(z, n)
 }
 
