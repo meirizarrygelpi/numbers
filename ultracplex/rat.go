@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package supracplex
+package ultracplex
 
 import (
 	"math/big"
@@ -10,19 +10,19 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/cplex"
-	"github.com/meirizarrygelpi/numbers/infracplex"
+	"github.com/meirizarrygelpi/numbers/supercplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Rat is a supra-complex number with big.Rat components.
+// A Rat is an ultra-complex number with big.Rat components.
 type Rat struct {
-	l, r infracplex.Rat
+	l, r supercplex.Rat
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Rat) One() *Rat {
 	z.l.One()
-	z.r.Set(new(infracplex.Rat))
+	z.r.Set(new(supercplex.Rat))
 	return z
 }
 
@@ -81,9 +81,9 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to a supra-complex number made with a given pair, and
+// SetPair sets z equal to an ultra-complex number made with a given pair, and
 // then it returns z.
-func (z *Rat) SetPair(a, b *infracplex.Rat) *Rat {
+func (z *Rat) SetPair(a, b *supercplex.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -140,7 +140,7 @@ func (z *Rat) Sub(x, y *Rat) *Rat {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Rat) Mul(x, y *Rat) *Rat {
-	a, b, temp := new(infracplex.Rat), new(infracplex.Rat), new(infracplex.Rat)
+	a, b, temp := new(supercplex.Rat), new(supercplex.Rat), new(supercplex.Rat)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -218,13 +218,13 @@ func (z *Rat) QuoR(x, y *Rat) *Rat {
 // Generate returns a random Rat value for quick.Check testing.
 func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomRat := &Rat{
-		*infracplex.NewRat(
+		*supercplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 		),
-		*infracplex.NewRat(
+		*supercplex.NewRat(
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),
 			big.NewRat(rand.Int63(), rand.Int63()),

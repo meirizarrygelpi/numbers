@@ -2,14 +2,14 @@
 // Licenced under the MIT License.
 
 /*
-Package supracplex implements arithmetic for supra-complex numbers. Five types are
+Package ultracplex implements arithmetic for ultra-complex numbers. Five types are
 implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-A supra-complex number has eight components and it is written in the form
+A ultra-complex number has eight components and it is written in the form
     a+bi+cα+dβ+eγ+fδ+gε+hζ
 The multiplication table is
 	+-----+----+----+----+----+----+----+----+
@@ -29,13 +29,13 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| ζ   | -ε | 0  | 0  | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for supra-complex numbers is non-commutative and
+The multiplcation operation for ultra-complex numbers is non-commutative and
 non-associative.
 
-Supra-complex numbers are a parabolic Cayley-Dickson construct with infra-complex
+Ultra-complex numbers are a parabolic Cayley-Dickson construct with infra-complex
 numbers.
 */
-package supracplex
+package ultracplex
 
 const (
 	leftBracket            = "⦗"
@@ -55,7 +55,7 @@ var (
 	unitNames = [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7}
 )
 
-// ResetUnitNames sets the names of the supra-complex units equal to their
+// ResetUnitNames sets the names of the ultra-complex units equal to their
 // default values.
 func ResetUnitNames() {
 	unitNames[0] = unit1
@@ -67,7 +67,7 @@ func ResetUnitNames() {
 	unitNames[6] = unit7
 }
 
-// SetUnitNames sets the names of the supra-complex units.
+// SetUnitNames sets the names of the ultra-complex units.
 func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[0] = u1
 	unitNames[1] = u2
@@ -78,7 +78,7 @@ func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[6] = u7
 }
 
-// UnitNames returns the current names of the supra-complex units.
+// UnitNames returns the current names of the ultra-complex units.
 func UnitNames() [7]string {
 	return unitNames
 }

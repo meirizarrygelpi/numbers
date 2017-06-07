@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package supracplex
+package ultracplex
 
 import (
 	"math/big"
@@ -10,19 +10,19 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/cplex"
-	"github.com/meirizarrygelpi/numbers/infracplex"
+	"github.com/meirizarrygelpi/numbers/supercplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int is a supra-complex number with big.Int components.
+// An Int is an ultra-complex number with big.Int components.
 type Int struct {
-	l, r infracplex.Int
+	l, r supercplex.Int
 }
 
 // One sets z equal to 1, and then returns z.
 func (z *Int) One() *Int {
 	z.l.One()
-	z.r.Set(new(infracplex.Int))
+	z.r.Set(new(supercplex.Int))
 	return z
 }
 
@@ -81,9 +81,9 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to a supra-complex number made with a given pair, and
+// SetPair sets z equal to an ultra-complex number made with a given pair, and
 // then it returns z.
-func (z *Int) SetPair(a, b *infracplex.Int) *Int {
+func (z *Int) SetPair(a, b *supercplex.Int) *Int {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -147,7 +147,7 @@ func (z *Int) Sub(x, y *Int) *Int {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Int) Mul(x, y *Int) *Int {
-	a, b, temp := new(infracplex.Int), new(infracplex.Int), new(infracplex.Int)
+	a, b, temp := new(supercplex.Int), new(supercplex.Int), new(supercplex.Int)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -214,13 +214,13 @@ func (z *Int) QuoR(x, y *Int) *Int {
 // Generate returns a random Int value for quick.Check testing.
 func (z *Int) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomInt := &Int{
-		*infracplex.NewInt(
+		*supercplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 		),
-		*infracplex.NewInt(
+		*supercplex.NewInt(
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
 			big.NewInt(rand.Int63()),
