@@ -126,15 +126,15 @@ func (z *Float64) Conj(y *Float64) *Float64 {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
-func (z *Float64) Star1(y *Float64) *Float64 {
+// Bar sets z equal to the s-conjugate of y, and returns z.
+func (z *Float64) Bar(y *Float64) *Float64 {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the T-conjugate of y, and returns z.
-func (z *Float64) Star2(y *Float64) *Float64 {
+// Tilde sets z equal to the T-conjugate of y, and returns z.
+func (z *Float64) Tilde(y *Float64) *Float64 {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -203,9 +203,9 @@ func (z *Float64) Inv(y *Float64) *Float64 {
 	}
 	n := y.Norm()
 	temp := new(Float64)
-	z.Star1(y)
-	z.Mul(z, temp.Star2(y))
-	z.Mul(z, temp.Star1(temp))
+	z.Bar(y)
+	z.Mul(z, temp.Tilde(y))
+	z.Mul(z, temp.Bar(temp))
 	return z.Divide(z, n)
 }
 
@@ -217,9 +217,9 @@ func (z *Float64) Quo(x, y *Float64) *Float64 {
 	}
 	n := y.Norm()
 	temp := new(Float64)
-	z.Mul(x, temp.Star1(y))
-	z.Mul(z, temp.Star2(y))
-	z.Mul(z, temp.Star1(temp))
+	z.Mul(x, temp.Bar(y))
+	z.Mul(z, temp.Tilde(y))
+	z.Mul(z, temp.Bar(temp))
 	return z.Divide(z, n)
 }
 

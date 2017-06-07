@@ -119,15 +119,15 @@ func (z *Int64) Conj(y *Int64) *Int64 {
 	return z
 }
 
-// Star1 sets z equal to the s-conjugate of y, and returns z.
-func (z *Int64) Star1(y *Int64) *Int64 {
+// Bar sets z equal to the s-conjugate of y, and returns z.
+func (z *Int64) Bar(y *Int64) *Int64 {
 	z.l.Conj(&y.l)
 	z.r.Conj(&y.r)
 	return z
 }
 
-// Star2 sets z equal to the T-conjugate of y, and returns z.
-func (z *Int64) Star2(y *Int64) *Int64 {
+// Tilde sets z equal to the T-conjugate of y, and returns z.
+func (z *Int64) Tilde(y *Int64) *Int64 {
 	z.l.Set(&y.l)
 	z.r.Neg(&y.r)
 	return z
@@ -196,9 +196,9 @@ func (z *Int64) Quo(x, y *Int64) *Int64 {
 	}
 	n := y.Norm()
 	temp := new(Int64)
-	z.Mul(x, temp.Star1(y))
-	z.Mul(z, temp.Star2(y))
-	z.Mul(z, temp.Star1(temp))
+	z.Mul(x, temp.Bar(y))
+	z.Mul(z, temp.Tilde(y))
+	z.Mul(z, temp.Bar(temp))
 	return z.Divide(z, n)
 }
 
