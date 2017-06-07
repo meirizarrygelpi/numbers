@@ -38,7 +38,7 @@ func TestNegConjCommutativeFloat(t *testing.T) {
 
 // Non-commutativity
 
-func TestMulNonCommutativeFloat(t *testing.T) {
+func XTestMulNonCommutativeFloat(t *testing.T) {
 	f := func(x, y *Float) bool {
 		t.Logf("x = %v, y = %v", x, y)
 		l := new(Float).Commutator(x, y)
