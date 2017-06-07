@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
+// Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
 /*
@@ -34,7 +34,7 @@ non-associative.
 
 Ultra numbers are a parabolic Cayley-Dickson construct with supra numbers.
 */
-package ultra
+package ultranplex
 
 const (
 	leftBracket            = "⦗"
