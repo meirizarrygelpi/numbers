@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infrahamilton
+package superhamilton
 
 import (
 	"math/big"
@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Rat is an infra-Hamilton quaternion with big.Rat components.
+// A Rat is a super-Hamilton quaternion with big.Rat components.
 type Rat struct {
 	l, r hamilton.Rat
 }
@@ -81,7 +81,7 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to an infra-Hamilton quaternion made with a given pair, and
+// SetPair sets z equal to a super-Hamilton quaternion made with a given pair, and
 // then it returns z.
 func (z *Rat) SetPair(a, b *hamilton.Rat) *Rat {
 	z.l.Set(a)

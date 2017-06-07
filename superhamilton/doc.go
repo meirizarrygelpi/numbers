@@ -2,14 +2,14 @@
 // Licenced under the MIT License.
 
 /*
-Package infrahamilton implements arithmetic for infra-Hamilton quaternions. Five types are
+Package superhamilton implements arithmetic for super-Hamilton quaternions. Five types are
 implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-An infra-Hamilton quaternion has eight components and it is written in the form
+An super-Hamilton quaternion has eight components and it is written in the form
     a+bi+cj+dk+eα+fβ+gγ+hδ
 The multiplication table is
 	+-----+----+----+----+----+----+----+----+
@@ -29,13 +29,13 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| δ   | -γ | +β | +α | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for infra-Hamilton quaternions is non-commutative and
+The multiplcation operation for super-Hamilton quaternions is non-commutative and
 non-associative.
 
-Infra-Hamilton quaternions are a parabolic Cayley-Dickson construct with Hamilton
+Super-Hamilton quaternions are a parabolic Cayley-Dickson construct with Hamilton
 quaternions.
 */
-package infrahamilton
+package superhamilton
 
 const (
 	leftBracket            = "⦗"
@@ -55,7 +55,7 @@ var (
 	unitNames = [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7}
 )
 
-// ResetUnitNames sets the names of the infra-Hamilton quaternion units equal
+// ResetUnitNames sets the names of the super-Hamilton quaternion units equal
 // to their default values.
 func ResetUnitNames() {
 	unitNames[0] = unit1
@@ -67,7 +67,7 @@ func ResetUnitNames() {
 	unitNames[6] = unit7
 }
 
-// SetUnitNames sets the names of the infra-Hamilton quaternion units.
+// SetUnitNames sets the names of the super-Hamilton quaternion units.
 func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[0] = u1
 	unitNames[1] = u2
@@ -78,7 +78,7 @@ func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[6] = u7
 }
 
-// UnitNames returns the current names of the infra-Hamilton quaternion units.
+// UnitNames returns the current names of the super-Hamilton quaternion units.
 func UnitNames() [7]string {
 	return unitNames
 }

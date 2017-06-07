@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infrahamilton
+package superhamilton
 
 import (
 	"math/rand"
@@ -17,7 +17,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float64 is an infra-Hamilton quaternion with float64 components.
+// A Float64 is a super-Hamilton quaternion with float64 components.
 type Float64 struct {
 	l, r hamilton.Float64
 }
@@ -90,7 +90,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to an infra-Hamilton quaternion made with a given pair, and
+// SetPair sets z equal to a super-Hamilton quaternion made with a given pair, and
 // then it returns z.
 func (z *Float64) SetPair(a, b *hamilton.Float64) *Float64 {
 	z.l.Set(a)

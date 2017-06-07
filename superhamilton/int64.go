@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package infrahamilton
+package superhamilton
 
 import (
 	"math/rand"
@@ -15,7 +15,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int64 is an infra-Hamilton quaternion with int64 components.
+// An Int64 is a super-Hamilton quaternion with int64 components.
 type Int64 struct {
 	l, r hamilton.Int64
 }
@@ -82,7 +82,7 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to an infra-Hamilton quaternion made with a given pair, and
+// SetPair sets z equal to a super-Hamilton quaternion made with a given pair, and
 // then it returns z.
 func (z *Int64) SetPair(a, b *hamilton.Int64) *Int64 {
 	z.l.Set(a)
