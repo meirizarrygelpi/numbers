@@ -2,39 +2,39 @@
 // Licenced under the MIT License.
 
 /*
-Package perhamilton implements arithmetic for perplex-Hamilton quaternions. Five types are
+Package percockle implements arithmetic for perplex-Cockle quaternions. Five types are
 implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-An perplex-Hamilton quaternion has eight components and it is written in the form
-    a+bi+cj+dk+eS+fiS+gjS+hkS
+An perplex-Cockle quaternion has eight components and it is written in the form
+    a+bi+ct+du+eS+fiS+gtS+huS
 The multiplication table is
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| Mul | i   | j   | k   | S   | iS  | jS  | kS  |
+	| Mul | i   | t   | u   | S   | iS  | tS  | uS  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| i   | -1  | +k  | -j  | +iS | -S  | +kS | -jS |
+	| i   | -1  | +u  | -t  | +iS | -S  | +uS | -tS |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| j   | -k  | -1  | +i  | +jS | -kS | -S  | +iS |
+	| t   | -u  | +1  | -i  | +tS | -uS | +S  | -iS |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| k   | +j  | -i  | -1  | +kS | +jS | -iS | -S  |
+	| u   | +t  | +i  | +1  | +uS | +tS | +iS | +S  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| S   | +iS | +jS | +kS | +1  | +i  | +j  | +k  |
+	| S   | +iS | +tS | +uS | +1  | +i  | +t  | +u  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| iS  | -S  | +kS | -jS | +i  | -1  | +k  | -j  |
+	| iS  | -S  | +uS | -tS | +i  | -1  | +u  | -t  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| jS  | -kS | -S  | +iS | +j  | -k  | -1  | +i  |
+	| tS  | -uS | +S  | -iS | +t  | -u  | +1  | -i  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-	| kS  | +jS | -iS | -S  | +k  | +j  | -i  | -1  |
+	| uS  | +tS | +iS | +S  | +u  | +t  | +i  | +1  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for perplex-Hamilton quaternions is non-commutative but
+The multiplcation operation for perplex-Cockle quaternions is non-commutative but
 associative (for non-floats).
 
-Perplex-Hamilton quaternions are a perplexification of Hamilton quaternions.
+Perplex-Cockle quaternions are a perplexification of Cockle quaternions.
 */
-package perhamilton
+package percockle
 
 const (
 	leftBracket            = "⦗"
@@ -42,19 +42,19 @@ const (
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"
-	unit2                  = "j"
-	unit3                  = "k"
+	unit2                  = "t"
+	unit3                  = "u"
 	unit4                  = "S"
 	unit5                  = "iS"
-	unit6                  = "jS"
-	unit7                  = "kS"
+	unit6                  = "tS"
+	unit7                  = "uS"
 )
 
 var (
 	unitNames = [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7}
 )
 
-// ResetUnitNames sets the names of the perplex-Hamilton quaternion units equal
+// ResetUnitNames sets the names of the perplex-Cockle quaternion units equal
 // to their default values.
 func ResetUnitNames() {
 	unitNames[0] = unit1
@@ -66,7 +66,7 @@ func ResetUnitNames() {
 	unitNames[6] = unit7
 }
 
-// SetUnitNames sets the names of the perplex-Hamilton quaternion units.
+// SetUnitNames sets the names of the perplex-Cockle quaternion units.
 func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[0] = u1
 	unitNames[1] = u2
@@ -77,7 +77,7 @@ func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[6] = u7
 }
 
-// UnitNames returns the current names of the perplex-Hamilton quaternion units.
+// UnitNames returns the current names of the perplex-Cockle quaternion units.
 func UnitNames() [7]string {
 	return unitNames
 }
