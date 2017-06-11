@@ -2,8 +2,8 @@
 // Licenced under the MIT License.
 
 /*
-Package supernplex implements arithmetic for super-nilplex numbers. Five types are
-implemented:
+Package supernplex implements arithmetic for super-nilplex numbers. Five types
+are implemented:
     Int64   (int64 values)
     Float64 (float64 values)
     Int     (big.Int values)
@@ -24,7 +24,10 @@ The multiplication table is:
 The multiplcation operation for super-nilplex numbers is non-commutative but
 associative (for non-floats).
 
-Supra numbers are a parabolic Cayley-Dickson construct with nilplex numbers.
+Super-nilplex numbers are a parabolic Cayley-Dickson construct with nilplex
+numbers. Another interpretation of super-nilplex numbers is as a two-dimensional
+exterior algebra (a.k.a. Grassmann algebra) with the multiplication being the
+wedge product.
 */
 package supernplex
 

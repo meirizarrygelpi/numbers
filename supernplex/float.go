@@ -175,6 +175,14 @@ func (z *Float) Conj(y *Float) *Float {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Float) Hodge(y *Float) *Float {
+	a, b := new(nplex.Float), new(nplex.Float)
+	a.Set(&y.l)
+	b.Set(&y.r)
+	return z.SetPair(b.Conj(b.Hodge(b)), a.Hodge(a))
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Float) Add(x, y *Float) *Float {
 	z.l.Add(&x.l, &y.l)

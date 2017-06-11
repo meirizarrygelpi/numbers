@@ -134,6 +134,11 @@ func (z *Int) Conj(y *Int) *Int {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Int) Hodge(y *Int) *Int {
+	return z.SetPair(&y.r, &y.l)
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Int) Add(x, y *Int) *Int {
 	z.l.Add(&x.l, &y.l)

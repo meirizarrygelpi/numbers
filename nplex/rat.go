@@ -127,6 +127,11 @@ func (z *Rat) Conj(y *Rat) *Rat {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Rat) Hodge(y *Rat) *Rat {
+	return z.SetPair(&y.r, &y.l)
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Rat) Add(x, y *Rat) *Rat {
 	z.l.Add(&x.l, &y.l)

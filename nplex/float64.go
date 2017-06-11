@@ -141,6 +141,11 @@ func (z *Float64) Conj(y *Float64) *Float64 {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Float64) Hodge(y *Float64) *Float64 {
+	return z.SetPair(y.r, y.l)
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Float64) Add(x, y *Float64) *Float64 {
 	z.l = x.l + y.l
