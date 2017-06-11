@@ -132,6 +132,14 @@ func (z *Int64) Conj(y *Int64) *Int64 {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Int64) Hodge(y *Int64) *Int64 {
+	a, b := new(supernplex.Int64), new(supernplex.Int64)
+	a.Set(&y.l)
+	b.Set(&y.r)
+	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Int64) Add(x, y *Int64) *Int64 {
 	z.l.Add(&x.l, &y.l)

@@ -140,6 +140,14 @@ func (z *Float64) Conj(y *Float64) *Float64 {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Float64) Hodge(y *Float64) *Float64 {
+	a, b := new(supernplex.Float64), new(supernplex.Float64)
+	a.Set(&y.l)
+	b.Set(&y.r)
+	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Float64) Add(x, y *Float64) *Float64 {
 	z.l.Add(&x.l, &y.l)

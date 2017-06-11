@@ -131,6 +131,14 @@ func (z *Int) Conj(y *Int) *Int {
 	return z
 }
 
+// Hodge sets z equal to the Hodge conjugate of y, and returns z.
+func (z *Int) Hodge(y *Int) *Int {
+	a, b := new(supernplex.Int), new(supernplex.Int)
+	a.Set(&y.l)
+	b.Set(&y.r)
+	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
+}
+
 // Add sets z equal to x+y, and returns z.
 func (z *Int) Add(x, y *Int) *Int {
 	z.l.Add(&x.l, &y.l)

@@ -140,6 +140,14 @@ func (z *Float64) Conj(y *Float64) *Float64 {
 	return z
 }
 
+// Dagger sets z equal to the dagger conjugate of y, and returns z.
+func (z *Float64) Dagger(y *Float64) *Float64 {
+	z.l.Conj(&y.l)
+	z.r.Neg(&y.r)
+	z.r.Conj(&z.r)
+	return z
+}
+
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
 func (z *Float64) Hodge(y *Float64) *Float64 {
 	a, b := new(nplex.Float64), new(nplex.Float64)
