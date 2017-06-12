@@ -69,6 +69,9 @@ func (z *Float64) Unreal() float64 {
 }
 
 func sprintFloat64(a float64) string {
+	if math.IsNaN(a) {
+		return "+NaN"
+	}
 	if math.Signbit(a) {
 		return fmt.Sprintf("%g", a)
 	}
@@ -243,7 +246,7 @@ func (z *Float64) Inv(y *Float64) *Float64 {
 }
 
 // Quo sets z equal to the quotient of x and y, and returns z. If y is zero,
-// then Quo panics.
+// then Quo panics. Quo uses a naive division algorithm that can fail.
 func (z *Float64) Quo(x, y *Float64) *Float64 {
 	if zero := new(Float64); y.Equals(zero) {
 		panic(zeroDenominator)
@@ -253,6 +256,96 @@ func (z *Float64) Quo(x, y *Float64) *Float64 {
 	b := (x.r * y.l) - (y.r * x.l)
 	z.SetPair(a, b)
 	return z.Divide(z, q)
+}
+
+var (
+	ep = math.Nextafter(1.0, 2.0) - 1.0
+	ov = math.MaxFloat64
+	un = math.SmallestNonzeroFloat64 * math.Pow(2, 52)
+)
+
+func maxabs(a, b float64) float64 {
+	return math.Max(math.Abs(a), math.Abs(b))
+}
+
+func f2(a, b, c, d, r, t float64) float64 {
+	if r != 0 {
+		br := b * r
+		if br != 0 {
+			return (a + br) * t
+		}
+		return (a * t) + (b*t)*r
+	}
+	return (a + d*(b/c)) * t
+}
+
+func f1(a, b, c, d float64) (e, f float64) {
+	r := d / c
+	t := 1 / (c + d*r)
+	e = f2(a, b, c, d, r, t)
+	f = f2(b, -a, c, d, r, t)
+	return
+}
+
+func (z *Float64) robustQuo(x, y *Float64) *Float64 {
+	a, b := x.Real(), x.Unreal()
+	c, d := y.Real(), y.Unreal()
+
+	if math.Abs(d) <= math.Abs(c) {
+		e, f := f1(a, b, c, d)
+		return z.SetPair(e, f)
+	}
+
+	e, f := f1(b, a, d, c)
+	f = -f
+	return z.SetPair(e, f)
+}
+
+// RobustQuo sets z equal to the quotient of x and y, and returns z. If y is
+// zero, then RobustQuo panics. RobustQuo uses a more robust algorithm for
+// complex division found in
+//     M. Baudin and R.L. Smith, A Robust Complex Division in Scilab
+//     (arXiv:1210.4539)
+func (z *Float64) RobustQuo(x, y *Float64) *Float64 {
+	if zero := new(Float64); y.Equals(zero) {
+		panic(zeroDenominator)
+	}
+	p, q := new(Float64), new(Float64)
+
+	p.Set(x)
+	q.Set(y)
+
+	a, b := x.Real(), x.Unreal()
+	c, d := y.Real(), y.Unreal()
+
+	ab := maxabs(a, b)
+	cd := maxabs(c, d)
+
+	base := 2.0
+	s := 1.0
+
+	be := base / (ep * ep)
+
+	if ab >= ov/2.0 {
+		p.Divide(p, 2.0)
+		s = s * 2.0
+	}
+	if cd >= ov/2.0 {
+		q.Divide(q, 2.0)
+		s = s / 2.0
+	}
+
+	if ab <= (un*base)/ep {
+		p.Dilate(p, be)
+		s = s / be
+	}
+	if cd <= (un*base)/ep {
+		q.Dilate(q, be)
+		s = s * be
+	}
+
+	z.robustQuo(p, q)
+	return z.Dilate(z, s)
 }
 
 // Gauss sets z equal to the Gaussian integer a+bi, and returns z.
