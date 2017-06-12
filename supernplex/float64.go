@@ -143,8 +143,8 @@ func (z *Float64) Conj(y *Float64) *Float64 {
 // Dagger sets z equal to the dagger conjugate of y, and returns z.
 func (z *Float64) Dagger(y *Float64) *Float64 {
 	z.l.Conj(&y.l)
-	z.r.Neg(&y.r)
-	z.r.Conj(&z.r)
+	z.r.Conj(&y.r)
+	z.r.Neg(&z.r)
 	return z
 }
 

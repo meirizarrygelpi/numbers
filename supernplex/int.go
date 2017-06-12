@@ -135,8 +135,8 @@ func (z *Int) Conj(y *Int) *Int {
 // Dagger sets z equal to the dagger conjugate of y, and returns z.
 func (z *Int) Dagger(y *Int) *Int {
 	z.l.Conj(&y.l)
-	z.r.Neg(&y.r)
-	z.r.Conj(&z.r)
+	z.r.Conj(&y.r)
+	z.r.Neg(&z.r)
 	return z
 }
 
