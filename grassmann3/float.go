@@ -1,7 +1,7 @@
 // Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package ultranplex
+package grassmann3
 
 import (
 	"math/big"
@@ -10,13 +10,13 @@ import (
 	"strings"
 
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supernplex"
+	"github.com/meirizarrygelpi/numbers/grassmann2"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
 // A Float is an ultra-nilplex number with big.Float components.
 type Float struct {
-	l, r supernplex.Float
+	l, r grassmann2.Float
 }
 
 // Acc returns the accuracy of the real part of z.
@@ -126,7 +126,7 @@ func (z *Float) Set(y *Float) *Float {
 
 // SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Float) SetPair(a, b *supernplex.Float) *Float {
+func (z *Float) SetPair(a, b *grassmann2.Float) *Float {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
@@ -212,7 +212,7 @@ func (z *Float) Dagger(y *Float) *Float {
 
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
 func (z *Float) Hodge(y *Float) *Float {
-	a, b := new(supernplex.Float), new(supernplex.Float)
+	a, b := new(grassmann2.Float), new(grassmann2.Float)
 	a.Set(&y.l)
 	b.Set(&y.r)
 	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
@@ -234,7 +234,7 @@ func (z *Float) Sub(x, y *Float) *Float {
 
 // Mul sets z equal to the product of x and y, and returns z.
 func (z *Float) Mul(x, y *Float) *Float {
-	a, b, temp := new(supernplex.Float), new(supernplex.Float), new(supernplex.Float)
+	a, b, temp := new(grassmann2.Float), new(grassmann2.Float), new(grassmann2.Float)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -333,13 +333,13 @@ func (z *Float) AntiSelfDual(y *Float) *Float {
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{
-		*supernplex.NewFloat(
+		*grassmann2.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 		),
-		*supernplex.NewFloat(
+		*grassmann2.NewFloat(
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),
 			big.NewFloat(rand.Float64()),

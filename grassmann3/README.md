@@ -1,6 +1,6 @@
 # ultra
 
-Package `ultra` implements arithmetic for ultra-nilplex numbers. There are five types:
+Package `ultra` implements arithmetic for three-dimensional Grassmann numbers. There are five types:
 
 * `Int64`
 * `Float64`

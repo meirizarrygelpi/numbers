@@ -2,7 +2,7 @@
 // Licenced under the MIT License.
 
 /*
-Package ultranplex implements arithmetic for ultra-nilplex numbers. Five types
+Package grassmann3 implements arithmetic for three-dimensional Grassmann numbers. Five types
 are implemented:
     Int64   (int64 values)
     Float64 (float64 values)
@@ -29,13 +29,13 @@ The multiplication table is
     +-------+--------+--------+--------+--------+--------+--------+-------+
     | (WX)Y | 0      | 0      | 0      | 0      | 0      | 0      | 0     |
     +-------+--------+--------+--------+--------+--------+--------+-------+
-The multiplcation operation for ultra-nilplex numbers is non-commutative and
+The multiplcation operation for three-dimensional Grassmann numbers is non-commutative and
 non-associative.
 
-Ultra-nilplex numbers are a parabolic Cayley-Dickson construct with
-super-nilplex numbers.
+Three-dimensional Grassmann numbers are a parabolic Cayley-Dickson construct with
+two-dimensional Grassmann numbers.
 */
-package ultranplex
+package grassmann3
 
 const (
 	leftBracket            = "("

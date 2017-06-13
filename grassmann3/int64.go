@@ -1,7 +1,7 @@
 // Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package ultranplex
+package grassmann3
 
 import (
 	"math/rand"
@@ -10,33 +10,31 @@ import (
 
 	"fmt"
 
-	"math"
-
+	"github.com/meirizarrygelpi/numbers/grassmann2"
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supernplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float64 is an ultra-nilplex number with float64 components.
-type Float64 struct {
-	l, r supernplex.Float64
+// An Int64 is an ultra-nilplex number with int64 components.
+type Int64 struct {
+	l, r grassmann2.Int64
 }
 
 // One sets z equal to 1, and then returns z.
-func (z *Float64) One() *Float64 {
+func (z *Int64) One() *Int64 {
 	z.l.One()
-	z.r.Set(new(supernplex.Float64))
+	z.r.Set(new(grassmann2.Int64))
 	return z
 }
 
 // Real returns the real part of z.
-func (z *Float64) Real() float64 {
+func (z *Int64) Real() int64 {
 	return z.l.Real()
 }
 
 // Unreal returns the unreal part of z.
-func (z *Float64) Unreal() *vec7.Float64 {
-	v := new(vec7.Float64)
+func (z *Int64) Unreal() *vec7.Int64 {
+	v := new(vec7.Int64)
 	w := z.l.Unreal()
 	v[0] = w[0]
 	v[1] = w[1]
@@ -49,28 +47,22 @@ func (z *Float64) Unreal() *vec7.Float64 {
 	return v
 }
 
-func sprintFloat64(a float64) string {
-	if math.Signbit(a) {
-		return fmt.Sprintf("%g", a)
-	}
-	if math.IsInf(a, +1) {
-		return "+Inf"
-	}
-	return fmt.Sprintf("+%g", a)
-}
-
-// String returns the string version of a Float64 value.
+// String returns the string version of a Int64 value.
 //
 // If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
 // "(a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y)", similar to complex128 values.
-func (z *Float64) String() string {
+func (z *Int64) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
 	a[0] = leftBracket
 	a[1] = fmt.Sprint(z.l.Real())
 	i := 2
 	for j, u := range unitNames {
-		a[i] = sprintFloat64(v[j])
+		if v[j] < 0 {
+			a[i] = fmt.Sprint(v[j])
+		} else {
+			a[i] = "+" + fmt.Sprint(v[j])
+		}
 		a[i+1] = u
 		i += 2
 	}
@@ -79,12 +71,12 @@ func (z *Float64) String() string {
 }
 
 // Equals returns true if y and z are equal.
-func (z *Float64) Equals(y *Float64) bool {
+func (z *Int64) Equals(y *Int64) bool {
 	return z.l.Equals(&y.l) && z.r.Equals(&y.r)
 }
 
 // Set sets z equal to y, and returns z.
-func (z *Float64) Set(y *Float64) *Float64 {
+func (z *Int64) Set(y *Int64) *Int64 {
 	z.l.Set(&y.l)
 	z.r.Set(&y.r)
 	return z
@@ -92,21 +84,21 @@ func (z *Float64) Set(y *Float64) *Float64 {
 
 // SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Float64) SetPair(a, b *supernplex.Float64) *Float64 {
+func (z *Int64) SetPair(a, b *grassmann2.Int64) *Int64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
 // Set0Form sets the 0-form of z equal to a0, and then it returns z.
-func (z *Float64) Set0Form(a0 float64) *Float64 {
+func (z *Int64) Set0Form(a0 int64) *Int64 {
 	z.l.Set0Form(a0)
 	return z
 }
 
 // Set1Forms sets the 1-forms of z equal to aW, aX, and aY, and then it returns
 // z.
-func (z *Float64) Set1Forms(aW, aX, aY float64) *Float64 {
+func (z *Int64) Set1Forms(aW, aX, aY int64) *Int64 {
 	z.l.Set1Forms(aW, aX)
 	z.r.Set0Form(aY)
 	return z
@@ -114,63 +106,62 @@ func (z *Float64) Set1Forms(aW, aX, aY float64) *Float64 {
 
 // Set2Forms sets the 2-forms of z equal to aWX, aWY, and aXY, and then it
 // returns z.
-func (z *Float64) Set2Forms(aWX, aWY, aXY float64) *Float64 {
+func (z *Int64) Set2Forms(aWX, aWY, aXY int64) *Int64 {
 	z.l.Set2Form(aWX)
 	z.r.Set1Forms(aWY, aXY)
 	return z
 }
 
 // Set3Form sets the 0-form of z equal to aWXY, and then it returns z.
-func (z *Float64) Set3Form(aWXY float64) *Float64 {
+func (z *Int64) Set3Form(aWXY int64) *Int64 {
 	z.r.Set2Form(aWXY)
 	return z
 }
 
-// NewFloat64 returns a pointer to the Float64 value
-// a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
-func NewFloat64(a, b, c, d, e, f, g, h float64) *Float64 {
-	z := new(Float64)
+// NewInt64 returns a pointer to the Int64 value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
+func NewInt64(a, b, c, d, e, f, g, h int64) *Int64 {
+	z := new(Int64)
 	z.l.SetPair(
-		nplex.NewFloat64(a, b),
-		nplex.NewFloat64(c, d),
+		nplex.NewInt64(a, b),
+		nplex.NewInt64(c, d),
 	)
 	z.r.SetPair(
-		nplex.NewFloat64(e, f),
-		nplex.NewFloat64(g, h),
+		nplex.NewInt64(e, f),
+		nplex.NewInt64(g, h),
 	)
 	return z
 }
 
 // Dilate sets z equal to y dilated by a, and returns z.
-func (z *Float64) Dilate(y *Float64, a float64) *Float64 {
+func (z *Int64) Dilate(y *Int64, a int64) *Int64 {
 	z.l.Dilate(&y.l, a)
 	z.r.Dilate(&y.r, a)
 	return z
 }
 
 // Divide sets z equal to y contracted by a, and returns z.
-func (z *Float64) Divide(y *Float64, a float64) *Float64 {
+func (z *Int64) Divide(y *Int64, a int64) *Int64 {
 	z.l.Divide(&y.l, a)
 	z.r.Divide(&y.r, a)
 	return z
 }
 
 // Neg sets z equal to the negative of y, and returns z.
-func (z *Float64) Neg(y *Float64) *Float64 {
+func (z *Int64) Neg(y *Int64) *Int64 {
 	z.l.Neg(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
 
 // Conj sets z equal to the conjugate of y, and returns z.
-func (z *Float64) Conj(y *Float64) *Float64 {
+func (z *Int64) Conj(y *Int64) *Int64 {
 	z.l.Conj(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
 
 // Dagger sets z equal to the dagger conjugate of y, and returns z.
-func (z *Float64) Dagger(y *Float64) *Float64 {
+func (z *Int64) Dagger(y *Int64) *Int64 {
 	z.l.Dagger(&y.l)
 	z.r.Dagger(&y.r)
 	z.r.Neg(&z.r)
@@ -178,30 +169,30 @@ func (z *Float64) Dagger(y *Float64) *Float64 {
 }
 
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
-func (z *Float64) Hodge(y *Float64) *Float64 {
-	a, b := new(supernplex.Float64), new(supernplex.Float64)
+func (z *Int64) Hodge(y *Int64) *Int64 {
+	a, b := new(grassmann2.Int64), new(grassmann2.Int64)
 	a.Set(&y.l)
 	b.Set(&y.r)
 	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
 }
 
 // Add sets z equal to x+y, and returns z.
-func (z *Float64) Add(x, y *Float64) *Float64 {
+func (z *Int64) Add(x, y *Int64) *Int64 {
 	z.l.Add(&x.l, &y.l)
 	z.r.Add(&x.r, &y.r)
 	return z
 }
 
 // Sub sets z equal to x-y, and returns z.
-func (z *Float64) Sub(x, y *Float64) *Float64 {
+func (z *Int64) Sub(x, y *Int64) *Int64 {
 	z.l.Sub(&x.l, &y.l)
 	z.r.Sub(&x.r, &y.r)
 	return z
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-func (z *Float64) Mul(x, y *Float64) *Float64 {
-	a, b, temp := new(supernplex.Float64), new(supernplex.Float64), new(supernplex.Float64)
+func (z *Int64) Mul(x, y *Int64) *Int64 {
+	a, b, temp := new(grassmann2.Int64), new(grassmann2.Int64), new(grassmann2.Int64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -214,18 +205,18 @@ func (z *Float64) Mul(x, y *Float64) *Float64 {
 // Commutator sets z equal to the commutator of x and y:
 // 		Mul(x, y) - Mul(y, x)
 // Then it returns z.
-func (z *Float64) Commutator(x, y *Float64) *Float64 {
+func (z *Int64) Commutator(x, y *Int64) *Int64 {
 	return z.Sub(
 		z.Mul(x, y),
-		new(Float64).Mul(y, x),
+		new(Int64).Mul(y, x),
 	)
 }
 
 // Associator sets z equal to the associator of w, x, and y:
 // 		Mul(Mul(w, x), y) - Mul(w, Mul(x, y))
 // Then it returns z.
-func (z *Float64) Associator(w, x, y *Float64) *Float64 {
-	temp := new(Float64)
+func (z *Int64) Associator(w, x, y *Int64) *Int64 {
+	temp := new(Int64)
 	return z.Sub(
 		z.Mul(z.Mul(w, x), y),
 		temp.Mul(w, temp.Mul(x, y)),
@@ -236,82 +227,50 @@ func (z *Float64) Associator(w, x, y *Float64) *Float64 {
 // the quadrance is
 // 		a²
 // This is always non-negative.
-func (z *Float64) Quad() float64 {
+func (z *Int64) Quad() int64 {
 	return z.l.Quad()
 }
 
 // IsZeroDivisor returns true if z is a zero divisor.
-func (z *Float64) IsZeroDivisor() bool {
+func (z *Int64) IsZeroDivisor() bool {
 	return z.l.IsZeroDivisor()
-}
-
-// Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
-// then Inv panics.
-func (z *Float64) Inv(y *Float64) *Float64 {
-	if y.IsZeroDivisor() {
-		panic(zeroDivisorInverse)
-	}
-	return z.Divide(z.Conj(y), y.Quad())
 }
 
 // QuoL sets z equal to the left quotient of x and y:
 // 		Mul(Inv(y), x)
 // Then it returns z. If y is a zero divisor, then QuoL panics.
-func (z *Float64) QuoL(x, y *Float64) *Float64 {
+func (z *Int64) QuoL(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Mul(z.Inv(y), x)
+	return z.Divide(z.Mul(z.Conj(y), x), y.Quad())
 }
 
 // QuoR sets z equal to the right quotient of x and y:
 // 		Mul(x, Inv(y))
 // Then it returns z. If y is a zero divisor, then QuoR panics.
-func (z *Float64) QuoR(x, y *Float64) *Float64 {
+func (z *Int64) QuoR(x, y *Int64) *Int64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Mul(x, z.Inv(y))
+	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
 }
 
-// SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
-//     Hodge(z) = z
-// Then it returns z.
-func (z *Float64) SelfDual(y *Float64) *Float64 {
-	sd := new(Float64)
-	sd.Hodge(y)
-	sd.Add(y, sd)
-	sd.Divide(sd, 2)
-	return z.Set(sd)
-}
-
-// AntiSelfDual sets z equal to the anti-self-dual part of y. If z is
-// anti-self-dual, then
-//     Hodge(z) = -z
-// Then it returns z.
-func (z *Float64) AntiSelfDual(y *Float64) *Float64 {
-	asd := new(Float64)
-	asd.Hodge(y)
-	asd.Sub(y, asd)
-	asd.Divide(asd, 2)
-	return z.Set(asd)
-}
-
-// Generate returns a random Float64 value for quick.Check testing.
-func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
-	randomFloat64 := &Float64{
-		*supernplex.NewFloat64(
-			rand.Float64(),
-			rand.Float64(),
-			rand.Float64(),
-			rand.Float64(),
+// Generate returns a random Int64 value for quick.Check testing.
+func (z *Int64) Generate(rand *rand.Rand, size int) reflect.Value {
+	randomInt64 := &Int64{
+		*grassmann2.NewInt64(
+			rand.Int63(),
+			rand.Int63(),
+			rand.Int63(),
+			rand.Int63(),
 		),
-		*supernplex.NewFloat64(
-			rand.Float64(),
-			rand.Float64(),
-			rand.Float64(),
-			rand.Float64(),
+		*grassmann2.NewInt64(
+			rand.Int63(),
+			rand.Int63(),
+			rand.Int63(),
+			rand.Int63(),
 		),
 	}
-	return reflect.ValueOf(randomFloat64)
+	return reflect.ValueOf(randomInt64)
 }

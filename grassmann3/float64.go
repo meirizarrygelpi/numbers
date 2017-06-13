@@ -1,39 +1,42 @@
 // Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package ultranplex
+package grassmann3
 
 import (
-	"math/big"
 	"math/rand"
 	"reflect"
 	"strings"
 
+	"fmt"
+
+	"math"
+
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supernplex"
+	"github.com/meirizarrygelpi/numbers/grassmann2"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Rat is an ultra-nilplex number with big.Rat components.
-type Rat struct {
-	l, r supernplex.Rat
+// A Float64 is an ultra-nilplex number with float64 components.
+type Float64 struct {
+	l, r grassmann2.Float64
 }
 
 // One sets z equal to 1, and then returns z.
-func (z *Rat) One() *Rat {
+func (z *Float64) One() *Float64 {
 	z.l.One()
-	z.r.Set(new(supernplex.Rat))
+	z.r.Set(new(grassmann2.Float64))
 	return z
 }
 
 // Real returns the real part of z.
-func (z *Rat) Real() *big.Rat {
+func (z *Float64) Real() float64 {
 	return z.l.Real()
 }
 
 // Unreal returns the unreal part of z.
-func (z *Rat) Unreal() *vec7.Rat {
-	v := new(vec7.Rat)
+func (z *Float64) Unreal() *vec7.Float64 {
+	v := new(vec7.Float64)
 	w := z.l.Unreal()
 	v[0] = w[0]
 	v[1] = w[1]
@@ -46,22 +49,28 @@ func (z *Rat) Unreal() *vec7.Rat {
 	return v
 }
 
-// String returns the string version of a Rat value.
+func sprintFloat64(a float64) string {
+	if math.Signbit(a) {
+		return fmt.Sprintf("%g", a)
+	}
+	if math.IsInf(a, +1) {
+		return "+Inf"
+	}
+	return fmt.Sprintf("+%g", a)
+}
+
+// String returns the string version of a Float64 value.
 //
 // If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
 // "(a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y)", similar to complex128 values.
-func (z *Rat) String() string {
+func (z *Float64) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
 	a[0] = leftBracket
-	a[1] = z.l.Real().RatString()
+	a[1] = fmt.Sprint(z.l.Real())
 	i := 2
 	for j, u := range unitNames {
-		if v[j].Sign() < 0 {
-			a[i] = v[j].RatString()
-		} else {
-			a[i] = "+" + v[j].RatString()
-		}
+		a[i] = sprintFloat64(v[j])
 		a[i+1] = u
 		i += 2
 	}
@@ -70,12 +79,12 @@ func (z *Rat) String() string {
 }
 
 // Equals returns true if y and z are equal.
-func (z *Rat) Equals(y *Rat) bool {
+func (z *Float64) Equals(y *Float64) bool {
 	return z.l.Equals(&y.l) && z.r.Equals(&y.r)
 }
 
 // Set sets z equal to y, and returns z.
-func (z *Rat) Set(y *Rat) *Rat {
+func (z *Float64) Set(y *Float64) *Float64 {
 	z.l.Set(&y.l)
 	z.r.Set(&y.r)
 	return z
@@ -83,21 +92,21 @@ func (z *Rat) Set(y *Rat) *Rat {
 
 // SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Rat) SetPair(a, b *supernplex.Rat) *Rat {
+func (z *Float64) SetPair(a, b *grassmann2.Float64) *Float64 {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
 // Set0Form sets the 0-form of z equal to a0, and then it returns z.
-func (z *Rat) Set0Form(a0 *big.Rat) *Rat {
+func (z *Float64) Set0Form(a0 float64) *Float64 {
 	z.l.Set0Form(a0)
 	return z
 }
 
 // Set1Forms sets the 1-forms of z equal to aW, aX, and aY, and then it returns
 // z.
-func (z *Rat) Set1Forms(aW, aX, aY *big.Rat) *Rat {
+func (z *Float64) Set1Forms(aW, aX, aY float64) *Float64 {
 	z.l.Set1Forms(aW, aX)
 	z.r.Set0Form(aY)
 	return z
@@ -105,55 +114,63 @@ func (z *Rat) Set1Forms(aW, aX, aY *big.Rat) *Rat {
 
 // Set2Forms sets the 2-forms of z equal to aWX, aWY, and aXY, and then it
 // returns z.
-func (z *Rat) Set2Forms(aWX, aWY, aXY *big.Rat) *Rat {
+func (z *Float64) Set2Forms(aWX, aWY, aXY float64) *Float64 {
 	z.l.Set2Form(aWX)
 	z.r.Set1Forms(aWY, aXY)
 	return z
 }
 
 // Set3Form sets the 0-form of z equal to aWXY, and then it returns z.
-func (z *Rat) Set3Form(aWXY *big.Rat) *Rat {
+func (z *Float64) Set3Form(aWXY float64) *Float64 {
 	z.r.Set2Form(aWXY)
 	return z
 }
 
-// NewRat returns a pointer to the Rat value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
-func NewRat(a, b, c, d, e, f, g, h *big.Rat) *Rat {
-	z := new(Rat)
+// NewFloat64 returns a pointer to the Float64 value
+// a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
+func NewFloat64(a, b, c, d, e, f, g, h float64) *Float64 {
+	z := new(Float64)
 	z.l.SetPair(
-		nplex.NewRat(a, b),
-		nplex.NewRat(c, d),
+		nplex.NewFloat64(a, b),
+		nplex.NewFloat64(c, d),
 	)
 	z.r.SetPair(
-		nplex.NewRat(e, f),
-		nplex.NewRat(g, h),
+		nplex.NewFloat64(e, f),
+		nplex.NewFloat64(g, h),
 	)
 	return z
 }
 
-// Scale sets z equal to y scaled by a, and returns z.
-func (z *Rat) Scale(y *Rat, a *big.Rat) *Rat {
-	z.l.Scale(&y.l, a)
-	z.r.Scale(&y.r, a)
+// Dilate sets z equal to y dilated by a, and returns z.
+func (z *Float64) Dilate(y *Float64, a float64) *Float64 {
+	z.l.Dilate(&y.l, a)
+	z.r.Dilate(&y.r, a)
+	return z
+}
+
+// Divide sets z equal to y contracted by a, and returns z.
+func (z *Float64) Divide(y *Float64, a float64) *Float64 {
+	z.l.Divide(&y.l, a)
+	z.r.Divide(&y.r, a)
 	return z
 }
 
 // Neg sets z equal to the negative of y, and returns z.
-func (z *Rat) Neg(y *Rat) *Rat {
+func (z *Float64) Neg(y *Float64) *Float64 {
 	z.l.Neg(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
 
 // Conj sets z equal to the conjugate of y, and returns z.
-func (z *Rat) Conj(y *Rat) *Rat {
+func (z *Float64) Conj(y *Float64) *Float64 {
 	z.l.Conj(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
 
 // Dagger sets z equal to the dagger conjugate of y, and returns z.
-func (z *Rat) Dagger(y *Rat) *Rat {
+func (z *Float64) Dagger(y *Float64) *Float64 {
 	z.l.Dagger(&y.l)
 	z.r.Dagger(&y.r)
 	z.r.Neg(&z.r)
@@ -161,30 +178,30 @@ func (z *Rat) Dagger(y *Rat) *Rat {
 }
 
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
-func (z *Rat) Hodge(y *Rat) *Rat {
-	a, b := new(supernplex.Rat), new(supernplex.Rat)
+func (z *Float64) Hodge(y *Float64) *Float64 {
+	a, b := new(grassmann2.Float64), new(grassmann2.Float64)
 	a.Set(&y.l)
 	b.Set(&y.r)
 	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
 }
 
 // Add sets z equal to x+y, and returns z.
-func (z *Rat) Add(x, y *Rat) *Rat {
+func (z *Float64) Add(x, y *Float64) *Float64 {
 	z.l.Add(&x.l, &y.l)
 	z.r.Add(&x.r, &y.r)
 	return z
 }
 
 // Sub sets z equal to x-y, and returns z.
-func (z *Rat) Sub(x, y *Rat) *Rat {
+func (z *Float64) Sub(x, y *Float64) *Float64 {
 	z.l.Sub(&x.l, &y.l)
 	z.r.Sub(&x.r, &y.r)
 	return z
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-func (z *Rat) Mul(x, y *Rat) *Rat {
-	a, b, temp := new(supernplex.Rat), new(supernplex.Rat), new(supernplex.Rat)
+func (z *Float64) Mul(x, y *Float64) *Float64 {
+	a, b, temp := new(grassmann2.Float64), new(grassmann2.Float64), new(grassmann2.Float64)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -197,18 +214,18 @@ func (z *Rat) Mul(x, y *Rat) *Rat {
 // Commutator sets z equal to the commutator of x and y:
 // 		Mul(x, y) - Mul(y, x)
 // Then it returns z.
-func (z *Rat) Commutator(x, y *Rat) *Rat {
+func (z *Float64) Commutator(x, y *Float64) *Float64 {
 	return z.Sub(
 		z.Mul(x, y),
-		new(Rat).Mul(y, x),
+		new(Float64).Mul(y, x),
 	)
 }
 
 // Associator sets z equal to the associator of w, x, and y:
 // 		Mul(Mul(w, x), y) - Mul(w, Mul(x, y))
 // Then it returns z.
-func (z *Rat) Associator(w, x, y *Rat) *Rat {
-	temp := new(Rat)
+func (z *Float64) Associator(w, x, y *Float64) *Float64 {
+	temp := new(Float64)
 	return z.Sub(
 		z.Mul(z.Mul(w, x), y),
 		temp.Mul(w, temp.Mul(x, y)),
@@ -217,32 +234,30 @@ func (z *Rat) Associator(w, x, y *Rat) *Rat {
 
 // Quad returns the quadrance of z. If z = a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then
 // the quadrance is
-//     a²
+// 		a²
 // This is always non-negative.
-func (z *Rat) Quad() *big.Rat {
+func (z *Float64) Quad() float64 {
 	return z.l.Quad()
 }
 
 // IsZeroDivisor returns true if z is a zero divisor.
-func (z *Rat) IsZeroDivisor() bool {
+func (z *Float64) IsZeroDivisor() bool {
 	return z.l.IsZeroDivisor()
 }
 
 // Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
 // then Inv panics.
-func (z *Rat) Inv(y *Rat) *Rat {
+func (z *Float64) Inv(y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorInverse)
 	}
-	a := y.Quad()
-	a.Inv(a)
-	return z.Scale(z.Conj(y), a)
+	return z.Divide(z.Conj(y), y.Quad())
 }
 
 // QuoL sets z equal to the left quotient of x and y:
-//     Mul(Inv(y), x)
+// 		Mul(Inv(y), x)
 // Then it returns z. If y is a zero divisor, then QuoL panics.
-func (z *Rat) QuoL(x, y *Rat) *Rat {
+func (z *Float64) QuoL(x, y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
@@ -250,9 +265,9 @@ func (z *Rat) QuoL(x, y *Rat) *Rat {
 }
 
 // QuoR sets z equal to the right quotient of x and y:
-//     Mul(x, Inv(y))
+// 		Mul(x, Inv(y))
 // Then it returns z. If y is a zero divisor, then QuoR panics.
-func (z *Rat) QuoR(x, y *Rat) *Rat {
+func (z *Float64) QuoR(x, y *Float64) *Float64 {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
@@ -262,11 +277,11 @@ func (z *Rat) QuoR(x, y *Rat) *Rat {
 // SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
 //     Hodge(z) = z
 // Then it returns z.
-func (z *Rat) SelfDual(y *Rat) *Rat {
-	sd := new(Rat)
+func (z *Float64) SelfDual(y *Float64) *Float64 {
+	sd := new(Float64)
 	sd.Hodge(y)
 	sd.Add(y, sd)
-	sd.Scale(sd, big.NewRat(1, 2))
+	sd.Divide(sd, 2)
 	return z.Set(sd)
 }
 
@@ -274,29 +289,29 @@ func (z *Rat) SelfDual(y *Rat) *Rat {
 // anti-self-dual, then
 //     Hodge(z) = -z
 // Then it returns z.
-func (z *Rat) AntiSelfDual(y *Rat) *Rat {
-	asd := new(Rat)
+func (z *Float64) AntiSelfDual(y *Float64) *Float64 {
+	asd := new(Float64)
 	asd.Hodge(y)
 	asd.Sub(y, asd)
-	asd.Scale(asd, big.NewRat(1, 2))
+	asd.Divide(asd, 2)
 	return z.Set(asd)
 }
 
-// Generate returns a random Rat value for quick.Check testing.
-func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
-	randomRat := &Rat{
-		*supernplex.NewRat(
-			big.NewRat(rand.Int63(), rand.Int63()),
-			big.NewRat(rand.Int63(), rand.Int63()),
-			big.NewRat(rand.Int63(), rand.Int63()),
-			big.NewRat(rand.Int63(), rand.Int63()),
+// Generate returns a random Float64 value for quick.Check testing.
+func (z *Float64) Generate(rand *rand.Rand, size int) reflect.Value {
+	randomFloat64 := &Float64{
+		*grassmann2.NewFloat64(
+			rand.Float64(),
+			rand.Float64(),
+			rand.Float64(),
+			rand.Float64(),
 		),
-		*supernplex.NewRat(
-			big.NewRat(rand.Int63(), rand.Int63()),
-			big.NewRat(rand.Int63(), rand.Int63()),
-			big.NewRat(rand.Int63(), rand.Int63()),
-			big.NewRat(rand.Int63(), rand.Int63()),
+		*grassmann2.NewFloat64(
+			rand.Float64(),
+			rand.Float64(),
+			rand.Float64(),
+			rand.Float64(),
 		),
 	}
-	return reflect.ValueOf(randomRat)
+	return reflect.ValueOf(randomFloat64)
 }

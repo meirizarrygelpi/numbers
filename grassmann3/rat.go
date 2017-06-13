@@ -1,40 +1,39 @@
 // Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package ultranplex
+package grassmann3
 
 import (
+	"math/big"
 	"math/rand"
 	"reflect"
 	"strings"
 
-	"fmt"
-
 	"github.com/meirizarrygelpi/numbers/nplex"
-	"github.com/meirizarrygelpi/numbers/supernplex"
+	"github.com/meirizarrygelpi/numbers/grassmann2"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int64 is an ultra-nilplex number with int64 components.
-type Int64 struct {
-	l, r supernplex.Int64
+// A Rat is an ultra-nilplex number with big.Rat components.
+type Rat struct {
+	l, r grassmann2.Rat
 }
 
 // One sets z equal to 1, and then returns z.
-func (z *Int64) One() *Int64 {
+func (z *Rat) One() *Rat {
 	z.l.One()
-	z.r.Set(new(supernplex.Int64))
+	z.r.Set(new(grassmann2.Rat))
 	return z
 }
 
 // Real returns the real part of z.
-func (z *Int64) Real() int64 {
+func (z *Rat) Real() *big.Rat {
 	return z.l.Real()
 }
 
 // Unreal returns the unreal part of z.
-func (z *Int64) Unreal() *vec7.Int64 {
-	v := new(vec7.Int64)
+func (z *Rat) Unreal() *vec7.Rat {
+	v := new(vec7.Rat)
 	w := z.l.Unreal()
 	v[0] = w[0]
 	v[1] = w[1]
@@ -47,21 +46,21 @@ func (z *Int64) Unreal() *vec7.Int64 {
 	return v
 }
 
-// String returns the string version of a Int64 value.
+// String returns the string version of a Rat value.
 //
 // If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
 // "(a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y)", similar to complex128 values.
-func (z *Int64) String() string {
+func (z *Rat) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
 	a[0] = leftBracket
-	a[1] = fmt.Sprint(z.l.Real())
+	a[1] = z.l.Real().RatString()
 	i := 2
 	for j, u := range unitNames {
-		if v[j] < 0 {
-			a[i] = fmt.Sprint(v[j])
+		if v[j].Sign() < 0 {
+			a[i] = v[j].RatString()
 		} else {
-			a[i] = "+" + fmt.Sprint(v[j])
+			a[i] = "+" + v[j].RatString()
 		}
 		a[i+1] = u
 		i += 2
@@ -71,12 +70,12 @@ func (z *Int64) String() string {
 }
 
 // Equals returns true if y and z are equal.
-func (z *Int64) Equals(y *Int64) bool {
+func (z *Rat) Equals(y *Rat) bool {
 	return z.l.Equals(&y.l) && z.r.Equals(&y.r)
 }
 
 // Set sets z equal to y, and returns z.
-func (z *Int64) Set(y *Int64) *Int64 {
+func (z *Rat) Set(y *Rat) *Rat {
 	z.l.Set(&y.l)
 	z.r.Set(&y.r)
 	return z
@@ -84,21 +83,21 @@ func (z *Int64) Set(y *Int64) *Int64 {
 
 // SetPair sets z equal to an ultra-nilplex number made with a given pair, and
 // then it returns z.
-func (z *Int64) SetPair(a, b *supernplex.Int64) *Int64 {
+func (z *Rat) SetPair(a, b *grassmann2.Rat) *Rat {
 	z.l.Set(a)
 	z.r.Set(b)
 	return z
 }
 
 // Set0Form sets the 0-form of z equal to a0, and then it returns z.
-func (z *Int64) Set0Form(a0 int64) *Int64 {
+func (z *Rat) Set0Form(a0 *big.Rat) *Rat {
 	z.l.Set0Form(a0)
 	return z
 }
 
 // Set1Forms sets the 1-forms of z equal to aW, aX, and aY, and then it returns
 // z.
-func (z *Int64) Set1Forms(aW, aX, aY int64) *Int64 {
+func (z *Rat) Set1Forms(aW, aX, aY *big.Rat) *Rat {
 	z.l.Set1Forms(aW, aX)
 	z.r.Set0Form(aY)
 	return z
@@ -106,62 +105,55 @@ func (z *Int64) Set1Forms(aW, aX, aY int64) *Int64 {
 
 // Set2Forms sets the 2-forms of z equal to aWX, aWY, and aXY, and then it
 // returns z.
-func (z *Int64) Set2Forms(aWX, aWY, aXY int64) *Int64 {
+func (z *Rat) Set2Forms(aWX, aWY, aXY *big.Rat) *Rat {
 	z.l.Set2Form(aWX)
 	z.r.Set1Forms(aWY, aXY)
 	return z
 }
 
 // Set3Form sets the 0-form of z equal to aWXY, and then it returns z.
-func (z *Int64) Set3Form(aWXY int64) *Int64 {
+func (z *Rat) Set3Form(aWXY *big.Rat) *Rat {
 	z.r.Set2Form(aWXY)
 	return z
 }
 
-// NewInt64 returns a pointer to the Int64 value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
-func NewInt64(a, b, c, d, e, f, g, h int64) *Int64 {
-	z := new(Int64)
+// NewRat returns a pointer to the Rat value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
+func NewRat(a, b, c, d, e, f, g, h *big.Rat) *Rat {
+	z := new(Rat)
 	z.l.SetPair(
-		nplex.NewInt64(a, b),
-		nplex.NewInt64(c, d),
+		nplex.NewRat(a, b),
+		nplex.NewRat(c, d),
 	)
 	z.r.SetPair(
-		nplex.NewInt64(e, f),
-		nplex.NewInt64(g, h),
+		nplex.NewRat(e, f),
+		nplex.NewRat(g, h),
 	)
 	return z
 }
 
-// Dilate sets z equal to y dilated by a, and returns z.
-func (z *Int64) Dilate(y *Int64, a int64) *Int64 {
-	z.l.Dilate(&y.l, a)
-	z.r.Dilate(&y.r, a)
-	return z
-}
-
-// Divide sets z equal to y contracted by a, and returns z.
-func (z *Int64) Divide(y *Int64, a int64) *Int64 {
-	z.l.Divide(&y.l, a)
-	z.r.Divide(&y.r, a)
+// Scale sets z equal to y scaled by a, and returns z.
+func (z *Rat) Scale(y *Rat, a *big.Rat) *Rat {
+	z.l.Scale(&y.l, a)
+	z.r.Scale(&y.r, a)
 	return z
 }
 
 // Neg sets z equal to the negative of y, and returns z.
-func (z *Int64) Neg(y *Int64) *Int64 {
+func (z *Rat) Neg(y *Rat) *Rat {
 	z.l.Neg(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
 
 // Conj sets z equal to the conjugate of y, and returns z.
-func (z *Int64) Conj(y *Int64) *Int64 {
+func (z *Rat) Conj(y *Rat) *Rat {
 	z.l.Conj(&y.l)
 	z.r.Neg(&y.r)
 	return z
 }
 
 // Dagger sets z equal to the dagger conjugate of y, and returns z.
-func (z *Int64) Dagger(y *Int64) *Int64 {
+func (z *Rat) Dagger(y *Rat) *Rat {
 	z.l.Dagger(&y.l)
 	z.r.Dagger(&y.r)
 	z.r.Neg(&z.r)
@@ -169,30 +161,30 @@ func (z *Int64) Dagger(y *Int64) *Int64 {
 }
 
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
-func (z *Int64) Hodge(y *Int64) *Int64 {
-	a, b := new(supernplex.Int64), new(supernplex.Int64)
+func (z *Rat) Hodge(y *Rat) *Rat {
+	a, b := new(grassmann2.Rat), new(grassmann2.Rat)
 	a.Set(&y.l)
 	b.Set(&y.r)
 	return z.SetPair(b.Dagger(b.Hodge(b)), a.Hodge(a))
 }
 
 // Add sets z equal to x+y, and returns z.
-func (z *Int64) Add(x, y *Int64) *Int64 {
+func (z *Rat) Add(x, y *Rat) *Rat {
 	z.l.Add(&x.l, &y.l)
 	z.r.Add(&x.r, &y.r)
 	return z
 }
 
 // Sub sets z equal to x-y, and returns z.
-func (z *Int64) Sub(x, y *Int64) *Int64 {
+func (z *Rat) Sub(x, y *Rat) *Rat {
 	z.l.Sub(&x.l, &y.l)
 	z.r.Sub(&x.r, &y.r)
 	return z
 }
 
 // Mul sets z equal to the product of x and y, and returns z.
-func (z *Int64) Mul(x, y *Int64) *Int64 {
-	a, b, temp := new(supernplex.Int64), new(supernplex.Int64), new(supernplex.Int64)
+func (z *Rat) Mul(x, y *Rat) *Rat {
+	a, b, temp := new(grassmann2.Rat), new(grassmann2.Rat), new(grassmann2.Rat)
 	a.Mul(&x.l, &y.l)
 	b.Add(
 		b.Mul(&y.r, &x.l),
@@ -205,18 +197,18 @@ func (z *Int64) Mul(x, y *Int64) *Int64 {
 // Commutator sets z equal to the commutator of x and y:
 // 		Mul(x, y) - Mul(y, x)
 // Then it returns z.
-func (z *Int64) Commutator(x, y *Int64) *Int64 {
+func (z *Rat) Commutator(x, y *Rat) *Rat {
 	return z.Sub(
 		z.Mul(x, y),
-		new(Int64).Mul(y, x),
+		new(Rat).Mul(y, x),
 	)
 }
 
 // Associator sets z equal to the associator of w, x, and y:
 // 		Mul(Mul(w, x), y) - Mul(w, Mul(x, y))
 // Then it returns z.
-func (z *Int64) Associator(w, x, y *Int64) *Int64 {
-	temp := new(Int64)
+func (z *Rat) Associator(w, x, y *Rat) *Rat {
+	temp := new(Rat)
 	return z.Sub(
 		z.Mul(z.Mul(w, x), y),
 		temp.Mul(w, temp.Mul(x, y)),
@@ -225,52 +217,86 @@ func (z *Int64) Associator(w, x, y *Int64) *Int64 {
 
 // Quad returns the quadrance of z. If z = a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then
 // the quadrance is
-// 		a²
+//     a²
 // This is always non-negative.
-func (z *Int64) Quad() int64 {
+func (z *Rat) Quad() *big.Rat {
 	return z.l.Quad()
 }
 
 // IsZeroDivisor returns true if z is a zero divisor.
-func (z *Int64) IsZeroDivisor() bool {
+func (z *Rat) IsZeroDivisor() bool {
 	return z.l.IsZeroDivisor()
 }
 
+// Inv sets z equal to the inverse of y, and returns z. If y is a zero divisor,
+// then Inv panics.
+func (z *Rat) Inv(y *Rat) *Rat {
+	if y.IsZeroDivisor() {
+		panic(zeroDivisorInverse)
+	}
+	a := y.Quad()
+	a.Inv(a)
+	return z.Scale(z.Conj(y), a)
+}
+
 // QuoL sets z equal to the left quotient of x and y:
-// 		Mul(Inv(y), x)
+//     Mul(Inv(y), x)
 // Then it returns z. If y is a zero divisor, then QuoL panics.
-func (z *Int64) QuoL(x, y *Int64) *Int64 {
+func (z *Rat) QuoL(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Divide(z.Mul(z.Conj(y), x), y.Quad())
+	return z.Mul(z.Inv(y), x)
 }
 
 // QuoR sets z equal to the right quotient of x and y:
-// 		Mul(x, Inv(y))
+//     Mul(x, Inv(y))
 // Then it returns z. If y is a zero divisor, then QuoR panics.
-func (z *Int64) QuoR(x, y *Int64) *Int64 {
+func (z *Rat) QuoR(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
-	return z.Divide(z.Mul(x, z.Conj(y)), y.Quad())
+	return z.Mul(x, z.Inv(y))
 }
 
-// Generate returns a random Int64 value for quick.Check testing.
-func (z *Int64) Generate(rand *rand.Rand, size int) reflect.Value {
-	randomInt64 := &Int64{
-		*supernplex.NewInt64(
-			rand.Int63(),
-			rand.Int63(),
-			rand.Int63(),
-			rand.Int63(),
+// SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
+//     Hodge(z) = z
+// Then it returns z.
+func (z *Rat) SelfDual(y *Rat) *Rat {
+	sd := new(Rat)
+	sd.Hodge(y)
+	sd.Add(y, sd)
+	sd.Scale(sd, big.NewRat(1, 2))
+	return z.Set(sd)
+}
+
+// AntiSelfDual sets z equal to the anti-self-dual part of y. If z is
+// anti-self-dual, then
+//     Hodge(z) = -z
+// Then it returns z.
+func (z *Rat) AntiSelfDual(y *Rat) *Rat {
+	asd := new(Rat)
+	asd.Hodge(y)
+	asd.Sub(y, asd)
+	asd.Scale(asd, big.NewRat(1, 2))
+	return z.Set(asd)
+}
+
+// Generate returns a random Rat value for quick.Check testing.
+func (z *Rat) Generate(rand *rand.Rand, size int) reflect.Value {
+	randomRat := &Rat{
+		*grassmann2.NewRat(
+			big.NewRat(rand.Int63(), rand.Int63()),
+			big.NewRat(rand.Int63(), rand.Int63()),
+			big.NewRat(rand.Int63(), rand.Int63()),
+			big.NewRat(rand.Int63(), rand.Int63()),
 		),
-		*supernplex.NewInt64(
-			rand.Int63(),
-			rand.Int63(),
-			rand.Int63(),
-			rand.Int63(),
+		*grassmann2.NewRat(
+			big.NewRat(rand.Int63(), rand.Int63()),
+			big.NewRat(rand.Int63(), rand.Int63()),
+			big.NewRat(rand.Int63(), rand.Int63()),
+			big.NewRat(rand.Int63(), rand.Int63()),
 		),
 	}
-	return reflect.ValueOf(randomInt64)
+	return reflect.ValueOf(randomRat)
 }

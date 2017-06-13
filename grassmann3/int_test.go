@@ -1,7 +1,7 @@
-// Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
+// Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package supernplex
+package grassmann3
 
 import (
 	"math/big"
@@ -74,19 +74,6 @@ func TestAddAssociativeInt(t *testing.T) {
 		l, r := new(Int), new(Int)
 		l.Add(l.Add(x, y), z)
 		r.Add(x, r.Add(y, z))
-		return l.Equals(r)
-	}
-	if err := quick.Check(f, nil); err != nil {
-		t.Error(err)
-	}
-}
-
-func TestMulAssociativeInt(t *testing.T) {
-	f := func(x, y, z *Int) bool {
-		// t.Logf("x = %v, y = %v, z = %v", x, y, z)
-		l, r := new(Int), new(Int)
-		l.Mul(l.Mul(x, y), z)
-		r.Mul(x, r.Mul(y, z))
 		return l.Equals(r)
 	}
 	if err := quick.Check(f, nil); err != nil {

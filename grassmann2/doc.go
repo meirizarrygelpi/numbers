@@ -2,7 +2,7 @@
 // Licenced under the MIT License.
 
 /*
-Package supernplex implements arithmetic for super-nilplex numbers. Five types
+Package grassmann2 implements arithmetic for two-dimensional Grassmann numbers. Five types
 are implemented:
     Int64   (int64 values)
     Float64 (float64 values)
@@ -21,15 +21,15 @@ The multiplication table is:
     +-----+-----+-----+----+
     | WX  | 0   | 0   | 0  |
     +-----+-----+-----+----+
-The multiplcation operation for super-nilplex numbers is non-commutative but
+The multiplcation operation for two-dimensional Grassmann numbers is non-commutative but
 associative (for non-floats).
 
-Super-nilplex numbers are a parabolic Cayley-Dickson construct with nilplex
-numbers. Another interpretation of super-nilplex numbers is as a two-dimensional
+Two-dimensional Grassmann numbers are a parabolic Cayley-Dickson construct with nilplex
+numbers. Another interpretation of two-dimensional Grassmann numbers is as a two-dimensional
 exterior algebra (a.k.a. Grassmann algebra) with multiplication being the
 wedge product.
 */
-package supernplex
+package grassmann2
 
 const (
 	leftBracket            = "("

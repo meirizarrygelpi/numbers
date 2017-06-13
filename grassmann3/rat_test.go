@@ -1,7 +1,7 @@
 // Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
 // Licenced under the MIT License.
 
-package ultranplex
+package grassmann3
 
 import (
 	"math/big"

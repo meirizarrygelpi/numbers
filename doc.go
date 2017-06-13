@@ -20,7 +20,7 @@ The two-dimensional packages are:
 The four-dimensional packages are:
     hamilton   (quaternions; elliptic quaternions)
     cockle     (Cockle quaternions; split-quaternions; hyperbolic quaternions)
-    supernplex (super-nilplex numbers; parabolic quaternions)
+    grassmann2 (two-dimensional Grassmann numbers; parabolic quaternions)
     supercplex (super-complex numbers)
     superpplex (super-perplex numbers)
     bicplex    (bi-complex numbers; tessarines; complexification of the complex numbers)
@@ -31,7 +31,7 @@ The four-dimensional packages are:
 The eight-dimensional packages are:
     cayley        (octonions; elliptic octonions)
     zorn          (Zorn octonions; split-octonions; hyperbolic octonions)
-    ultranplex    (ultra-nilplex numbers; parabolic octonions)
+    grassmann3    (three-dimensional Grassmann numbers; parabolic octonions)
     superhamilton (super-Hamilton quaternions)
     supercockle   (super-Cockle quaternions)
     ultracplex    (ultra-complex numbers)
@@ -52,7 +52,7 @@ non-trivial zero divisors.
 
 Five of the ten four-dimensional systems include a binary multiplication operation
 that is non-commutative but associative (for non-floats). These are the Hamilton quaternions, Cockle
-quaternions, super-nilplex numbers, super-complex numbers, and super-perplex numbers.
+quaternions, two-dimensional Grassmann numbers, super-complex numbers, and super-perplex numbers.
 
 The other five four-dimensional numbers systems are plexifications of the three
 two-dimensional number systems. Here the binary multiplication operation is
@@ -63,7 +63,7 @@ include non-trivial zero divisors.
 
 Seven of the seventeen eight-dimensional systems include a binary multiplication
 operation that is non-commutative and non-associative. These are the Cayley octonions,
-Zorn octonions, ultra-nilplex numbers, super-Hamilton quaternions, super-Cockle quaternions,
+Zorn octonions, three-dimensional Grassmann numbers, super-Hamilton quaternions, super-Cockle quaternions,
 ultra-complex numbers, and ultra-perplex numbers.
 
 The other ten eight-dimensional number systems are plexifications of
