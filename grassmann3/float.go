@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Float is an ultra-nilplex number with big.Float components.
+// A Float is a three-dimensional Grassmann number with big.Float components.
 type Float struct {
 	l, r grassmann2.Float
 }
@@ -124,7 +124,7 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
+// SetPair sets z equal to a three-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Float) SetPair(a, b *grassmann2.Float) *Float {
 	z.l.Set(a)

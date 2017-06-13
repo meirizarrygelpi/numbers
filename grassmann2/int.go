@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// An Int is a super-nilplex number with big.Int components.
+// An Int is a two-dimensional Grassmann number with big.Int components.
 type Int struct {
 	l, r nplex.Int
 }
@@ -74,7 +74,7 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to a super-nilplex number made with a given pair, and
+// SetPair sets z equal to a two-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Int) SetPair(a, b *nplex.Int) *Int {
 	z.l.Set(a)

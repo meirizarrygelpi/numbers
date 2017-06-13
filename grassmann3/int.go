@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int is an ultra-nilplex number with big.Int components.
+// An Int is a three-dimensional Grassmann number with big.Int components.
 type Int struct {
 	l, r grassmann2.Int
 }
@@ -81,7 +81,7 @@ func (z *Int) Set(y *Int) *Int {
 	return z
 }
 
-// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
+// SetPair sets z equal to a three-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Int) SetPair(a, b *grassmann2.Int) *Int {
 	z.l.Set(a)

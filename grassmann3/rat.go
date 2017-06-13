@@ -14,7 +14,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// A Rat is an ultra-nilplex number with big.Rat components.
+// A Rat is a three-dimensional Grassmann number with big.Rat components.
 type Rat struct {
 	l, r grassmann2.Rat
 }
@@ -81,7 +81,7 @@ func (z *Rat) Set(y *Rat) *Rat {
 	return z
 }
 
-// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
+// SetPair sets z equal to a three-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Rat) SetPair(a, b *grassmann2.Rat) *Rat {
 	z.l.Set(a)

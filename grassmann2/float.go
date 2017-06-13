@@ -13,7 +13,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float is a super-nilplex number with big.Float components.
+// A Float is a two-dimensional Grassmann number with big.Float components.
 type Float struct {
 	l, r nplex.Float
 }
@@ -117,7 +117,7 @@ func (z *Float) Set(y *Float) *Float {
 	return z
 }
 
-// SetPair sets z equal to a super-nilplex number made with a given pair, and
+// SetPair sets z equal to a two-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Float) SetPair(a, b *nplex.Float) *Float {
 	z.l.Set(a)

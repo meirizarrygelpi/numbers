@@ -15,7 +15,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec3"
 )
 
-// A Float64 is a super-nilplex number with float64 components.
+// A Float64 is a two-dimensional Grassmann number with float64 components.
 type Float64 struct {
 	l, r nplex.Float64
 }
@@ -82,7 +82,7 @@ func (z *Float64) Set(y *Float64) *Float64 {
 	return z
 }
 
-// SetPair sets z equal to a super-nilplex number made with a given pair, and
+// SetPair sets z equal to a two-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Float64) SetPair(a, b *nplex.Float64) *Float64 {
 	z.l.Set(a)

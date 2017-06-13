@@ -9,7 +9,7 @@ are implemented:
     Int     (big.Int values)
     Float   (big.Float values)
     Rat     (big.Rat values)
-An ultra-nilplex number has eight components and it is written in the form
+A three-dimensional Grassmann number has eight components and it is written in the form
     a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y
 The multiplication table is
     +-------+--------+--------+--------+--------+--------+--------+-------+
@@ -55,7 +55,7 @@ var (
 	unitNames = [7]string{unit1, unit2, unit3, unit4, unit5, unit6, unit7}
 )
 
-// ResetUnitNames sets the names of the ultra-nilplex units equal to their
+// ResetUnitNames sets the names of the three-dimensional Grassmann units equal to their
 // default values.
 func ResetUnitNames() {
 	unitNames[0] = unit1
@@ -67,7 +67,7 @@ func ResetUnitNames() {
 	unitNames[6] = unit7
 }
 
-// SetUnitNames sets the names of the ultra-nilplex units.
+// SetUnitNames sets the names of the three-dimensional Grassmann units.
 func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[0] = u1
 	unitNames[1] = u2
@@ -78,7 +78,7 @@ func SetUnitNames(u1, u2, u3, u4, u5, u6, u7 string) {
 	unitNames[6] = u7
 }
 
-// UnitNames returns the current names of the ultra-nilplex units.
+// UnitNames returns the current names of the three-dimensional Grassmann units.
 func UnitNames() [7]string {
 	return unitNames
 }

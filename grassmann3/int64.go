@@ -15,7 +15,7 @@ import (
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
-// An Int64 is an ultra-nilplex number with int64 components.
+// An Int64 is a three-dimensional Grassmann number with int64 components.
 type Int64 struct {
 	l, r grassmann2.Int64
 }
@@ -82,7 +82,7 @@ func (z *Int64) Set(y *Int64) *Int64 {
 	return z
 }
 
-// SetPair sets z equal to an ultra-nilplex number made with a given pair, and
+// SetPair sets z equal to a three-dimensional Grassmann number made with a given pair, and
 // then it returns z.
 func (z *Int64) SetPair(a, b *grassmann2.Int64) *Int64 {
 	z.l.Set(a)
