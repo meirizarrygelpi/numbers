@@ -139,6 +139,25 @@ func (z *Float) SetUnreal(v *vec3.Float) *Float {
 	return z
 }
 
+// Set0Form sets the 0-form of z equal to a0, and then it returns z.
+func (z *Float) Set0Form(a0 *big.Float) *Float {
+	z.l.SetReal(a0)
+	return z
+}
+
+// Set1Forms sets the 1-forms of z equal to aW and aX, and then it returns z.
+func (z *Float) Set1Forms(aW, aX *big.Float) *Float {
+	z.l.SetUnreal(aW)
+	z.r.SetReal(aX)
+	return z
+}
+
+// Set2Form sets the 2-form of z equal to aWX, and then it returns z.
+func (z *Float) Set2Form(aWX *big.Float) *Float {
+	z.r.SetUnreal(aWX)
+	return z
+}
+
 // NewFloat returns a pointer to the Float value a+bW+cX+dWX.
 func NewFloat(a, b, c, d *big.Float) *Float {
 	z := new(Float)

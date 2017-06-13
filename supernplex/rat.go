@@ -96,6 +96,25 @@ func (z *Rat) SetUnreal(v *vec3.Rat) *Rat {
 	return z
 }
 
+// Set0Form sets the 0-form of z equal to a0, and then it returns z.
+func (z *Rat) Set0Form(a0 *big.Rat) *Rat {
+	z.l.SetReal(a0)
+	return z
+}
+
+// Set1Forms sets the 1-forms of z equal to aW and aX, and then it returns z.
+func (z *Rat) Set1Forms(aW, aX *big.Rat) *Rat {
+	z.l.SetUnreal(aW)
+	z.r.SetReal(aX)
+	return z
+}
+
+// Set2Form sets the 2-form of z equal to aWX, and then it returns z.
+func (z *Rat) Set2Form(aWX *big.Rat) *Rat {
+	z.r.SetUnreal(aWX)
+	return z
+}
+
 // NewRat returns a pointer to the Rat value a+bW+cX+dWX.
 func NewRat(a, b, c, d *big.Rat) *Rat {
 	z := new(Rat)

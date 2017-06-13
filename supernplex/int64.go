@@ -97,6 +97,25 @@ func (z *Int64) SetUnreal(v *vec3.Int64) *Int64 {
 	return z
 }
 
+// Set0Form sets the 0-form of z equal to a0, and then it returns z.
+func (z *Int64) Set0Form(a0 int64) *Int64 {
+	z.l.SetReal(a0)
+	return z
+}
+
+// Set1Forms sets the 1-forms of z equal to aW and aX, and then it returns z.
+func (z *Int64) Set1Forms(aW, aX int64) *Int64 {
+	z.l.SetUnreal(aW)
+	z.r.SetReal(aX)
+	return z
+}
+
+// Set2Form sets the 2-form of z equal to aWX, and then it returns z.
+func (z *Int64) Set2Form(aWX int64) *Int64 {
+	z.r.SetUnreal(aWX)
+	return z
+}
+
 // NewInt64 returns a pointer to the Int64 value a+bW+cX+dWX.
 func NewInt64(a, b, c, d int64) *Int64 {
 	z := new(Int64)

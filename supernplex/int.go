@@ -96,6 +96,25 @@ func (z *Int) SetUnreal(v *vec3.Int) *Int {
 	return z
 }
 
+// Set0Form sets the 0-form of z equal to a0, and then it returns z.
+func (z *Int) Set0Form(a0 *big.Int) *Int {
+	z.l.SetReal(a0)
+	return z
+}
+
+// Set1Forms sets the 1-forms of z equal to aW and aX, and then it returns z.
+func (z *Int) Set1Forms(aW, aX *big.Int) *Int {
+	z.l.SetUnreal(aW)
+	z.r.SetReal(aX)
+	return z
+}
+
+// Set2Form sets the 2-form of z equal to aWX, and then it returns z.
+func (z *Int) Set2Form(aWX *big.Int) *Int {
+	z.r.SetUnreal(aWX)
+	return z
+}
+
 // NewInt returns a pointer to the Int value a+bW+cX+dWX.
 func NewInt(a, b, c, d *big.Int) *Int {
 	z := new(Int)
