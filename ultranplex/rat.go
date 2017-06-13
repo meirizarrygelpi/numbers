@@ -124,6 +124,14 @@ func (z *Rat) Conj(y *Rat) *Rat {
 	return z
 }
 
+// Dagger sets z equal to the dagger conjugate of y, and returns z.
+func (z *Rat) Dagger(y *Rat) *Rat {
+	z.l.Dagger(&y.l)
+	z.r.Dagger(&y.r)
+	z.r.Neg(&z.r)
+	return z
+}
+
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
 func (z *Rat) Hodge(y *Rat) *Rat {
 	a, b := new(supernplex.Rat), new(supernplex.Rat)

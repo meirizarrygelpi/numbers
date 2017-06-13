@@ -174,6 +174,14 @@ func (z *Float) Conj(y *Float) *Float {
 	return z
 }
 
+// Dagger sets z equal to the dagger conjugate of y, and returns z.
+func (z *Float) Dagger(y *Float) *Float {
+	z.l.Dagger(&y.l)
+	z.r.Dagger(&y.r)
+	z.r.Neg(&z.r)
+	return z
+}
+
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
 func (z *Float) Hodge(y *Float) *Float {
 	a, b := new(supernplex.Float), new(supernplex.Float)

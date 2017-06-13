@@ -132,6 +132,14 @@ func (z *Int64) Conj(y *Int64) *Int64 {
 	return z
 }
 
+// Dagger sets z equal to the dagger conjugate of y, and returns z.
+func (z *Int64) Dagger(y *Int64) *Int64 {
+	z.l.Dagger(&y.l)
+	z.r.Dagger(&y.r)
+	z.r.Neg(&z.r)
+	return z
+}
+
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
 func (z *Int64) Hodge(y *Int64) *Int64 {
 	a, b := new(supernplex.Int64), new(supernplex.Int64)
