@@ -48,8 +48,8 @@ func (z *Rat) Unreal() *vec7.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a+bα+cβ+dγ+eδ+fε+gζ+hη, then the string is
-// "⦗a+bα+cβ+dγ+eδ+fε+gζ+hη⦘", similar to complex128 values.
+// If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
+// "⦗a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y⦘", similar to complex128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
@@ -89,7 +89,7 @@ func (z *Rat) SetPair(a, b *supernplex.Rat) *Rat {
 	return z
 }
 
-// NewRat returns a pointer to the Rat value a+bα+cβ+dγ+eδ+fε+gζ+hη.
+// NewRat returns a pointer to the Rat value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
 func NewRat(a, b, c, d, e, f, g, h *big.Rat) *Rat {
 	z := new(Rat)
 	z.l.SetPair(
@@ -187,8 +187,8 @@ func (z *Rat) Associator(w, x, y *Rat) *Rat {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ+eδ+fε+gζ+hη, then the
-// quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then
+// the quadrance is
 //     a²
 // This is always non-negative.
 func (z *Rat) Quad() *big.Rat {

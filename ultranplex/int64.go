@@ -49,8 +49,8 @@ func (z *Int64) Unreal() *vec7.Int64 {
 
 // String returns the string version of a Int64 value.
 //
-// If z corresponds to a+bα+cβ+dγ+eδ+fε+gζ+hη, then the string is
-// "⦗a+bα+cβ+dγ+eδ+fε+gζ+hη⦘", similar to complex128 values.
+// If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
+// "⦗a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y⦘", similar to complex128 values.
 func (z *Int64) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
@@ -90,7 +90,7 @@ func (z *Int64) SetPair(a, b *supernplex.Int64) *Int64 {
 	return z
 }
 
-// NewInt64 returns a pointer to the Int64 value a+bα+cβ+dγ+eδ+fε+gζ+hη.
+// NewInt64 returns a pointer to the Int64 value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
 func NewInt64(a, b, c, d, e, f, g, h int64) *Int64 {
 	z := new(Int64)
 	z.l.SetPair(
@@ -195,8 +195,8 @@ func (z *Int64) Associator(w, x, y *Int64) *Int64 {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ+eδ+fε+gζ+hη, then the
-// quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then
+// the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Int64) Quad() int64 {

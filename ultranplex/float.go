@@ -95,8 +95,8 @@ func sprintFloat(a *big.Float) string {
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a+bα+cβ+dγ+eδ+fε+gζ+hη, then the string is
-// "⦗a+bα+cβ+dγ+eδ+fε+gζ+hη⦘", similar to complex128 values.
+// If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
+// "⦗a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y⦘", similar to complex128 values.
 func (z *Float) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
@@ -132,7 +132,7 @@ func (z *Float) SetPair(a, b *supernplex.Float) *Float {
 	return z
 }
 
-// NewFloat returns a pointer to the Float value a+bα+cβ+dγ+eδ+fε+gζ+hη.
+// NewFloat returns a pointer to the Float value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
 func NewFloat(a, b, c, d, e, f, g, h *big.Float) *Float {
 	z := new(Float)
 	z.l.SetPair(
@@ -237,8 +237,8 @@ func (z *Float) Associator(w, x, y *Float) *Float {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ+eδ+fε+gζ+hη, then the
-// quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then
+// the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Float) Quad() *big.Float {

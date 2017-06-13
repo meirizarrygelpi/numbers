@@ -48,8 +48,8 @@ func (z *Int) Unreal() *vec7.Int {
 
 // String returns the string version of an Int value.
 //
-// If z corresponds to a+bα+cβ+dγ+eδ+fε+gζ+hη, then the string is
-// "⦗a+bα+cβ+dγ+eδ+fε+gζ+hη⦘", similar to complex128 values.
+// If z corresponds to a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then the string is
+// "⦗a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y⦘", similar to complex128 values.
 func (z *Int) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)
@@ -89,7 +89,7 @@ func (z *Int) SetPair(a, b *supernplex.Int) *Int {
 	return z
 }
 
-// NewInt returns a pointer to the Int value a+bα+cβ+dγ+eδ+fε+gζ+hη.
+// NewInt returns a pointer to the Int value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
 func NewInt(a, b, c, d, e, f, g, h *big.Int) *Int {
 	z := new(Int)
 	z.l.SetPair(
@@ -194,8 +194,8 @@ func (z *Int) Associator(w, x, y *Int) *Int {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ+eδ+fε+gζ+hη, then the
-// quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y, then
+// the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Int) Quad() *big.Int {
