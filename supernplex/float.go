@@ -88,7 +88,7 @@ func sprintFloat(a *big.Float) string {
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a+bα+cβ+dγ, then the string is "⦗a+bα+cβ+dγ⦘", similar
+// If z corresponds to a+bW+cX+dWX, then the string is "⦗a+bW+cX+dWX⦘", similar
 // to complex128 values.
 func (z *Float) String() string {
 	v := z.Unreal()
@@ -139,7 +139,7 @@ func (z *Float) SetUnreal(v *vec3.Float) *Float {
 	return z
 }
 
-// NewFloat returns a pointer to the Float value a+bα+cβ+dγ.
+// NewFloat returns a pointer to the Float value a+bW+cX+dWX.
 func NewFloat(a, b, c, d *big.Float) *Float {
 	z := new(Float)
 	z.l.SetPair(a, b)
@@ -227,7 +227,7 @@ func (z *Float) Commutator(x, y *Float) *Float {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Float) Quad() *big.Float {
@@ -324,29 +324,6 @@ func (z *Float) MöbiusR(y, a, b, c, d *Float) *Float {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
-}
-
-// SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
-//     Hodge(z) = z
-// Then it returns z.
-func (z *Float) SelfDual(y *Float) *Float {
-	sd := new(Float)
-	sd.Hodge(y)
-	sd.Add(y, sd)
-	sd.Divide(sd, big.NewFloat(2))
-	return z.Set(sd)
-}
-
-// AntiSelfDual sets z equal to the anti-self-dual part of y. If z is
-// anti-self-dual, then
-//     Hodge(z) = -z
-// Then it returns z.
-func (z *Float) AntiSelfDual(y *Float) *Float {
-	asd := new(Float)
-	asd.Hodge(y)
-	asd.Sub(y, asd)
-	asd.Divide(asd, big.NewFloat(2))
-	return z.Set(asd)
 }
 
 // Generate returns a random Float value for quick.Check testing.

@@ -10,23 +10,23 @@ are implemented:
     Float   (big.Float values)
     Rat     (big.Rat values)
 A super-nilplex number has four components and it is written in the form
-    a+bα+cβ+dγ
+    a+bW+cX+dWX
 The multiplication table is:
-    +-----+----+----+---+
-    | Mul | α  | β  | γ |
-    +-----+----+----+---+
-    | α   | 0  | +γ | 0 |
-    +-----+----+----+---+
-    | β   | -γ | 0  | 0 |
-    +-----+----+----+---+
-    | γ   | 0  | 0  | 0 |
-    +-----+----+----+---+
+    +-----+-----+-----+----+
+    | Mul | W   | X   | WX |
+    +-----+-----+-----+----+
+    | W   | 0   | +WX | 0  |
+    +-----+-----+-----+----+
+    | X   | -WX | 0   | 0  |
+    +-----+-----+-----+----+
+    | WX  | 0   | 0   | 0  |
+    +-----+-----+-----+----+
 The multiplcation operation for super-nilplex numbers is non-commutative but
 associative (for non-floats).
 
 Super-nilplex numbers are a parabolic Cayley-Dickson construct with nilplex
 numbers. Another interpretation of super-nilplex numbers is as a two-dimensional
-exterior algebra (a.k.a. Grassmann algebra) with the multiplication being the
+exterior algebra (a.k.a. Grassmann algebra) with multiplication being the
 wedge product.
 */
 package supernplex
@@ -36,9 +36,9 @@ const (
 	rightBracket           = "⦘"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
-	unit1                  = "α"
-	unit2                  = "β"
-	unit3                  = "γ"
+	unit1                  = "W"
+	unit2                  = "X"
+	unit3                  = "WX"
 )
 
 var (

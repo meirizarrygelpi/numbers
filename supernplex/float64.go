@@ -53,7 +53,7 @@ func sprintFloat64(a float64) string {
 
 // String returns the string version of a Float64 value.
 //
-// If z corresponds to a+bα+cβ+dγ, then the string is "⦗a+bα+cβ+dγ⦘", similar
+// If z corresponds to a+bW+cX+dWX, then the string is "⦗a+bW+cX+dWX⦘", similar
 // to complex128 values.
 func (z *Float64) String() string {
 	v := z.Unreal()
@@ -104,7 +104,7 @@ func (z *Float64) SetUnreal(v *vec3.Float64) *Float64 {
 	return z
 }
 
-// NewFloat64 returns a pointer to the Float64 value a+bα+cβ+dγ.
+// NewFloat64 returns a pointer to the Float64 value a+bW+cX+dWX.
 func NewFloat64(a, b, c, d float64) *Float64 {
 	z := new(Float64)
 	z.l.SetPair(a, b)
@@ -192,7 +192,7 @@ func (z *Float64) Commutator(x, y *Float64) *Float64 {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Float64) Quad() float64 {

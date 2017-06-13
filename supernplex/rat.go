@@ -41,7 +41,7 @@ func (z *Rat) Unreal() *vec3.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a+bα+cβ+dγ, then the string is "⦗a+bα+cβ+dγ⦘", similar
+// If z corresponds to a+bW+cX+dWX, then the string is "⦗a+bW+cX+dWX⦘", similar
 // to complex128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()
@@ -96,7 +96,7 @@ func (z *Rat) SetUnreal(v *vec3.Rat) *Rat {
 	return z
 }
 
-// NewRat returns a pointer to the Rat value a+bα+cβ+dγ.
+// NewRat returns a pointer to the Rat value a+bW+cX+dWX.
 func NewRat(a, b, c, d *big.Rat) *Rat {
 	z := new(Rat)
 	z.l.SetPair(a, b)
@@ -177,7 +177,7 @@ func (z *Rat) Commutator(x, y *Rat) *Rat {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Rat) Quad() *big.Rat {

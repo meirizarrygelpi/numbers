@@ -41,7 +41,7 @@ func (z *Int) Unreal() *vec3.Int {
 
 // String returns the string version of an Int value.
 //
-// If z corresponds to a+bα+cβ+dγ, then the string is "⦗a+bα+cβ+dγ⦘", similar
+// If z corresponds to a+bW+cX+dWX, then the string is "⦗a+bW+cX+dWX⦘", similar
 // to complex128 values.
 func (z *Int) String() string {
 	v := z.Unreal()
@@ -96,7 +96,7 @@ func (z *Int) SetUnreal(v *vec3.Int) *Int {
 	return z
 }
 
-// NewInt returns a pointer to the Int value a+bα+cβ+dγ.
+// NewInt returns a pointer to the Int value a+bW+cX+dWX.
 func NewInt(a, b, c, d *big.Int) *Int {
 	z := new(Int)
 	z.l.SetPair(a, b)
@@ -184,7 +184,7 @@ func (z *Int) Commutator(x, y *Int) *Int {
 	)
 }
 
-// Quad returns the quadrance of z. If z = a+bα+cβ+dγ, then the quadrance is
+// Quad returns the quadrance of z. If z = a+bW+cX+dWX, then the quadrance is
 // 		a²
 // This is always non-negative.
 func (z *Int) Quad() *big.Int {
