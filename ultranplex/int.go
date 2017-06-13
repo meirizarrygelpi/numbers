@@ -89,6 +89,34 @@ func (z *Int) SetPair(a, b *supernplex.Int) *Int {
 	return z
 }
 
+// Set0Form sets the 0-form of z equal to a0, and then it returns z.
+func (z *Int) Set0Form(a0 *big.Int) *Int {
+	z.l.Set0Form(a0)
+	return z
+}
+
+// Set1Forms sets the 1-forms of z equal to aW, aX, and aY, and then it returns
+// z.
+func (z *Int) Set1Forms(aW, aX, aY *big.Int) *Int {
+	z.l.Set1Forms(aW, aX)
+	z.r.Set0Form(aY)
+	return z
+}
+
+// Set2Forms sets the 2-forms of z equal to aWX, aWY, and aXY, and then it
+// returns z.
+func (z *Int) Set2Forms(aWX, aWY, aXY *big.Int) *Int {
+	z.l.Set2Form(aWX)
+	z.r.Set1Forms(aWY, aXY)
+	return z
+}
+
+// Set3Form sets the 0-form of z equal to aWXY, and then it returns z.
+func (z *Int) Set3Form(aWXY *big.Int) *Int {
+	z.r.Set2Form(aWXY)
+	return z
+}
+
 // NewInt returns a pointer to the Int value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
 func NewInt(a, b, c, d, e, f, g, h *big.Int) *Int {
 	z := new(Int)

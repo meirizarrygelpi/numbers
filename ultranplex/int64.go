@@ -90,6 +90,34 @@ func (z *Int64) SetPair(a, b *supernplex.Int64) *Int64 {
 	return z
 }
 
+// Set0Form sets the 0-form of z equal to a0, and then it returns z.
+func (z *Int64) Set0Form(a0 int64) *Int64 {
+	z.l.Set0Form(a0)
+	return z
+}
+
+// Set1Forms sets the 1-forms of z equal to aW, aX, and aY, and then it returns
+// z.
+func (z *Int64) Set1Forms(aW, aX, aY int64) *Int64 {
+	z.l.Set1Forms(aW, aX)
+	z.r.Set0Form(aY)
+	return z
+}
+
+// Set2Forms sets the 2-forms of z equal to aWX, aWY, and aXY, and then it
+// returns z.
+func (z *Int64) Set2Forms(aWX, aWY, aXY int64) *Int64 {
+	z.l.Set2Form(aWX)
+	z.r.Set1Forms(aWY, aXY)
+	return z
+}
+
+// Set3Form sets the 0-form of z equal to aWXY, and then it returns z.
+func (z *Int64) Set3Form(aWXY int64) *Int64 {
+	z.r.Set2Form(aWXY)
+	return z
+}
+
 // NewInt64 returns a pointer to the Int64 value a+bW+cX+dWX+eY+fWY+gXY+h(WX)Y.
 func NewInt64(a, b, c, d, e, f, g, h int64) *Int64 {
 	z := new(Int64)
