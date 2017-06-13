@@ -37,8 +37,8 @@ Hyper-complex numbers are a nilplexification of dual-complex numbers.
 package hypercplex
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

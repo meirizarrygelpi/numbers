@@ -29,8 +29,8 @@ Dual-complex numbers are a nilplexification of complex numbers.
 package dualcplex
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

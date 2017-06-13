@@ -85,7 +85,7 @@ func sprintFloat(a *big.Float) string {
 
 // String returns the string version of a Float value.
 //
-// If z corresponds to a + bs, then the string is "⦗a+bs⦘", similar to
+// If z corresponds to a + bs, then the string is "(a+bs)", similar to
 // complex128 values.
 func (z *Float) String() string {
 	a := make([]string, 5)

@@ -41,7 +41,7 @@ func (z *Rat) Unreal() *vec3.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a+bi+ct+du, then the string is "⦗a+bi+ct+du⦘", similar
+// If z corresponds to a+bi+ct+du, then the string is "(a+bi+ct+du)", similar
 // to complex128 values.
 func (z *Rat) String() string {
 	v := z.Unreal()

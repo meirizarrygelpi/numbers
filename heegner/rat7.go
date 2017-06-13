@@ -37,7 +37,7 @@ func (z *Rat7) Unreal() *big.Rat {
 
 // String returns the string version of a Rat value.
 //
-// If z corresponds to a + bF, then the string is "⦗a+bF⦘", similar to
+// If z corresponds to a + bF, then the string is "(a+bF)", similar to
 // complex128 values.
 func (z *Rat7) String() string {
 	a := make([]string, 5)

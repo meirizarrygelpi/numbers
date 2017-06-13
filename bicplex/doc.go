@@ -29,8 +29,8 @@ Bi-complex numbers are a complexification of complex numbers.
 package bicplex
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

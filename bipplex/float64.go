@@ -53,7 +53,7 @@ func sprintFloat64(a float64) string {
 
 // String returns the string version of a Float64 value.
 //
-// If z corresponds to a+bs+cT+dsT, then the string is "⦗a+bs+cT+dsT⦘", similar
+// If z corresponds to a+bs+cT+dsT, then the string is "(a+bs+cT+dsT)", similar
 // to complex128 values.
 func (z *Float64) String() string {
 	v := z.Unreal()

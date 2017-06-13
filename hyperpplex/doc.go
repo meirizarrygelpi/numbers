@@ -37,8 +37,8 @@ Hyper-perplex numbers are a nilplexification of dual-perplex numbers.
 package hyperpplex
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "s"

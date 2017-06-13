@@ -37,8 +37,8 @@ Perplex-Hamilton quaternions are a perplexification of Hamilton quaternions.
 package perhamilton
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

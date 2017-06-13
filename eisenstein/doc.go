@@ -5,8 +5,8 @@
 package eisenstein
 
 const (
-	leftBracket     = "⦗"
-	rightBracket    = "⦘"
+	leftBracket     = "("
+	rightBracket    = ")"
 	zeroDenominator = "denominator is zero"
 	zeroInverse     = "inverse of zero"
 	omega           = "ω"

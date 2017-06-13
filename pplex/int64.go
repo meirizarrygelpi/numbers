@@ -37,7 +37,7 @@ func (z *Int64) Unreal() int64 {
 
 // String returns the string version of an Int64 value.
 //
-// If z corresponds to a + bs, then the string is "⦗a+bs⦘", similar to
+// If z corresponds to a + bs, then the string is "(a+bs)", similar to
 // complex128 values.
 func (z *Int64) String() string {
 	a := make([]string, 5)

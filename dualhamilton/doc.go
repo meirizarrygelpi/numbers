@@ -37,8 +37,8 @@ Dual-Hamilton quaternions are a nilplexification of Hamilton quaternions.
 package dualhamilton
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

@@ -81,8 +81,8 @@ package heegner
 import "math/big"
 
 const (
-	leftBracket     = "⦗"
-	rightBracket    = "⦘"
+	leftBracket     = "("
+	rightBracket    = ")"
 	zeroDenominator = "denominator is zero"
 	zeroInverse     = "inverse of zero"
 	radical1        = "i"

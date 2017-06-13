@@ -42,7 +42,7 @@ func (z *Int64) Unreal() *vec3.Int64 {
 
 // String returns the string version of a Int64 value.
 //
-// If z corresponds to a+bi+cβ+dγ, then the string is "⦗a+bi+cβ+dγ⦘", similar
+// If z corresponds to a+bi+cβ+dγ, then the string is "(a+bi+cβ+dγ)", similar
 // to complex128 values.
 func (z *Int64) String() string {
 	v := z.Unreal()

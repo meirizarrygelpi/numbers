@@ -37,8 +37,8 @@ Dual-Cockle quaternions are a nilplexification of Cockle quaternions.
 package dualcockle
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

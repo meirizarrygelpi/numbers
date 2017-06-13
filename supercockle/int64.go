@@ -50,7 +50,7 @@ func (z *Int64) Unreal() *vec7.Int64 {
 // String returns the string version of a Int64 value.
 //
 // If z corresponds to a+bi+ct+du+eρ+fσ+gτ+hυ, then the string is
-// "⦗a+bi+ct+du+eρ+fσ+gτ+hυ⦘", similar to complex128 values.
+// "(a+bi+ct+du+eρ+fσ+gτ+hυ)", similar to complex128 values.
 func (z *Int64) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)

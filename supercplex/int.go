@@ -41,7 +41,7 @@ func (z *Int) Unreal() *vec3.Int {
 
 // String returns the string version of an Int value.
 //
-// If z corresponds to a+bi+cβ+dγ, then the string is "⦗a+bi+cβ+dγ⦘", similar
+// If z corresponds to a+bi+cβ+dγ, then the string is "(a+bi+cβ+dγ)", similar
 // to complex128 values.
 func (z *Int) String() string {
 	v := z.Unreal()

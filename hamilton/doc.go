@@ -30,8 +30,8 @@ numbers.
 package hamilton
 
 const (
-	leftBracket     = "⦗"
-	rightBracket    = "⦘"
+	leftBracket     = "("
+	rightBracket    = ")"
 	zeroDenominator = "denominator is zero"
 	zeroInverse     = "inverse of zero"
 	unit1           = "i"

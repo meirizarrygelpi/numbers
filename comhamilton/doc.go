@@ -37,8 +37,8 @@ Complex-Hamilton quaternions are a complexification of Hamilton quaternions.
 package comhamilton
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "i"

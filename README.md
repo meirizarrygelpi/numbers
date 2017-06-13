@@ -10,7 +10,7 @@ Metapackage `numbers` is a collection of packages that implement arithmetic over
 * `Float`
 * `Rat`
 
-Each value is printed in the form "⦗...⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
+Each value is printed in the form "(...)". This is similar to `complex128` values.
 
 Here is a list of available packages:
 

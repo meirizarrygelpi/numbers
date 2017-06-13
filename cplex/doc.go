@@ -25,8 +25,8 @@ Complex numbers are a complexification of real numbers.
 package cplex
 
 const (
-	leftBracket     = "⦗"
-	rightBracket    = "⦘"
+	leftBracket     = "("
+	rightBracket    = ")"
 	zeroDenominator = "denominator is zero"
 	zeroInverse     = "inverse of zero"
 	unit            = "i"

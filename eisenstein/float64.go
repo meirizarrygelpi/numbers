@@ -52,7 +52,7 @@ func sprintFloat64(a float64) string {
 
 // String returns the string version of an Float64 value.
 //
-// If z corresponds to a + bω, then the string is "⦗a+bω⦘", similar to
+// If z corresponds to a + bω, then the string is "(a+bω)", similar to
 // complex128 values.
 func (z *Float64) String() string {
 	a := make([]string, 5)

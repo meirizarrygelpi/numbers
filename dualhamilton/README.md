@@ -8,6 +8,6 @@ Package `dualhamilton` implements arithmetic for dual-Hamilton quaternions. Ther
 * `Float`
 * `Rat`
 
-Each dual-Hamilton quaternion value is printed in the form "⦗a+bi+cj+dk+eΓ+fiΓ+gjΓ+hkΓ⦘". This is similar to `complex128` values, but uses tortoise shell brackets to distinguish.
+Each dual-Hamilton quaternion value is printed in the form "(a+bi+cj+dk+eΓ+fiΓ+gjΓ+hkΓ)". This is similar to `complex128` values.
 
 [![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/meirizarrygelpi/numbers/dualhamilton) [![GoDoc](https://godoc.org/github.com/meirizarrygelpi/numbers/dualhamilton?status.svg)](https://godoc.org/github.com/meirizarrygelpi/numbers/dualhamilton)

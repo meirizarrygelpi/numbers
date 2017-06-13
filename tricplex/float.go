@@ -96,7 +96,7 @@ func sprintFloat(a *big.Float) string {
 // String returns the string version of a Float value.
 //
 // If z corresponds to a+bi+cJ+diJ+eK+fiK+gJK+hiJK, then the string is
-// "⦗a+bi+cJ+diJ+eK+fiK+gJK+hiJK⦘", similar to complex128 values.
+// "(a+bi+cJ+diJ+eK+fiK+gJK+hiJK)", similar to complex128 values.
 func (z *Float) String() string {
 	v := z.Unreal()
 	a := make([]string, 17)

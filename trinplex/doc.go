@@ -37,8 +37,8 @@ Tri-nilplex numbers are a nilplexification of bi-nilplex numbers.
 package trinplex
 
 const (
-	leftBracket            = "⦗"
-	rightBracket           = "⦘"
+	leftBracket            = "("
+	rightBracket           = ")"
 	zeroDivisorDenominator = "denominator is zero divisor"
 	zeroDivisorInverse     = "inverse of zero divisor"
 	unit1                  = "α"
