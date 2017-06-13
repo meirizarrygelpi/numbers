@@ -279,6 +279,29 @@ func (z *Float) QuoR(x, y *Float) *Float {
 	return z.Mul(x, z.Inv(y))
 }
 
+// SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
+//     Hodge(z) = z
+// Then it returns z.
+func (z *Float) SelfDual(y *Float) *Float {
+	sd := new(Float)
+	sd.Hodge(y)
+	sd.Add(y, sd)
+	sd.Divide(sd, big.NewFloat(2))
+	return z.Set(sd)
+}
+
+// AntiSelfDual sets z equal to the anti-self-dual part of y. If z is
+// anti-self-dual, then
+//     Hodge(z) = -z
+// Then it returns z.
+func (z *Float) AntiSelfDual(y *Float) *Float {
+	asd := new(Float)
+	asd.Hodge(y)
+	asd.Sub(y, asd)
+	asd.Divide(asd, big.NewFloat(2))
+	return z.Set(asd)
+}
+
 // Generate returns a random Float value for quick.Check testing.
 func (z *Float) Generate(rand *rand.Rand, size int) reflect.Value {
 	randomFloat := &Float{

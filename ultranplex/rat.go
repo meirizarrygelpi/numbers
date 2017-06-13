@@ -189,7 +189,7 @@ func (z *Rat) Associator(w, x, y *Rat) *Rat {
 
 // Quad returns the quadrance of z. If z = a+bα+cβ+dγ+eδ+fε+gζ+hη, then the
 // quadrance is
-// 		a²
+//     a²
 // This is always non-negative.
 func (z *Rat) Quad() *big.Rat {
 	return z.l.Quad()
@@ -212,7 +212,7 @@ func (z *Rat) Inv(y *Rat) *Rat {
 }
 
 // QuoL sets z equal to the left quotient of x and y:
-// 		Mul(Inv(y), x)
+//     Mul(Inv(y), x)
 // Then it returns z. If y is a zero divisor, then QuoL panics.
 func (z *Rat) QuoL(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
@@ -222,13 +222,36 @@ func (z *Rat) QuoL(x, y *Rat) *Rat {
 }
 
 // QuoR sets z equal to the right quotient of x and y:
-// 		Mul(x, Inv(y))
+//     Mul(x, Inv(y))
 // Then it returns z. If y is a zero divisor, then QuoR panics.
 func (z *Rat) QuoR(x, y *Rat) *Rat {
 	if y.IsZeroDivisor() {
 		panic(zeroDivisorDenominator)
 	}
 	return z.Mul(x, z.Inv(y))
+}
+
+// SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
+//     Hodge(z) = z
+// Then it returns z.
+func (z *Rat) SelfDual(y *Rat) *Rat {
+	sd := new(Rat)
+	sd.Hodge(y)
+	sd.Add(y, sd)
+	sd.Scale(sd, big.NewRat(1, 2))
+	return z.Set(sd)
+}
+
+// AntiSelfDual sets z equal to the anti-self-dual part of y. If z is
+// anti-self-dual, then
+//     Hodge(z) = -z
+// Then it returns z.
+func (z *Rat) AntiSelfDual(y *Rat) *Rat {
+	asd := new(Rat)
+	asd.Hodge(y)
+	asd.Sub(y, asd)
+	asd.Scale(asd, big.NewRat(1, 2))
+	return z.Set(asd)
 }
 
 // Generate returns a random Rat value for quick.Check testing.

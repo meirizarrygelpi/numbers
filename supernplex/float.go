@@ -314,7 +314,7 @@ func (z *Float) MöbiusL(y, a, b, c, d *Float) *Float {
 }
 
 // MöbiusR sets z equal to the right Möbius (fractional linear) transform of y:
-// 		(a*y + b) * Inv(c*y + d)
+//     (a*y + b) * Inv(c*y + d)
 // Then it returns z.
 func (z *Float) MöbiusR(y, a, b, c, d *Float) *Float {
 	z.Mul(a, y)
@@ -324,6 +324,29 @@ func (z *Float) MöbiusR(y, a, b, c, d *Float) *Float {
 	temp.Add(temp, d)
 	temp.Inv(temp)
 	return z.Mul(z, temp)
+}
+
+// SelfDual sets z equal to the self-dual part of y. If z is self-dual, then
+//     Hodge(z) = z
+// Then it returns z.
+func (z *Float) SelfDual(y *Float) *Float {
+	sd := new(Float)
+	sd.Hodge(y)
+	sd.Add(y, sd)
+	sd.Divide(sd, big.NewFloat(2))
+	return z.Set(sd)
+}
+
+// AntiSelfDual sets z equal to the anti-self-dual part of y. If z is
+// anti-self-dual, then
+//     Hodge(z) = -z
+// Then it returns z.
+func (z *Float) AntiSelfDual(y *Float) *Float {
+	asd := new(Float)
+	asd.Hodge(y)
+	asd.Sub(y, asd)
+	asd.Divide(asd, big.NewFloat(2))
+	return z.Set(asd)
 }
 
 // Generate returns a random Float value for quick.Check testing.
