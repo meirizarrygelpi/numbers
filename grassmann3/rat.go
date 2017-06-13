@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/grassmann2"
+	"github.com/meirizarrygelpi/numbers/nplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
 
@@ -89,31 +89,31 @@ func (z *Rat) SetPair(a, b *grassmann2.Rat) *Rat {
 	return z
 }
 
-// Set0Form sets the 0-form of z equal to a0, and then it returns z.
-func (z *Rat) Set0Form(a0 *big.Rat) *Rat {
-	z.l.Set0Form(a0)
+// Set0Blade sets the 0-blade of z equal to a0, and then it returns z.
+func (z *Rat) Set0Blade(a0 *big.Rat) *Rat {
+	z.l.Set0Blade(a0)
 	return z
 }
 
-// Set1Forms sets the 1-forms of z equal to aW, aX, and aY, and then it returns
+// Set1Blades sets the 1-blades of z equal to aW, aX, and aY, and then it returns
 // z.
-func (z *Rat) Set1Forms(aW, aX, aY *big.Rat) *Rat {
-	z.l.Set1Forms(aW, aX)
-	z.r.Set0Form(aY)
+func (z *Rat) Set1Blades(aW, aX, aY *big.Rat) *Rat {
+	z.l.Set1Blades(aW, aX)
+	z.r.Set0Blade(aY)
 	return z
 }
 
-// Set2Forms sets the 2-forms of z equal to aWX, aWY, and aXY, and then it
+// Set2Blades sets the 2-blades of z equal to aWX, aWY, and aXY, and then it
 // returns z.
-func (z *Rat) Set2Forms(aWX, aWY, aXY *big.Rat) *Rat {
-	z.l.Set2Form(aWX)
-	z.r.Set1Forms(aWY, aXY)
+func (z *Rat) Set2Blades(aWX, aWY, aXY *big.Rat) *Rat {
+	z.l.Set2Blade(aWX)
+	z.r.Set1Blades(aWY, aXY)
 	return z
 }
 
-// Set3Form sets the 0-form of z equal to aWXY, and then it returns z.
-func (z *Rat) Set3Form(aWXY *big.Rat) *Rat {
-	z.r.Set2Form(aWXY)
+// Set3Blade sets the 0-blade of z equal to aWXY, and then it returns z.
+func (z *Rat) Set3Blade(aWXY *big.Rat) *Rat {
+	z.r.Set2Blade(aWXY)
 	return z
 }
 
