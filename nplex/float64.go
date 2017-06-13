@@ -106,9 +106,10 @@ func (z *Float64) Plus(y *Float64, a float64) *Float64 {
 	return z
 }
 
-// Minus sets z equal to y-a, with a real, and returns z.
-func (z *Float64) Minus(y *Float64, a float64) *Float64 {
-	z.l = y.l - a
+// Minus sets z equal to y but with the real part having opposite sign, and
+// returns z.
+func (z *Float64) Minus(y *Float64) *Float64 {
+	z.l = -y.l
 	z.r = y.r
 	return z
 }

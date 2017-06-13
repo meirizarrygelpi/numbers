@@ -143,9 +143,10 @@ func (z *Float) Plus(y *Float, a *big.Float) *Float {
 	return z
 }
 
-// Minus sets z equal to y-a, with a real, and returns z.
-func (z *Float) Minus(y *Float, a *big.Float) *Float {
-	z.l.Sub(&y.l, a)
+// Minus sets z equal to y but with the real part having opposite sign, and
+// returns z.
+func (z *Float) Minus(y *Float) *Float {
+	z.l.Neg(&y.l)
 	z.r.Set(&y.r)
 	return z
 }

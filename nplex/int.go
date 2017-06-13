@@ -99,9 +99,10 @@ func (z *Int) Plus(y *Int, a *big.Int) *Int {
 	return z
 }
 
-// Minus sets z equal to y-a, with a real, and returns z.
-func (z *Int) Minus(y *Int, a *big.Int) *Int {
-	z.l.Sub(&y.l, a)
+// Minus sets z equal to y but with the real part having opposite sign, and
+// returns z.
+func (z *Int) Minus(y *Int) *Int {
+	z.l.Neg(&y.l)
 	z.r.Set(&y.r)
 	return z
 }

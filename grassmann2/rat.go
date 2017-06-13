@@ -147,8 +147,7 @@ func (z *Rat) Conj(y *Rat) *Rat {
 // Dagger sets z equal to the dagger conjugate of y, and returns z.
 func (z *Rat) Dagger(y *Rat) *Rat {
 	z.l.Conj(&y.l)
-	z.r.Conj(&y.r)
-	z.r.Neg(&z.r)
+	z.r.Minus(&y.r)
 	return z
 }
 
