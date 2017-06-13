@@ -22,6 +22,30 @@ func NewFloat() *Float {
 	}
 }
 
+// Equals returns true if p is equal to q. This is a very naive method, as it
+// does not account for zero coefficients.
+func (p *Float) Equals(q *Float) bool {
+	if p.Degree != q.Degree {
+		return false
+	}
+	pdegs := p.Degrees()
+	qdegs := q.Degrees()
+	if pdegs.Len() != qdegs.Len() {
+		return false
+	}
+	for i, deg := range pdegs {
+		if deg != qdegs[i] {
+			return false
+		}
+		a, _ := p.Coeff(deg)
+		b, _ := q.Coeff(deg)
+		if a.Cmp(b) != 0 {
+			return false
+		}
+	}
+	return true
+}
+
 // SetCoeff sets a term in p with degree n and coefficient a.
 func (p *Float) SetCoeff(n uint64, a *big.Float) {
 	if n > p.Degree {
@@ -161,4 +185,29 @@ func (p *Float) Mul(q, r *Float) *Float {
 		}
 	}
 	return p.Set(z)
+}
+
+// QuoRem sets p equal to the quotient of q/r, and s equal to the reminder of
+// q/r. Then it returns p and s. WIP
+func (p *Float) QuoRem(q, r, s *Float) (*Float, *Float) {
+	if zero := NewFloat(); r.Equals(zero) {
+		panic(zeroDenominator)
+	}
+	return p, s
+}
+
+// Quo sets p equal to the quotient of q/r, and returns z. WIP
+func (p *Float) Quo(q, r *Float) *Float {
+	if zero := NewFloat(); r.Equals(zero) {
+		panic(zeroDenominator)
+	}
+	return p
+}
+
+// Rem sets p equal to the reminder of q/r, and returns z. WIP
+func (p *Float) Rem(q, r *Float) *Float {
+	if zero := NewFloat(); r.Equals(zero) {
+		panic(zeroDenominator)
+	}
+	return p
 }

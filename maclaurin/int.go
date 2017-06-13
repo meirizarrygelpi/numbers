@@ -22,6 +22,29 @@ func NewInt() *Int {
 	}
 }
 
+// Equals returns true if p is equal to q.
+func (p *Int) Equals(q *Int) bool {
+	if p.Degree != q.Degree {
+		return false
+	}
+	pdegs := p.Degrees()
+	qdegs := q.Degrees()
+	if pdegs.Len() != qdegs.Len() {
+		return false
+	}
+	for i, deg := range pdegs {
+		if deg != qdegs[i] {
+			return false
+		}
+		a, _ := p.Coeff(deg)
+		b, _ := q.Coeff(deg)
+		if a.Cmp(b) != 0 {
+			return false
+		}
+	}
+	return true
+}
+
 // SetCoeff sets a term in p with degree n and coefficient a.
 func (p *Int) SetCoeff(n uint64, a *big.Int) {
 	if n > p.Degree {

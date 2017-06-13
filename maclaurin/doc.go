@@ -12,3 +12,5 @@ types are implemented:
 A Maclaurin polynomial is a sum of monomials with non-negative degree.
 */
 package maclaurin
+
+const zeroDenominator = "denominator is zero"
