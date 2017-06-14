@@ -181,7 +181,8 @@ func (z *Float) Conj(y *Float) *Float {
 
 // Hodge sets z equal to the Hodge conjugate of y, and returns z.
 func (z *Float) Hodge(y *Float) *Float {
-	return z.SetPair(&y.r, &y.l)
+	a := new(big.Float).Set(&y.l)
+	return z.SetPair(&y.r, a)
 }
 
 // Add sets z equal to x+y, and returns z.
