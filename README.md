@@ -50,6 +50,7 @@ Here is a list of available packages:
 1. `comhamilton`: complex-Hamilton quaternions (complexification of Hamilton quaternions; eight-dimensional)
 1. `perhamilton`: perplex-Hamilton quaternions (perplexification of Hamilton quaternions; eight-dimensional)
 1. `percockle`: perplex-Cockle quaternions (perplexification of Cockle quaternions; eight-dimensional)
+1. `grassmann4`: four-dimensional Grassmann numbers (can also be referred to as parabolic sedenions; sixteen-dimensional)
 
 Here is a list of future packages:
 

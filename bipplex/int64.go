@@ -173,7 +173,7 @@ func (z *Int64) Quad() *pplex.Int64 {
 // Norm returns the norm of z. If z = a+bs+cT+dsT, then the norm is
 //     (a² + b² - c² - d²)² - 4(ab - cd)²
 // This can also be written as
-//     ((a + b)² - (c + d)²)((a - b)² - (c + d)²)
+//     ((a + b)² - (c + d)²)((a - b)² - (c - d)²)
 // In this form, the norm looks similar to the norm of a bi-perplex number.
 // The norm can also be written as
 //     (a + b + c + d)(a + b - c - d)(a - b + c - d)(a - b - c + d)

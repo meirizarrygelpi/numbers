@@ -46,6 +46,8 @@ The eight-dimensional packages are:
     comhamilton   (complex-Hamilton quaternions; complexification of the Hamilton quaternions)
     perhamilton   (perplex-Hamilton quaternions; perplexification of the Hamilton quaternions)
     percockle     (perplex-Cockle quaternions; perplexification of the Cockle quaternions)
+The sixteen-dimensional packages are:
+    grassmann4    (four-dimensional Grassmann numbers; parabolic sedenions)
 All three two-dimensional systems include a binary multiplication operation that
 is commutative and associative (for non-floats). Both the nilplex and perplex numbers include
 non-trivial zero divisors.
