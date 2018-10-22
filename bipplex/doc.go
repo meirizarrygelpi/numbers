@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package bipplex implements arithmetic for bi-perplex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | sT  | T  | s  | +1 |
     +-----+----+----+----+
-The multiplcation operation for bi-perplex numbers is commutative and
+The multiplication operation for bi-perplex numbers is commutative and
 associative (for non-floats).
 
 Bi-perplex numbers are a perplexification of perplex numbers.

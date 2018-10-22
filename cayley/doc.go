@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package cayley implements arithmetic for Cayley octonions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is:
     +-----+----+----+----+----+----+----+----+
     | q   | -p | +n | +m | -k | -j | +i | -1 |
     +-----+----+----+----+----+----+----+----+
-The multiplcation operation for Cayley octonions is non-commutative and
+The multiplication operation for Cayley octonions is non-commutative and
 non-associative.
 
 Cayley octonions are an elliptic Cayley-Dickson construct with Hamilton

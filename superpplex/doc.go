@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package superpplex implements arithmetic for super-perplex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | υ   | -τ | 0  | 0  |
     +-----+----+----+----+
-The multiplcation operation for super-perplex numbers is non-commutative but
+The multiplication operation for super-perplex numbers is non-commutative but
 associative (for non-floats).
 
 Infra-perplex numbers are a parabolic Cayley-Dickson construct with perplex

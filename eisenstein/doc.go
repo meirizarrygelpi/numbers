@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 // Package eisenstein implements arithmetic for Eisenstein numbers.
 package eisenstein

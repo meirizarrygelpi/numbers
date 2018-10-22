@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package heegner implements arithmetic for imaginary quadratic fields with
@@ -72,7 +72,7 @@ For Rat163 you have:
 	+-----+------+
 	| A   | -163 |
 	+-----+------+
-The multiplcation operation for these elements is commutative and associative,
+The multiplication operation for these elements is commutative and associative,
 since they are also complex numbers. Prime factorization is unique in each of
 these imaginary quadratic fields.
 */

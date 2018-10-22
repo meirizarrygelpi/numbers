@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package cockle implements arithmetic for Cockle quaternions. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | u   | +t | +i | +1 |
     +-----+----+----+----+
-The multiplcation operation for Cockle quaternions is non-commutative but
+The multiplication operation for Cockle quaternions is non-commutative but
 associative (for non-floats).
 
 Cockle quaternions are a hyperbolic Cayley-Dickson construct with complex

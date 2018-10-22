@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package nplex implements arithmetic for nilplex numbers.
@@ -19,7 +19,7 @@ The multiplication table is:
     +-----+---+
     | α   | 0 |
     +-----+---+
-The multiplcation operation for nilplex numbers is commutative and associative
+The multiplication operation for nilplex numbers is commutative and associative
 (for non-floats). There are non-trivial zero divisors.
 
 Nilplex numbers are a nilplexification of real numbers.

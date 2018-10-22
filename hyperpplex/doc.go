@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package hyperpplex implements arithmetic for hyper-perplex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is:
     +-----+-----+-----+-----+-----+-----+-----+-----+
     | sΓΛ | ΓΛ  | 0   | 0   | 0   | 0   | 0   | 0   |
     +-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for hyper-perplex numbers is commutative and
+The multiplication operation for hyper-perplex numbers is commutative and
 associative (for non-floats).
 
 Hyper-perplex numbers are a nilplexification of dual-perplex numbers.

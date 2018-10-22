@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package dualpplex implements arithmetic for dual-perplex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | sΓ  | +Γ | 0  | 0  |
     +-----+----+----+----+
-The multiplcation operation for dual-perplex numbers is commutative and
+The multiplication operation for dual-perplex numbers is commutative and
 associative (for non-floats).
 
 Dual-perplex numbers are a nilplexification of perplex numbers.

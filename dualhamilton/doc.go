@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package dualhamilton implements arithmetic for dual-Hamilton quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+-----+-----+-----+-----+-----+-----+-----+
 	| kΓ  | +jΓ | -iΓ | -Γ  | 0   | 0   | 0   | 0   |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for dual-Hamilton quaternions is non-commutative but
+The multiplication operation for dual-Hamilton quaternions is non-commutative but
 associative (for non-floats).
 
 Dual-Hamilton quaternions are a nilplexification of Hamilton quaternions.

@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package superhamilton implements arithmetic for super-Hamilton quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| δ   | -γ | +β | +α | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for super-Hamilton quaternions is non-commutative and
+The multiplication operation for super-Hamilton quaternions is non-commutative and
 non-associative.
 
 Super-Hamilton quaternions are a parabolic Cayley-Dickson construct with Hamilton

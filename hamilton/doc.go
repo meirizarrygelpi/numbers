@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package hamilton implements arithmetic for Hamilton quaternions. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | k   | +j | -i | -1 |
     +-----+----+----+----+
-The multiplcation operation for Hamilton quaternions is non-commutative but
+The multiplication operation for Hamilton quaternions is non-commutative but
 associative (for non-floats).
 
 Hamilton quaternions are an elliptic Cayley-Dickson construct with complex

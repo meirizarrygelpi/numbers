@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package dualcplex implements arithmetic for dual-complex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | iΓ  | -Γ | 0  | 0  |
     +-----+----+----+----+
-The multiplcation operation for dual-complex numbers is commutative and
+The multiplication operation for dual-complex numbers is commutative and
 associative (for non-floats).
 
 Dual-complex numbers are a nilplexification of complex numbers.

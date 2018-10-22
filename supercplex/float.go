@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 package supercplex
 
@@ -252,10 +252,10 @@ func (z *Float) QuoR(x, y *Float) *Float {
 	return z.Mul(x, z.Inv(y))
 }
 
-// CrossFloatioL sets z equal to the left cross-Floatio of v, w, x, and y:
+// CrossRatioL sets z equal to the left cross-ratio of v, w, x, and y:
 // 		Inv(w - x) * (v - x) * Inv(v - y) * (w - y)
 // Then it returns z.
-func (z *Float) CrossFloatioL(v, w, x, y *Float) *Float {
+func (z *Float) CrossRatioL(v, w, x, y *Float) *Float {
 	temp := new(Float)
 	z.Sub(w, x)
 	z.Inv(z)
@@ -268,10 +268,10 @@ func (z *Float) CrossFloatioL(v, w, x, y *Float) *Float {
 	return z.Mul(z, temp)
 }
 
-// CrossFloatioR sets z equal to the right cross-Floatio of v, w, x, and y:
+// CrossRatioR sets z equal to the right cross-ratio of v, w, x, and y:
 // 		(v - x) * Inv(w - x) * (w - y) * Inv(v - y)
 // Then it returns z.
-func (z *Float) CrossFloatioR(v, w, x, y *Float) *Float {
+func (z *Float) CrossRatioR(v, w, x, y *Float) *Float {
 	temp := new(Float)
 	z.Sub(v, x)
 	temp.Sub(w, x)

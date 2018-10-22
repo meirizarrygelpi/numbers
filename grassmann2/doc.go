@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package grassmann2 implements arithmetic for two-dimensional Grassmann numbers.
@@ -22,7 +22,7 @@ The multiplication table is:
     +-----+-----+-----+----+
     | WX  | 0   | 0   | 0  |
     +-----+-----+-----+----+
-The multiplcation operation for two-dimensional Grassmann numbers is
+The multiplication operation for two-dimensional Grassmann numbers is
 non-commutative but associative (for non-floats).
 
 Two-dimensional Grassmann numbers are a parabolic Cayley-Dickson construct with

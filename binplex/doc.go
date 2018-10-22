@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package binplex implements arithmetic for bi-nilplex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | αΓ  | 0  | 0  | 0  |
     +-----+----+----+----+
-The multiplcation operation for bi-nilplex numbers is commutative and
+The multiplication operation for bi-nilplex numbers is commutative and
 associative (for non-floats).
 
 Hyper numbers are a nilplexification of nilplex numbers.

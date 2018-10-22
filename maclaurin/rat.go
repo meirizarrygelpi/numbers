@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 package maclaurin
 

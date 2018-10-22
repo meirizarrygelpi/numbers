@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package ultrapplex implements arithmetic for ultra-perplex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| ψ   | +φ | 0  | 0  | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for ultra-perplex numbers is non-commutative and
+The multiplication operation for ultra-perplex numbers is non-commutative and
 non-associative.
 
 Ultra-perplex numbers are a parabolic Cayley-Dickson construct with infra-perplex

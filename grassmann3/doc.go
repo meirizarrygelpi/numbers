@@ -1,5 +1,5 @@
 // Copyright (c) 2016-2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package grassmann3 implements arithmetic for three-dimensional Grassmann numbers. Five types
@@ -29,7 +29,7 @@ The multiplication table is
     +-------+--------+--------+--------+--------+--------+--------+-------+
     | (WX)Y | 0      | 0      | 0      | 0      | 0      | 0      | 0     |
     +-------+--------+--------+--------+--------+--------+--------+-------+
-The multiplcation operation for three-dimensional Grassmann numbers is non-commutative and
+The multiplication operation for three-dimensional Grassmann numbers is non-commutative and
 non-associative.
 
 Three-dimensional Grassmann numbers are a parabolic Cayley-Dickson construct with

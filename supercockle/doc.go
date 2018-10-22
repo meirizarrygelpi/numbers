@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package supercockle implements arithmetic for super-Cockle quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| υ   | -τ | -σ | -ρ | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for super-Cockle quaternions is non-commutative and
+The multiplication operation for super-Cockle quaternions is non-commutative and
 non-associative.
 
 Infra-Cockle quaternions are a parabolic Cayley-Dickson construct with Cockle

@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package comhamilton implements arithmetic for complex-Hamilton quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+-----+-----+-----+-----+-----+-----+-----+
 	| kH  | +jH | -iH | -H  | -k  | -j  | +i  | +1  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for complex-Hamilton quaternions is non-commutative but
+The multiplication operation for complex-Hamilton quaternions is non-commutative but
 associative (for non-floats).
 
 Complex-Hamilton quaternions are a complexification of Hamilton quaternions.

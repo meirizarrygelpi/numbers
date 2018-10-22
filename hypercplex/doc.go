@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package hypercplex implements arithmetic for hyper-complex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is:
     +-----+-----+-----+-----+-----+-----+-----+-----+
     | iΓΛ | -ΓΛ | 0   | 0   | 0   | 0   | 0   | 0   |
     +-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for hyper-complex numbers is commutative and
+The multiplication operation for hyper-complex numbers is commutative and
 associative (for non-floats).
 
 Hyper-complex numbers are a nilplexification of dual-complex numbers.

@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package perhamilton implements arithmetic for perplex-Hamilton quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+-----+-----+-----+-----+-----+-----+-----+
 	| kS  | +jS | -iS | -S  | +k  | +j  | -i  | -1  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for perplex-Hamilton quaternions is non-commutative but
+The multiplication operation for perplex-Hamilton quaternions is non-commutative but
 associative (for non-floats).
 
 Perplex-Hamilton quaternions are a perplexification of Hamilton quaternions.

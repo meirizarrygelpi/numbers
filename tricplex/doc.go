@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package tricplex implements arithmetic for tri-complex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is:
     +-----+-----+-----+-----+-----+-----+-----+-----+
     | iJK | -JK | -iK | +K  | -iJ | +J  | +i  | -1  |
     +-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for tri-complex numbers is commutative and
+The multiplication operation for tri-complex numbers is commutative and
 associative (for non-floats).
 
 Tri-complex numbers are a complexification of bi-complex numbers.

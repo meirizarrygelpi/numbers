@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package ultracplex implements arithmetic for ultra-complex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| ζ   | -ε | 0  | 0  | 0  | 0  | 0  | 0  |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for ultra-complex numbers is non-commutative and
+The multiplication operation for ultra-complex numbers is non-commutative and
 non-associative.
 
 Ultra-complex numbers are a parabolic Cayley-Dickson construct with infra-complex

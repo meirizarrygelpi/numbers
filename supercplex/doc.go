@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package supercplex implements arithmetic for super-complex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | γ   | +β | 0  | 0  |
     +-----+----+----+----+
-The multiplcation operation for super-complex numbers is non-commutative but
+The multiplication operation for super-complex numbers is non-commutative but
 associative (for non-floats).
 
 Infra-complex numbers are a parabolic Cayley-Dickson construct with complex

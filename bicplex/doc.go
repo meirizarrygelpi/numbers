@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package bicplex implements arithmetic for bi-complex numbers. Five types are
@@ -21,7 +21,7 @@ The multiplication table is:
     +-----+----+----+----+
     | iJ  | -J | -i | +1 |
     +-----+----+----+----+
-The multiplcation operation for bi-complex numbers is commutative and
+The multiplication operation for bi-complex numbers is commutative and
 associative (for non-floats).
 
 Bi-complex numbers are a complexification of complex numbers.

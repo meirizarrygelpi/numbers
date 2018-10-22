@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package trinplex implements arithmetic for tri-nilplex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is:
     +-----+-----+-----+-----+-----+-----+-----+-----+
     | αΓΛ | 0   | 0   | 0   | 0   | 0   | 0   | 0   |
     +-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for tri-nilplex numbers is commutative and
+The multiplication operation for tri-nilplex numbers is commutative and
 associative (for non-floats).
 
 Tri-nilplex numbers are a nilplexification of bi-nilplex numbers.

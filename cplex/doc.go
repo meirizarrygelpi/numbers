@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package cplex implements arithmetic for complex numbers. Five types are
@@ -17,7 +17,7 @@ The multiplication table is:
     +-----+----+
     | i   | -1 |
     +-----+----+
-The multiplcation operation for complex numbers is commutative and associative
+The multiplication operation for complex numbers is commutative and associative
 (for non-floats).
 
 Complex numbers are a complexification of real numbers.

@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package zorn implements arithmetic for Zorn octonions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+----+----+----+----+----+----+----+
 	| u   | -t | +s | +r | +k | +j | -i | +1 |
 	+-----+----+----+----+----+----+----+----+
-The multiplcation operation for Zorn octonions is non-commutative and
+The multiplication operation for Zorn octonions is non-commutative and
 non-associative.
 
 Zorn octonions are a hyperbolic Cayley-Dickson construct with Hamilton

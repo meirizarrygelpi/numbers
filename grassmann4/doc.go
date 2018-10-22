@@ -1,5 +1,5 @@
 // Copyright (c) 2016-2017-2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package grassmann4 implements arithmetic for four-dimensional Grassmann numbers.
@@ -30,7 +30,7 @@ The multiplication table is
     +-------+--------+--------+--------+--------+--------+--------+-------+
     | (WX)Y | 0      | 0      | 0      | 0      | 0      | 0      | 0     |
     +-------+--------+--------+--------+--------+--------+--------+-------+
-The multiplcation operation for four-dimensional Grassmann numbers is
+The multiplication operation for four-dimensional Grassmann numbers is
 non-commutative and non-associative.
 
 Four-dimensional Grassmann numbers are a parabolic Cayley-Dickson construct with

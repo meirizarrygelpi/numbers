@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package percockle implements arithmetic for perplex-Cockle quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+-----+-----+-----+-----+-----+-----+-----+
 	| uS  | +tS | +iS | +S  | +u  | +t  | +i  | +1  |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for perplex-Cockle quaternions is non-commutative but
+The multiplication operation for perplex-Cockle quaternions is non-commutative but
 associative (for non-floats).
 
 Perplex-Cockle quaternions are a perplexification of Cockle quaternions.

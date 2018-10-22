@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package dualcockle implements arithmetic for dual-Cockle quaternions. Five types are
@@ -29,7 +29,7 @@ The multiplication table is
 	+-----+-----+-----+-----+-----+-----+-----+-----+
 	| uΓ  | +tΓ | +iΓ | +Γ  | 0   | 0   | 0   | 0   |
 	+-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for dual-Cockle quaternions is non-commutative but
+The multiplication operation for dual-Cockle quaternions is non-commutative but
 associative (for non-floats).
 
 Dual-Cockle quaternions are a nilplexification of Cockle quaternions.

@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Melvin Eloy Irizarry-Gelpí
-// Licenced under the MIT License.
+// Licensed under the MIT License.
 
 /*
 Package tripplex implements arithmetic for tri-perplex numbers. Five types are
@@ -29,7 +29,7 @@ The multiplication table is:
     +-----+-----+-----+-----+-----+-----+-----+-----+
     | sTU | TU  | sU  | U   | sT  | T   | s   | 1   |
     +-----+-----+-----+-----+-----+-----+-----+-----+
-The multiplcation operation for tri-perplex numbers is commutative and
+The multiplication operation for tri-perplex numbers is commutative and
 associative (for non-floats).
 
 Tri-perplex numbers are a perplexification of the bi-perplex numbers.
