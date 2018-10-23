@@ -233,9 +233,9 @@ func (z *Int64) Maclaurin(y *Int64, p *maclaurin.Int64) *Int64 {
 	return z
 }
 
-// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// Pade sets z equal to the value of the Padé approximant r evaluated at y,
 // and returns z.
-func (z *Int64) Padé(y *Int64, r *pade.Int64) *Int64 {
+func (z *Int64) Pade(y *Int64, r *pade.Int64) *Int64 {
 	p, q := new(Int64), new(Int64)
 	p.Maclaurin(y, &r.P)
 	q.Maclaurin(y, &r.Q)

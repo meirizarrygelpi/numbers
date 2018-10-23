@@ -12,8 +12,8 @@ import (
 
 	"math"
 
-	"github.com/meirizarrygelpi/numbers/cplex"
 	"github.com/meirizarrygelpi/numbers/cockle"
+	"github.com/meirizarrygelpi/numbers/cplex"
 	"github.com/meirizarrygelpi/numbers/pplex"
 	"github.com/meirizarrygelpi/numbers/vec7"
 )
@@ -280,10 +280,10 @@ func (z *Float64) CrossRatioR(v, w, x, y *Float64) *Float64 {
 	return z.Mul(z, temp)
 }
 
-// MöbiusL sets z equal to the left Möbius (fractional linear) transform of y:
+// MobiusL sets z equal to the left Möbius (fractional linear) transform of y:
 // 		Inv(y*c + d) * (y*a + b)
 // Then it returns z.
-func (z *Float64) MöbiusL(y, a, b, c, d *Float64) *Float64 {
+func (z *Float64) MobiusL(y, a, b, c, d *Float64) *Float64 {
 	z.Mul(y, a)
 	z.Add(z, b)
 	temp := new(Float64)
@@ -293,10 +293,10 @@ func (z *Float64) MöbiusL(y, a, b, c, d *Float64) *Float64 {
 	return z.Mul(temp, z)
 }
 
-// MöbiusR sets z equal to the right Möbius (fractional linear) transform of y:
+// MobiusR sets z equal to the right Möbius (fractional linear) transform of y:
 // 		(a*y + b) * Inv(c*y + d)
 // Then it returns z.
-func (z *Float64) MöbiusR(y, a, b, c, d *Float64) *Float64 {
+func (z *Float64) MobiusR(y, a, b, c, d *Float64) *Float64 {
 	z.Mul(a, y)
 	z.Add(z, b)
 	temp := new(Float64)

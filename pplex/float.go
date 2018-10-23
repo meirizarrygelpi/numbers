@@ -294,10 +294,10 @@ func (z *Float) CrossRatio(v, w, x, y *Float) *Float {
 	return z.Mul(z, temp)
 }
 
-// Möbius sets z equal to the Möbius (fractional linear) transform of y:
+// Mobius sets z equal to the Möbius (fractional linear) transform of y:
 // 		(a*y + b) * Inv(c*y + d)
 // Then it returns z.
-func (z *Float) Möbius(y, a, b, c, d *Float) *Float {
+func (z *Float) Mobius(y, a, b, c, d *Float) *Float {
 	z.Mul(a, y)
 	z.Add(z, b)
 	temp := new(Float)
@@ -336,9 +336,9 @@ func (z *Float) Maclaurin(y *Float, p *maclaurin.Float) *Float {
 	return z
 }
 
-// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// Pade sets z equal to the value of the Padé approximant r evaluated at y,
 // and returns z.
-func (z *Float) Padé(y *Float, r *pade.Float) *Float {
+func (z *Float) Pade(y *Float, r *pade.Float) *Float {
 	p, q := new(Float), new(Float)
 	p.Maclaurin(y, &r.P)
 	q.Maclaurin(y, &r.Q)

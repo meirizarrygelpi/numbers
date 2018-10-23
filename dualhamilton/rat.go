@@ -268,10 +268,10 @@ func (z *Rat) CrossRatioR(v, w, x, y *Rat) *Rat {
 	return z.Mul(z, temp)
 }
 
-// MöbiusL sets z equal to the left Möbius (fractional linear) transform of y:
+// MobiusL sets z equal to the left Möbius (fractional linear) transform of y:
 // 		Inv(y*c + d) * (y*a + b)
 // Then it returns z.
-func (z *Rat) MöbiusL(y, a, b, c, d *Rat) *Rat {
+func (z *Rat) MobiusL(y, a, b, c, d *Rat) *Rat {
 	z.Mul(y, a)
 	z.Add(z, b)
 	temp := new(Rat)
@@ -281,10 +281,10 @@ func (z *Rat) MöbiusL(y, a, b, c, d *Rat) *Rat {
 	return z.Mul(temp, z)
 }
 
-// MöbiusR sets z equal to the right Möbius (fractional linear) transform of y:
+// MobiusR sets z equal to the right Möbius (fractional linear) transform of y:
 // 		(a*y + b) * Inv(c*y + d)
 // Then it returns z.
-func (z *Rat) MöbiusR(y, a, b, c, d *Rat) *Rat {
+func (z *Rat) MobiusR(y, a, b, c, d *Rat) *Rat {
 	z.Mul(a, y)
 	z.Add(z, b)
 	temp := new(Rat)

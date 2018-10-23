@@ -258,10 +258,10 @@ func (z *Float64) CrossRatio(v, w, x, y *Float64) *Float64 {
 	return z.Mul(z, temp)
 }
 
-// Möbius sets z equal to the Möbius (fractional linear) transform of y:
+// Mobius sets z equal to the Möbius (fractional linear) transform of y:
 // 		(a*y + b) * Inv(c*y + d)
 // Then it returns z.
-func (z *Float64) Möbius(y, a, b, c, d *Float64) *Float64 {
+func (z *Float64) Mobius(y, a, b, c, d *Float64) *Float64 {
 	z.Mul(a, y)
 	z.Add(z, b)
 	temp := new(Float64)

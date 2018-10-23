@@ -214,10 +214,10 @@ func (z *Rat43) CrossRatio(v, w, x, y *Rat43) *Rat43 {
 	return z.Mul(z, temp)
 }
 
-// Möbius sets z equal to the Möbius (fractional linear) transform of y:
+// Mobius sets z equal to the Möbius (fractional linear) transform of y:
 // 		(a*y + b) * Inv(c*y + d)
 // Then it returns z.
-func (z *Rat43) Möbius(y, a, b, c, d *Rat43) *Rat43 {
+func (z *Rat43) Mobius(y, a, b, c, d *Rat43) *Rat43 {
 	z.Mul(a, y)
 	z.Add(z, b)
 	temp := new(Rat43)
@@ -257,9 +257,9 @@ func (z *Rat43) Maclaurin(y *Rat43, p *maclaurin.Rat) *Rat43 {
 	return z
 }
 
-// Padé sets z equal to the value of the Padé approximant r evaluated at y,
+// Pade sets z equal to the value of the Padé approximant r evaluated at y,
 // and returns z.
-func (z *Rat43) Padé(y *Rat43, r *pade.Rat) *Rat43 {
+func (z *Rat43) Pade(y *Rat43, r *pade.Rat) *Rat43 {
 	p, q := new(Rat43), new(Rat43)
 	p.Maclaurin(y, &r.P)
 	q.Maclaurin(y, &r.Q)
